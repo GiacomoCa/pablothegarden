@@ -30,9 +30,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {};
   }
 
+  const title = `${post.title} — Pablo The Garden`;
+  const description = post.excerpt;
+
   return {
-    title: `${post.title} — Pablo The Garden`,
-    description: post.excerpt,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}/blog/${slug}`,
+      siteName: 'Pablo The Garden',
+      type: 'article',
+      locale: locale === 'it' ? 'it_IT' : 'en_US',
+      publishedTime: post.date,
+      authors: ['Pablo The Garden'],
+    },
+    alternates: {
+      languages: {
+        it: `/it/blog/${slug}`,
+        en: `/en/blog/${slug}`,
+      },
+    },
   };
 }
 

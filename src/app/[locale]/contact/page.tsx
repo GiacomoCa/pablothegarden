@@ -17,9 +17,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
+  const title = t('contact_title');
+  const description = t('contact_description');
+
   return {
-    title: t('contact_title'),
-    description: t('contact_description'),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}/contact`,
+      siteName: 'Pablo The Garden',
+      type: 'website',
+      locale: locale === 'it' ? 'it_IT' : 'en_US',
+    },
+    alternates: {
+      languages: {
+        it: '/it/contact',
+        en: '/en/contact',
+      },
+    },
   };
 }
 

@@ -1,0 +1,89 @@
+{
+  "activeRelease": "promo",
+  "releases": {
+    "earlybird": {
+      "label": { "it": "Early Bird", "en": "Early Bird" },
+      "description": { "it": "Posti limitati, prezzo speciale!", "en": "Limited spots, special price!" },
+      "status": "sold_out",
+      "tickets": {
+        "fullpass": {
+          "label": { "it": "Abbonamento 2 Giorni", "en": "Full Pass 2 Days" },
+          "price": 25,
+          "currency": "EUR",
+          "status": "sold_out",
+          "url": "https://www.clappit.com/biglietti/pablo-earlybird-fullpass"
+        },
+        "day1": {
+          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "price": 15,
+          "currency": "EUR",
+          "status": "sold_out",
+          "url": "https://www.clappit.com/biglietti/pablo-earlybird-day1"
+        },
+        "day2": {
+          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "price": 15,
+          "currency": "EUR",
+          "status": "sold_out",
+          "url": "https://www.clappit.com/biglietti/pablo-earlybird-day2"
+        }
+      }
+    },
+    "promo": {
+      "label": { "it": "Promo", "en": "Promo" },
+      "description": { "it": "Seconda release disponibile!", "en": "Second release available!" },
+      "status": "active",
+      "tickets": {
+        "fullpass": {
+          "label": { "it": "Abbonamento 2 Giorni", "en": "Full Pass 2 Days" },
+          "price": 30,
+          "currency": "EUR",
+          "status": "available",
+          "url": "https://www.clappit.com/biglietti/pablo-promo-fullpass"
+        },
+        "day1": {
+          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "price": 18,
+          "currency": "EUR",
+          "status": "available",
+          "url": "https://www.clappit.com/biglietti/pablo-promo-day1"
+        },
+        "day2": {
+          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "price": 18,
+          "currency": "EUR",
+          "status": "available",
+          "url": "https://www.clappit.com/biglietti/pablo-promo-day2"
+        }
+      }
+    },
+    "regular": {
+      "label": { "it": "Regular", "en": "Regular" },
+      "description": { "it": "Ultima release!", "en": "Final release!" },
+      "status": "coming_soon",
+      "tickets": {
+        "fullpass": {
+          "label": { "it": "Abbonamento 2 Giorni", "en": "Full Pass 2 Days" },
+          "price": 35,
+          "currency": "EUR",
+          "status": "coming_soon",
+          "url": "https://www.clappit.com/biglietti/pablo-regular-fullpass"
+        },
+        "day1": {
+          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "price": 22,
+          "currency": "EUR",
+          "status": "coming_soon",
+          "url": "https://www.clappit.com/biglietti/pablo-regular-day1"
+        },
+        "day2": {
+          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "price": 22,
+          "currency": "EUR",
+          "status": "coming_soon",
+          "url": "https://www.clappit.com/biglietti/pablo-regular-day2"
+        }
+      }
+    }
+  }
+}

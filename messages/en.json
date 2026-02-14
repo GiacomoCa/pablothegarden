@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Home",
+    "lineup": "Lineup",
+    "tickets": "Tickets",
+    "gallery": "Gallery",
+    "blog": "Blog",
+    "about": "About",
+    "rules": "Rules",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Pablo The Garden",
+    "subtitle": "Sweet Edition",
+    "dates": "August 15-16, 2026",
+    "location": "Morrovalle (MC)",
+    "cta_tickets": "Get Tickets",
+    "cta_lineup": "Discover the Lineup"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back"
+  }
+}

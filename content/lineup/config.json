@@ -1,0 +1,13 @@
+{
+  "phase": "coming_soon",
+  "totalSlots": 12,
+  "newBadgeDays": 7,
+  "comingSoonMessage": {
+    "it": "Lineup in arrivo... seguici per non perderti nulla!",
+    "en": "Lineup coming soon... follow us to stay in the loop!"
+  },
+  "mysteryCardMessage": {
+    "it": "Chi sarà?",
+    "en": "Who's next?"
+  }
+}

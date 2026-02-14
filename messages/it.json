@@ -1,0 +1,309 @@
+{
+  "nav": {
+    "home": "Home",
+    "lineup": "Lineup",
+    "tickets": "Biglietti",
+    "gallery": "Galleria",
+    "blog": "Blog",
+    "about": "Chi Siamo",
+    "rules": "Regolamento",
+    "contact": "Contatti",
+    "privacy": "Privacy Policy"
+  },
+  "hero": {
+    "title": "Pablo The Garden",
+    "subtitle": "Sweet Edition",
+    "dates": "15–16 Agosto 2026",
+    "location": "Morrovalle (MC)",
+    "cta_tickets": "Acquista Biglietti",
+    "cta_lineup": "Scopri il Lineup",
+    "tickets_coming_soon": "Biglietti in Arrivo"
+  },
+  "countdown": {
+    "title": "Il festival inizia tra",
+    "days": "Giorni",
+    "hours": "Ore",
+    "minutes": "Minuti",
+    "seconds": "Secondi",
+    "expired": "Il festival è iniziato!"
+  },
+  "lineup": {
+    "title": "Lineup",
+    "subtitle": "Sweet Edition 2026",
+    "coming_soon": "Lineup in Arrivo",
+    "coming_soon_description": "Lineup in arrivo... seguici per non perderti nulla!",
+    "follow_cta": "Seguici su Instagram per scoprire i primi artisti",
+    "revealing_title": "Lineup in Fase di Annuncio",
+    "revealing_description": "Nuovi artisti in arrivo... resta sintonizzato!",
+    "complete_title": "Lineup Completo",
+    "mystery_card": "Chi sarà?",
+    "new_badge": "Appena Annunciato",
+    "filter_all": "Tutti",
+    "filter_day1": "Venerdì 15 Agosto",
+    "filter_day2": "Sabato 16 Agosto",
+    "genre": "Genere",
+    "time": "Orario",
+    "bio": "Biografia",
+    "social_links": "Segui l'artista",
+    "view_full_lineup": "Vedi Lineup Completo",
+    "slots_remaining": "{count} artisti ancora da annunciare",
+    "artist_details": "Dettagli artista",
+    "close_details": "Chiudi dettagli"
+  },
+  "tickets": {
+    "title": "Biglietti",
+    "subtitle": "Sweet Edition 2026",
+    "description": "Scegli il tuo biglietto per la Sweet Edition di Pablo The Garden!",
+    "active_release": "Release Attiva",
+    "release_progress": "Progressione Release",
+    "current_release": "Release Attuale",
+    "buy_now": "Acquista Ora",
+    "sold_out": "Sold Out",
+    "coming_soon": "Prossimamente",
+    "available": "Disponibile",
+    "price_from": "A partire da",
+    "includes": "Include",
+    "includes_entry": "Ingresso al festival",
+    "includes_drink_card": "Drink card inclusa",
+    "includes_both_days": "Accesso a entrambe le serate",
+    "comparison_title": "Confronta le Release",
+    "comparison_description": "Non perdere l'occasione: prima acquisti, meno paghi!",
+    "practical_info_title": "Info Pratiche",
+    "practical_drink_card_title": "Come Funziona la Drink Card",
+    "practical_drink_card_description": "La drink card è inclusa nel biglietto e ti permette di acquistare bevande ai bar del festival. Ricaricabile durante l'evento.",
+    "practical_age_title": "Limiti di Età",
+    "practical_age_description": "L'ingresso è consentito ai maggiori di 16 anni. I minorenni (16-17 anni) devono essere accompagnati da un adulto o presentare un'autorizzazione firmata dai genitori.",
+    "practical_wristband_title": "Ritiro Braccialetto",
+    "practical_wristband_description": "Presenta il tuo biglietto e un documento d'identità valido all'ingresso per ricevere il braccialetto. Non rimuoverlo per tutta la durata del festival!",
+    "faq_title": "Domande Frequenti",
+    "earlybird_urgency": "Posti Limitati!",
+    "promo_urgency": "Disponibile Ora",
+    "regular_urgency": "Ultime Disponibilità"
+  },
+  "experience": {
+    "title": "L'Esperienza",
+    "subtitle": "Non solo musica, un'esperienza completa",
+    "music": {
+      "title": "Musica",
+      "description": "DJ set nazionali e internazionali, dal tramonto all'alba. Techno, house, melodic e molto altro sotto le stelle di Morrovalle."
+    },
+    "food": {
+      "title": "Food & Drink",
+      "description": "Street food selezionato, cocktail bar e la nostra drink card per vivere la serata senza pensieri. Gusto dolce garantito!"
+    },
+    "fun_zone": {
+      "title": "Fun Zone",
+      "description": "Gonfiabili, giochi e angoli instagrammabili a tema candy. Divertimento assicurato tra un set e l'altro!"
+    },
+    "scenography": {
+      "title": "Scenografia",
+      "description": "Installazioni immersive, luci e decorazioni a tema Sweet Edition. Il giardino si trasforma in un mondo di dolcezza."
+    }
+  },
+  "editions": {
+    "title": "Le Edizioni",
+    "subtitle": "Un viaggio attraverso le nostre edizioni tematiche",
+    "edition_2023": {
+      "name": "Parrot Edition",
+      "year": "2023",
+      "description": "La prima edizione! Pablo il pappagallo ha dato il via a tutto, con colori tropicali e ritmi che hanno fatto ballare Morrovalle per la prima volta."
+    },
+    "edition_2024": {
+      "name": "Jungle Edition",
+      "year": "2024",
+      "description": "Pablo migra nella giungla: scenografie selvagge, ritmi tribali e un'energia incontenibile. Il giardino si è trasformato in una foresta danzante."
+    },
+    "edition_2025": {
+      "name": "Flower Edition",
+      "year": "2025",
+      "description": "Il giardino fiorisce: petali, colori pastello e atmosfere sognanti. Oltre 6.500 persone hanno ballato tra i fiori."
+    },
+    "edition_2026": {
+      "name": "Sweet Edition",
+      "year": "2026",
+      "description": "L'edizione più dolce di sempre! Caramelle, colori pastello e un mondo di zucchero ti aspettano il 15 e 16 agosto."
+    }
+  },
+  "sponsors": {
+    "title": "Partner",
+    "subtitle": "Grazie ai nostri partner",
+    "become_partner": "Diventa Partner",
+    "become_partner_description": "Vuoi associare il tuo brand a Pablo The Garden? Contattaci per scoprire le opportunità di partnership.",
+    "contact_us": "Contattaci"
+  },
+  "instagram": {
+    "title": "Seguici su Instagram",
+    "subtitle": "Resta aggiornato su tutte le novità",
+    "follow_us": "Segui @pablo_thegarden",
+    "latest_posts": "Ultimi Post",
+    "view_profile": "Vai al Profilo"
+  },
+  "gallery": {
+    "title": "Galleria",
+    "subtitle": "I momenti migliori delle edizioni passate",
+    "filter_all": "Tutte le Edizioni",
+    "filter_2023": "2023 — Parrot",
+    "filter_2024": "2024 — Jungle",
+    "filter_2025": "2025 — Flowers",
+    "lightbox_prev": "Foto precedente",
+    "lightbox_next": "Foto successiva",
+    "lightbox_close": "Chiudi",
+    "lightbox_counter": "{current} di {total}",
+    "cta": "Segui su Instagram per tutti i contenuti",
+    "no_photos": "Nessuna foto disponibile per questa edizione.",
+    "loading": "Caricamento foto..."
+  },
+  "blog": {
+    "title": "Blog & News",
+    "subtitle": "Novità, annunci e aggiornamenti dal mondo di Pablo The Garden",
+    "read_more": "Leggi di più",
+    "back": "Torna al Blog",
+    "share": "Condividi",
+    "share_whatsapp": "Condividi su WhatsApp",
+    "share_instagram": "Condividi su Instagram",
+    "share_copy_link": "Copia Link",
+    "link_copied": "Link copiato!",
+    "date": "Pubblicato il {date}",
+    "tags": "Tag",
+    "no_posts": "Nessun articolo disponibile al momento.",
+    "load_more": "Carica altri articoli",
+    "minutes_read": "{minutes} min di lettura"
+  },
+  "about": {
+    "title": "Chi Siamo",
+    "subtitle": "La storia di Pablo The Garden",
+    "story_title": "La Nostra Storia",
+    "timeline_title": "Le Nostre Edizioni",
+    "team_title": "Il Team",
+    "team_description": "Un gruppo di amici uniti dalla passione per la musica elettronica e la voglia di creare qualcosa di speciale a Morrovalle.",
+    "mission_title": "La Nostra Missione",
+    "mission_description": "Promuovere la musica elettronica come forma d'arte, valorizzare il territorio e creare una comunità che condivide la stessa passione."
+  },
+  "rules": {
+    "title": "Regolamento",
+    "subtitle": "Leggi attentamente prima di partecipare",
+    "last_updated": "Ultimo aggiornamento: {date}"
+  },
+  "contact": {
+    "title": "Contatti",
+    "subtitle": "Scrivici per qualsiasi informazione o proposta di collaborazione",
+    "form_title": "Inviaci un Messaggio",
+    "form_name": "Nome",
+    "form_name_placeholder": "Il tuo nome",
+    "form_email": "Email",
+    "form_email_placeholder": "La tua email",
+    "form_company": "Azienda / Organizzazione",
+    "form_company_placeholder": "Nome della tua azienda (opzionale)",
+    "form_type": "Tipo di Richiesta",
+    "form_type_sponsor": "Sponsor / Partner",
+    "form_type_media": "Media / Stampa",
+    "form_type_vendor": "Food & Beverage Vendor",
+    "form_type_other": "Altro",
+    "form_type_placeholder": "Seleziona il tipo di richiesta",
+    "form_message": "Messaggio",
+    "form_message_placeholder": "Scrivi il tuo messaggio...",
+    "form_submit": "Invia Messaggio",
+    "form_submitting": "Invio in corso...",
+    "form_success_title": "Messaggio Inviato!",
+    "form_success": "Grazie per averci scritto! Ti risponderemo il prima possibile.",
+    "form_error_title": "Errore di Invio",
+    "form_error": "Si è verificato un errore nell'invio del messaggio. Riprova o contattaci direttamente via email.",
+    "form_validation_name": "Il nome è obbligatorio",
+    "form_validation_email": "Inserisci un indirizzo email valido",
+    "form_validation_type": "Seleziona un tipo di richiesta",
+    "form_validation_message": "Il messaggio è obbligatorio",
+    "direct_contact_title": "Contatto Diretto",
+    "direct_email": "Email",
+    "direct_instagram": "Instagram DM",
+    "direct_location": "Dove Siamo",
+    "direct_location_value": "Morrovalle (MC), Marche, Italia",
+    "sponsor_cta_title": "Diventa Partner",
+    "sponsor_cta_description": "Vuoi associare il tuo brand a Pablo The Garden? Contattaci e creiamo qualcosa di dolce insieme!",
+    "sponsor_cta_button": "Scopri le Opportunità"
+  },
+  "footer": {
+    "copyright": "\u00a9 {year} Pablo The Garden. Tutti i diritti riservati.",
+    "social_title": "Seguici",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "privacy": "Privacy Policy",
+    "rules": "Regolamento",
+    "contact": "Contatti",
+    "language": "Lingua",
+    "made_with_love": "Fatto con amore a Morrovalle"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore. Riprova.",
+    "not_found_title": "Pagina Non Trovata",
+    "not_found": "La pagina che stai cercando non esiste o è stata spostata.",
+    "not_found_cta": "Torna alla Home",
+    "back": "Indietro",
+    "close": "Chiudi",
+    "open_menu": "Apri menu",
+    "close_menu": "Chiudi menu",
+    "scroll_to_top": "Torna su",
+    "see_all": "Vedi tutto",
+    "learn_more": "Scopri di più",
+    "external_link": "Link esterno",
+    "share": "Condividi",
+    "download": "Scarica"
+  },
+  "meta": {
+    "home_title": "Pablo The Garden — Sweet Edition 2026 | Festival di Musica Elettronica",
+    "home_description": "Pablo The Garden — Sweet Edition: il festival di musica elettronica a Morrovalle (MC). 15–16 Agosto 2026. DJ set, food truck, fun zone e scenografie immersive a tema candy.",
+    "lineup_title": "Lineup — Pablo The Garden Sweet Edition 2026",
+    "lineup_description": "Scopri il lineup completo della Sweet Edition 2026 di Pablo The Garden. DJ nazionali e internazionali ti aspettano a Morrovalle il 15 e 16 agosto.",
+    "tickets_title": "Biglietti — Pablo The Garden Sweet Edition 2026",
+    "tickets_description": "Acquista i biglietti per Pablo The Garden Sweet Edition 2026. Abbonamento 2 giorni o biglietto singolo. Morrovalle (MC), 15–16 Agosto 2026.",
+    "gallery_title": "Galleria — Pablo The Garden",
+    "gallery_description": "Rivivi i momenti migliori delle edizioni passate di Pablo The Garden: Parrot Edition 2023, Jungle Edition 2024, Flower Edition 2025.",
+    "blog_title": "Blog & News — Pablo The Garden",
+    "blog_description": "Novità, annunci e aggiornamenti su Pablo The Garden Sweet Edition 2026. Scopri il lineup, le date di vendita dei biglietti e molto altro.",
+    "about_title": "Chi Siamo — Pablo The Garden",
+    "about_description": "La storia di Pablo The Garden: da un gruppo di amici a uno dei festival di musica elettronica più amati delle Marche. Scopri le nostre edizioni e il team.",
+    "rules_title": "Regolamento — Pablo The Garden",
+    "rules_description": "Regolamento di ingresso e norme di comportamento per Pablo The Garden Sweet Edition 2026. Leggi attentamente prima di partecipare.",
+    "contact_title": "Contatti — Pablo The Garden",
+    "contact_description": "Contatta il team di Pablo The Garden per collaborazioni, partnership, informazioni stampa o qualsiasi domanda sul festival."
+  },
+  "accessibility": {
+    "skip_to_content": "Vai al contenuto principale",
+    "menu_toggle": "Attiva/disattiva menu di navigazione",
+    "language_switch": "Cambia lingua",
+    "open_ticket_modal": "Apri selettore biglietti",
+    "close_modal": "Chiudi finestra",
+    "previous_slide": "Slide precedente",
+    "next_slide": "Slide successiva",
+    "play_animation": "Avvia animazione",
+    "pause_animation": "Metti in pausa animazione",
+    "expand_section": "Espandi sezione",
+    "collapse_section": "Comprimi sezione",
+    "external_link_notice": "Si apre in una nuova finestra",
+    "image_gallery": "Galleria immagini",
+    "current_page": "Pagina corrente"
+  },
+  "tickets_modal": {
+    "title": "Scegli il Tuo Biglietto",
+    "subtitle": "Seleziona il biglietto per la Sweet Edition 2026",
+    "select_ticket": "Seleziona Biglietto",
+    "sold_out_message": "I biglietti per questa release sono esauriti. Resta sintonizzato per la prossima release!",
+    "all_sold_out_message": "Tutti i biglietti sono esauriti. Seguici su Instagram per aggiornamenti!",
+    "coming_soon_message": "I biglietti saranno disponibili a breve. Seguici per non perderti l'apertura vendite!",
+    "close": "Chiudi",
+    "go_to_tickets_page": "Vai alla Pagina Biglietti"
+  },
+  "cookie": {
+    "message": "Questo sito utilizza cookie tecnici per garantire il corretto funzionamento.",
+    "accept": "Accetta",
+    "learn_more": "Scopri di più"
+  },
+  "newsletter": {
+    "title": "Resta Aggiornato",
+    "description": "Iscriviti per ricevere le ultime novità su Pablo The Garden.",
+    "placeholder": "La tua email",
+    "subscribe": "Iscriviti",
+    "success": "Iscrizione confermata! Grazie.",
+    "error": "Errore nell'iscrizione. Riprova."
+  }
+}

@@ -1,43 +1,35 @@
-import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
+import { getLineupConfig, getLineup, getSponsors } from '@/lib/content';
+import Hero from '@/components/home/Hero';
+import Countdown from '@/components/home/Countdown';
+import LineupPreview from '@/components/home/LineupPreview';
+import ExperienceCards from '@/components/home/ExperienceCards';
+import EditionTimeline from '@/components/home/EditionTimeline';
+import SponsorsBar from '@/components/home/SponsorsBar';
+import InstagramFeed from '@/components/home/InstagramFeed';
 
-export default function HomePage() {
-  const t = useTranslations();
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  // Load all content at build time
+  const lineupConfig = getLineupConfig();
+  const artists = getLineup();
+  const sponsors = getSponsors();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-soft-pink">
-      <div className="text-center">
-        <h1 className="font-display text-5xl font-bold text-candy-pink mb-4">
-          {t('hero.title')}
-        </h1>
-        <p className="font-body text-2xl text-orange-cream mb-2">
-          {t('hero.subtitle')}
-        </p>
-        <p className="font-body text-lg text-text-primary mb-1">
-          {t('hero.dates')}
-        </p>
-        <p className="font-body text-lg text-text-primary mb-8">
-          {t('hero.location')}
-        </p>
-        <div className="flex gap-4 justify-center">
-          <button className="rounded-pill bg-candy-pink px-6 py-3 text-white font-semibold shadow-candy hover:bg-candy-pink-dark hover:shadow-candy-hover transition-all">
-            {t('hero.cta_tickets')}
-          </button>
-          <button className="rounded-pill border-2 border-candy-pink px-6 py-3 text-candy-pink font-semibold hover:bg-surface-elevated transition-all">
-            {t('hero.cta_lineup')}
-          </button>
-        </div>
-
-        {/* Theme color swatches for visual verification */}
-        <div className="mt-12 flex flex-wrap gap-3 justify-center">
-          <div className="w-12 h-12 rounded-candy bg-candy-pink" title="Candy Pink" />
-          <div className="w-12 h-12 rounded-candy bg-candy-pink-dark" title="Candy Pink Dark" />
-          <div className="w-12 h-12 rounded-candy bg-orange-cream" title="Orange Cream" />
-          <div className="w-12 h-12 rounded-candy bg-cotton-candy" title="Cotton Candy" />
-          <div className="w-12 h-12 rounded-candy bg-bubblegum" title="Bubblegum" />
-          <div className="w-12 h-12 rounded-candy bg-mint-green" title="Mint Green" />
-          <div className="w-12 h-12 rounded-candy bg-night-purple" title="Night Purple" />
-        </div>
-      </div>
-    </main>
+    <>
+      <Hero />
+      <Countdown />
+      <LineupPreview config={lineupConfig} artists={artists} />
+      <ExperienceCards />
+      <EditionTimeline />
+      <SponsorsBar sponsors={sponsors} />
+      <InstagramFeed />
+    </>
   );
 }

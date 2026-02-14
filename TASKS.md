@@ -143,7 +143,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - FAQ accordion expands/collapses smoothly
   - TicketSelectorModal works from any page via FloatingTicketCTA
 
-### P4 — Gallery Page
+### P4 — Gallery Page ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** F4
 - **Description:** Photo gallery showcasing past editions.
@@ -160,7 +160,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Responsive grid (3 cols desktop, 2 tablet, 1 mobile)
   - Images lazy-loaded via `next/image`
 
-### P5 — Blog
+### P5 — Blog ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** F4, F5
 - **Description:** Blog list page + individual post page.
@@ -174,7 +174,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Share buttons work
   - `generateStaticParams` generates all post routes at build time
 
-### P6 — About Page
+### P6 — About Page ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** F4
 - **Description:** Festival history and team story.
@@ -189,7 +189,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Responsive layout
   - Content renders from markdown per locale
 
-### P7 — Rules Page
+### P7 — Rules Page ✅
 - **Priority:** 🟢 Low
 - **Dependencies:** F4
 - **Description:** Entry rules and behavioral guidelines rendered from markdown.
@@ -199,7 +199,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Clean, readable prose rendering
   - Responsive, uses the design system typography
 
-### P8 — Contact Page
+### P8 — Contact Page ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** F3
 - **Description:** Partner/sponsor inquiry form + contact info.
@@ -221,7 +221,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 Animations, sweet-themed visual effects, mobile optimization, and final UX refinements.
 Runs after `pages` has completed the core page structure.
 
-### X1 — Sweet Theme Animations & Effects
+### X1 — Sweet Theme Animations & Effects ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** P1–P3
 - **Description:** Add candy-themed visual polish across the site.

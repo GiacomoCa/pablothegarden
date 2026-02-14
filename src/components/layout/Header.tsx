@@ -102,7 +102,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-candy text-text-primary transition-colors hover:bg-candy-pink/10 md:hidden"
+              className="relative z-50 flex h-11 w-11 items-center justify-center rounded-candy text-text-primary transition-colors hover:bg-candy-pink/10 md:hidden"
               aria-label={mobileMenuOpen ? tCommon('close_menu') : tCommon('open_menu')}
               aria-expanded={mobileMenuOpen}
             >

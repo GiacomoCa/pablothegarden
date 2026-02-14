@@ -78,7 +78,7 @@ export default function Lightbox({
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
+            className="absolute right-2 top-2 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 sm:right-4 sm:top-4"
             aria-label={t('lightbox_close')}
           >
             <svg
@@ -103,20 +103,21 @@ export default function Lightbox({
               e.stopPropagation();
               onPrev();
             }}
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 disabled:opacity-30"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3.5 text-white transition-colors hover:bg-white/20 disabled:opacity-30 sm:left-4 sm:p-3"
             aria-label={t('lightbox_prev')}
             disabled={images.length <= 1}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="28"
+              height="28"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="sm:h-6 sm:w-6"
             >
               <polyline points="15 18 9 12 15 6" />
             </svg>
@@ -128,20 +129,21 @@ export default function Lightbox({
               e.stopPropagation();
               onNext();
             }}
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 disabled:opacity-30"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3.5 text-white transition-colors hover:bg-white/20 disabled:opacity-30 sm:right-4 sm:p-3"
             aria-label={t('lightbox_next')}
             disabled={images.length <= 1}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="28"
+              height="28"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="sm:h-6 sm:w-6"
             >
               <polyline points="9 18 15 12 9 6" />
             </svg>
@@ -151,7 +153,7 @@ export default function Lightbox({
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              className="relative z-[5] flex max-h-[80vh] max-w-[90vw] items-center justify-center"
+              className="relative z-[5] flex max-h-[70vh] max-w-[85vw] items-center justify-center sm:max-h-[80vh] sm:max-w-[90vw]"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
@@ -162,7 +164,7 @@ export default function Lightbox({
               <img
                 src={currentImage.src}
                 alt={currentImage.alt}
-                className="max-h-[80vh] max-w-[90vw] rounded-lg object-contain"
+                className="max-h-[70vh] max-w-[85vw] rounded-lg object-contain sm:max-h-[80vh] sm:max-w-[90vw]"
               />
             </motion.div>
           </AnimatePresence>

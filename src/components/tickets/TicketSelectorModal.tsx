@@ -169,7 +169,7 @@ export default function TicketSelectorModal({
             <button
               onClick={onClose}
               aria-label={tA11y('close_modal')}
-              className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-text-primary/50 transition-colors hover:bg-candy-pink/10 hover:text-candy-pink"
+              className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full text-text-primary/50 transition-colors hover:bg-candy-pink/10 hover:text-candy-pink"
             >
               <svg
                 className="h-5 w-5"

@@ -284,7 +284,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={formState === 'submitting'}
-          className="inline-flex w-full items-center justify-center rounded-pill bg-candy-pink px-8 py-3.5 font-display font-bold text-white shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-pill bg-candy-pink px-8 py-4 font-display text-base font-bold text-white shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {formState === 'submitting' ? (
             <>

@@ -36,11 +36,11 @@ export default function EditionTimeline() {
 
         {/* Mobile: horizontal scrollable strip */}
         <div className="md:hidden">
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin snap-x snap-mandatory">
             {EDITIONS.map((edition) => (
               <motion.div
                 key={edition.key}
-                className={`flex min-w-[220px] flex-shrink-0 flex-col rounded-candy p-5 shadow-candy ${
+                className={`flex min-w-[260px] flex-shrink-0 flex-col rounded-candy p-5 shadow-candy snap-center ${
                   edition.isCurrent
                     ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
                     : 'bg-surface'

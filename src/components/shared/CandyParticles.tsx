@@ -12,9 +12,9 @@ interface ParticleProps {
 function Particle({ emoji, index }: ParticleProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  // Random positioning
-  const leftPosition = 5 + (index * 90) / 12;
-  const size = 16 + (index % 4) * 6;
+  // Random positioning - keep within safe bounds
+  const leftPosition = 5 + (index * 85) / 12;
+  const size = 14 + (index % 3) * 4;
 
   // Stagger animation timing
   const duration = 15 + (index % 4) * 3;
@@ -63,8 +63,8 @@ function Particle({ emoji, index }: ParticleProps) {
 }
 
 export default function CandyParticles() {
-  // Use only 10 particles for performance
-  const particles = CANDY_SHAPES.slice(0, 10);
+  // Use only 8 particles for better mobile performance
+  const particles = CANDY_SHAPES.slice(0, 8);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

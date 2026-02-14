@@ -38,8 +38,8 @@ export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAPro
           aria-label={tA11y('open_ticket_modal')}
           className={`
             group relative flex items-center gap-2
-            rounded-pill px-6 py-3
-            font-semibold text-white shadow-candy
+            rounded-pill px-6 py-3.5
+            text-base font-semibold text-white shadow-candy
             transition-all duration-300
             ${
               allSoldOut

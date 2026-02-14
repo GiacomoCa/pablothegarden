@@ -37,12 +37,12 @@ interface CountdownUnitProps {
 function CountdownUnit({ value, label }: CountdownUnitProps) {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-candy bg-white/10 shadow-candy backdrop-blur-sm sm:h-24 sm:w-24 md:h-28 md:w-28">
-        <span className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+      <div className="flex h-16 w-16 items-center justify-center rounded-candy bg-white/10 shadow-candy backdrop-blur-sm sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-28 lg:w-28">
+        <span className="font-display text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl">
           {String(value).padStart(2, '0')}
         </span>
       </div>
-      <span className="mt-2 text-xs font-medium uppercase tracking-wider text-white/70 sm:text-sm">
+      <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wider text-white/70 sm:mt-2 sm:text-xs md:text-sm">
         {label}
       </span>
     </div>
@@ -73,7 +73,7 @@ export default function Countdown() {
           <h2 className="font-display text-2xl font-bold text-white sm:text-3xl md:text-4xl">
             {t('title')}
           </h2>
-          <div className="mt-8 flex items-center justify-center gap-3 sm:gap-6">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-center sm:gap-6">
             {(['days', 'hours', 'minutes', 'seconds'] as const).map((unit) => (
               <CountdownUnit key={unit} value={0} label={t(unit)} />
             ))}
@@ -103,23 +103,14 @@ export default function Countdown() {
         </h2>
 
         <div
-          className="mt-8 flex items-center justify-center gap-3 sm:gap-6"
+          className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-center sm:gap-6"
           role="timer"
           aria-live="polite"
           aria-atomic="true"
         >
           <CountdownUnit value={timeLeft.days} label={t('days')} />
-          <span className="font-display text-2xl text-candy-pink sm:text-3xl" aria-hidden="true">
-            :
-          </span>
           <CountdownUnit value={timeLeft.hours} label={t('hours')} />
-          <span className="font-display text-2xl text-candy-pink sm:text-3xl" aria-hidden="true">
-            :
-          </span>
           <CountdownUnit value={timeLeft.minutes} label={t('minutes')} />
-          <span className="font-display text-2xl text-candy-pink sm:text-3xl" aria-hidden="true">
-            :
-          </span>
           <CountdownUnit value={timeLeft.seconds} label={t('seconds')} />
         </div>
       </div>

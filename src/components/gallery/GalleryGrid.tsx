@@ -74,7 +74,7 @@ export default function GalleryGrid({ editions }: GalleryGridProps) {
           <button
             key={String(tab.value)}
             onClick={() => setActiveFilter(tab.value)}
-            className={`rounded-pill px-4 py-2 text-sm font-medium transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-base ${
+            className={`rounded-pill px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-base ${
               activeFilter === tab.value
                 ? 'bg-candy-pink text-white shadow-candy'
                 : 'bg-surface-elevated text-text-primary hover:bg-candy-pink/10'

@@ -4,6 +4,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Fredoka, DM_Sans } from 'next/font/google';
 import { routing } from '@/i18n/routing';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import FloatingTicketCTAWrapper from '@/components/layout/FloatingTicketCTAWrapper';
 import '@/app/globals.css';
 
 const fredoka = Fredoka({
@@ -45,9 +48,14 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${fredoka.variable} ${dmSans.variable}`}>
-      <body>
+      <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Header />
+          <main id="main-content" className="flex-1 pt-16 md:pt-20">
+            {children}
+          </main>
+          <Footer />
+          <FloatingTicketCTAWrapper />
         </NextIntlClientProvider>
       </body>
     </html>

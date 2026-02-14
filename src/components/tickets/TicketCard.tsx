@@ -31,12 +31,20 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      whileHover={
+        isAvailable
+          ? {
+              scale: 1.02,
+              boxShadow: '0 0 0 2px rgba(255, 107, 157, 0.4), 0 8px 30px rgba(255, 107, 157, 0.4)',
+            }
+          : {}
+      }
       className={`
         relative flex flex-col overflow-hidden rounded-candy border-2 p-6
         transition-all duration-300
         ${
           isAvailable
-            ? 'border-candy-pink/30 bg-gradient-to-br from-white via-soft-pink to-candy-pink/10 shadow-candy hover:shadow-candy-hover'
+            ? 'border-candy-pink/30 bg-gradient-to-br from-white via-soft-pink to-candy-pink/10 shadow-candy'
             : isSoldOut
               ? 'border-gray-200 bg-gray-50'
               : 'border-bubblegum/20 bg-soft-pink/50'

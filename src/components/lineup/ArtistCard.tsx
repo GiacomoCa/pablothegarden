@@ -24,8 +24,11 @@ export default function ArtistCard({ artist, isNew }: ArtistCardProps) {
   return (
     <motion.article
       layout
-      className="relative overflow-hidden rounded-candy bg-surface shadow-candy transition-shadow hover:shadow-candy-hover"
-      whileHover={{ y: -4 }}
+      className="relative overflow-hidden rounded-candy bg-surface shadow-candy"
+      whileHover={{
+        y: -6,
+        boxShadow: '0 8px 30px rgba(255, 107, 157, 0.4)',
+      }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >
       {/* NEW badge */}

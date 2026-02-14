@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getLineupConfig, getLineup } from '@/lib/content';
 import { routing } from '@/i18n/routing';
 import LineupPhaseManager from '@/components/lineup/LineupPhaseManager';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -33,15 +34,19 @@ export default async function LineupPage({ params }: Props) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       {/* Page header */}
-      <div className="mb-10 text-center sm:mb-14">
-        <h1 className="font-display text-4xl font-bold text-night-purple sm:text-5xl">
-          {t('title')}
-        </h1>
-        <p className="mt-2 text-lg text-orange-cream">{t('subtitle')}</p>
-      </div>
+      <ScrollReveal>
+        <div className="mb-10 text-center sm:mb-14">
+          <h1 className="font-display text-4xl font-bold text-night-purple sm:text-5xl">
+            {t('title')}
+          </h1>
+          <p className="mt-2 text-lg text-orange-cream">{t('subtitle')}</p>
+        </div>
+      </ScrollReveal>
 
       {/* Phase-dependent content */}
-      <LineupPhaseManager config={config} artists={artists} />
+      <ScrollReveal delay={0.15}>
+        <LineupPhaseManager config={config} artists={artists} />
+      </ScrollReveal>
     </section>
   );
 }

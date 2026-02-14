@@ -2,50 +2,37 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { motion } from 'framer-motion';
-
-const CANDY_EMOJIS = ['🍬', '🍭', '🍩', '🧁', '🍪', '🎀', '🍫', '🍰'];
-
-interface CandyParticleProps {
-  emoji: string;
-  index: number;
-}
-
-function CandyParticle({ emoji, index }: CandyParticleProps) {
-  const leftPosition = 10 + (index * 80) / CANDY_EMOJIS.length;
-  const duration = 6 + (index % 3) * 2;
-  const delay = index * 0.7;
-  const size = 20 + (index % 3) * 8;
-
-  return (
-    <motion.span
-      className="pointer-events-none absolute select-none"
-      style={{
-        left: `${leftPosition}%`,
-        fontSize: `${size}px`,
-        top: '-40px',
-      }}
-      initial={{ y: -40, opacity: 0, rotate: 0 }}
-      animate={{
-        y: ['0vh', '100vh'],
-        opacity: [0, 1, 1, 0],
-        rotate: [0, 360],
-      }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
-      aria-hidden="true"
-    >
-      {emoji}
-    </motion.span>
-  );
-}
+import { motion, useReducedMotion } from 'framer-motion';
+import CandyParticles from '@/components/shared/CandyParticles';
 
 export default function Hero() {
   const t = useTranslations('hero');
+  const shouldReduceMotion = useReducedMotion();
+
+  // Animation variants
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: shouldReduceMotion ? {} : { opacity: 0, y: 20 },
+    visible: shouldReduceMotion
+      ? {}
+      : {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.7,
+            ease: [0.21, 0.47, 0.32, 0.98],
+          },
+        },
+  };
 
   return (
     <section
@@ -53,11 +40,7 @@ export default function Hero() {
       aria-label={t('title')}
     >
       {/* Candy confetti particles */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {CANDY_EMOJIS.map((emoji, i) => (
-          <CandyParticle key={i} emoji={emoji} index={i} />
-        ))}
-      </div>
+      <CandyParticles />
 
       {/* Gradient overlay for depth */}
       <div
@@ -66,31 +49,27 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 px-4 text-center">
+      <motion.div
+        className="relative z-10 px-4 text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <motion.h1
           className="font-display text-5xl font-bold text-white drop-shadow-lg sm:text-6xl md:text-7xl lg:text-8xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          variants={itemVariants}
         >
           {t('title')}
         </motion.h1>
 
         <motion.p
           className="mt-3 font-display text-2xl text-candy-pink drop-shadow-md sm:text-3xl md:text-4xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          variants={itemVariants}
         >
           {t('subtitle')}
         </motion.p>
 
-        <motion.div
-          className="mt-6 space-y-1"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-        >
+        <motion.div className="mt-6 space-y-1" variants={itemVariants}>
           <p className="text-lg font-medium text-white/90 sm:text-xl">
             {t('dates')}
           </p>
@@ -99,24 +78,32 @@ export default function Hero() {
 
         <motion.div
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+          variants={itemVariants}
         >
           <Link
             href="/tickets"
-            className="inline-flex items-center rounded-pill bg-candy-pink px-8 py-4 text-lg font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-105"
+            className="group inline-flex items-center rounded-pill bg-candy-pink px-8 py-4 text-lg font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover"
           >
-            {t('cta_tickets')}
+            <motion.span
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
+              {t('cta_tickets')}
+            </motion.span>
           </Link>
           <Link
             href="/lineup"
-            className="inline-flex items-center rounded-pill border-2 border-white/60 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:border-white hover:bg-white/10"
+            className="group inline-flex items-center rounded-pill border-2 border-white/60 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:border-white hover:bg-white/10"
           >
-            {t('cta_lineup')}
+            <motion.span
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
+              {t('cta_lineup')}
+            </motion.span>
           </Link>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

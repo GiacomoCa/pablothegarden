@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface Edition {
   key: string;
@@ -18,6 +19,7 @@ const EDITIONS: Edition[] = [
 
 export default function EditionTimeline() {
   const t = useTranslations('editions');
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
@@ -36,13 +38,14 @@ export default function EditionTimeline() {
         <div className="md:hidden">
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
             {EDITIONS.map((edition) => (
-              <div
+              <motion.div
                 key={edition.key}
                 className={`flex min-w-[220px] flex-shrink-0 flex-col rounded-candy p-5 shadow-candy ${
                   edition.isCurrent
                     ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
                     : 'bg-surface'
                 }`}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               >
                 <span className="text-3xl" aria-hidden="true">
                   {edition.emoji}
@@ -68,7 +71,7 @@ export default function EditionTimeline() {
                 >
                   {t(`${edition.key}.description`)}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -97,12 +100,21 @@ export default function EditionTimeline() {
                 </div>
 
                 {/* Card */}
-                <div
-                  className={`w-full rounded-candy p-6 text-center shadow-candy transition-all duration-300 hover:-translate-y-1 hover:shadow-candy-hover ${
+                <motion.div
+                  className={`w-full rounded-candy p-6 text-center shadow-candy transition-all duration-300 ${
                     edition.isCurrent
                       ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
                       : 'bg-surface'
                   }`}
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : {
+                          y: -4,
+                          boxShadow: '0 8px 30px rgba(255, 107, 157, 0.4)',
+                        }
+                  }
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
                   <span
                     className={`font-display text-3xl font-bold ${
@@ -125,7 +137,7 @@ export default function EditionTimeline() {
                   >
                     {t(`${edition.key}.description`)}
                   </p>
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface ExperienceItem {
   key: string;
@@ -16,6 +17,7 @@ const EXPERIENCES: ExperienceItem[] = [
 
 export default function ExperienceCards() {
   const t = useTranslations('experience');
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="bg-surface py-16 md:py-24" aria-label={t('title')}>
@@ -28,10 +30,20 @@ export default function ExperienceCards() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-          {EXPERIENCES.map((item) => (
-            <div
+          {EXPERIENCES.map((item, index) => (
+            <motion.div
               key={item.key}
-              className="group flex flex-col items-center rounded-candy bg-gradient-to-br from-soft-pink to-surface-elevated p-6 text-center shadow-candy transition-all duration-300 hover:shadow-candy-hover hover:-translate-y-1 md:p-8"
+              className="group flex flex-col items-center rounded-candy bg-gradient-to-br from-soft-pink to-surface-elevated p-6 text-center shadow-candy transition-all duration-300 md:p-8"
+              whileHover={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      scale: 1.02,
+                      y: -4,
+                      boxShadow: '0 8px 30px rgba(255, 107, 157, 0.4)',
+                    }
+              }
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               <span
                 className="text-4xl transition-transform duration-300 group-hover:scale-110 md:text-5xl"
@@ -45,7 +57,7 @@ export default function ExperienceCards() {
               <p className="mt-2 text-sm leading-relaxed text-text-primary/70 md:text-base">
                 {t(`${item.key}.description`)}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

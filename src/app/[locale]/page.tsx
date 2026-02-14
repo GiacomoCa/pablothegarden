@@ -7,6 +7,7 @@ import ExperienceCards from '@/components/home/ExperienceCards';
 import EditionTimeline from '@/components/home/EditionTimeline';
 import SponsorsBar from '@/components/home/SponsorsBar';
 import InstagramFeed from '@/components/home/InstagramFeed';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -24,12 +25,24 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
-      <Countdown />
-      <LineupPreview config={lineupConfig} artists={artists} />
-      <ExperienceCards />
-      <EditionTimeline />
-      <SponsorsBar sponsors={sponsors} />
-      <InstagramFeed />
+      <ScrollReveal>
+        <Countdown />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <LineupPreview config={lineupConfig} artists={artists} />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <ExperienceCards />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <EditionTimeline />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <SponsorsBar sponsors={sponsors} />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <InstagramFeed />
+      </ScrollReveal>
     </>
   );
 }

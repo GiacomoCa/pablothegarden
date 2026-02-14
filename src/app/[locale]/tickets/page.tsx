@@ -8,6 +8,7 @@ import ReleaseSection from '@/components/tickets/ReleaseSection';
 import ReleaseComparison from '@/components/tickets/ReleaseComparison';
 import PracticalInfo from '@/components/tickets/PracticalInfo';
 import FAQ from '@/components/tickets/FAQ';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -58,21 +59,31 @@ export default async function TicketsPage({ params }: Props) {
       {/* Sections with vertical spacing */}
       <div className="space-y-16 sm:space-y-20">
         {/* 1. Release progress bar */}
-        <ReleaseBanner ticketConfig={ticketConfig} locale={locale} />
+        <ScrollReveal>
+          <ReleaseBanner ticketConfig={ticketConfig} locale={locale} />
+        </ScrollReveal>
 
         {/* 2. Active release ticket cards */}
         {activeRelease && (
-          <ReleaseSection release={activeRelease} locale={locale} />
+          <ScrollReveal delay={0.1}>
+            <ReleaseSection release={activeRelease} locale={locale} />
+          </ScrollReveal>
         )}
 
         {/* 3. Release comparison table */}
-        <ReleaseComparison ticketConfig={ticketConfig} locale={locale} />
+        <ScrollReveal delay={0.1}>
+          <ReleaseComparison ticketConfig={ticketConfig} locale={locale} />
+        </ScrollReveal>
 
         {/* 4. Practical info */}
-        <PracticalInfo />
+        <ScrollReveal delay={0.1}>
+          <PracticalInfo />
+        </ScrollReveal>
 
         {/* 5. FAQ accordion */}
-        <FAQ items={faqItems} />
+        <ScrollReveal delay={0.1}>
+          <FAQ items={faqItems} />
+        </ScrollReveal>
       </div>
     </div>
   );

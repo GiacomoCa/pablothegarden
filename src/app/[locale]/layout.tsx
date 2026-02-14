@@ -1,9 +1,24 @@
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { Fredoka, DM_Sans } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import '@/app/globals.css';
+
+const fredoka = Fredoka({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-fredoka',
+  display: 'swap',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
 
 type Props = {
   children: ReactNode;
@@ -22,11 +37,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
+  // Enable static rendering
+  setRequestLocale(locale);
+
   // Provide all messages to the client side
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${fredoka.variable} ${dmSans.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}

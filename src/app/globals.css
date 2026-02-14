@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+@theme {
+  /* Sweet Edition Color Palette */
+  --color-candy-pink: #FF6B9D;
+  --color-candy-pink-dark: #E8457A;
+  --color-orange-cream: #FFB347;
+  --color-cotton-candy: #87CEEB;
+  --color-bubblegum: #DDA0DD;
+  --color-mint-green: #98FB98;
+  --color-night-purple: #1A0A2E;
+  --color-soft-pink: #FFF5F8;
+  --color-text-primary: #2D1B40;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFF0F5;
+
+  /* Typography */
+  --font-display: var(--font-fredoka);
+  --font-body: var(--font-dm-sans);
+
+  /* Border Radius */
+  --radius-candy: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-candy: 0 4px 20px rgba(255, 107, 157, 0.3);
+  --shadow-candy-hover: 0 8px 30px rgba(255, 107, 157, 0.4);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-candy-pink);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-candy-pink);
+  color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-soft-pink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-candy-pink);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-candy-pink-dark);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-candy-pink) var(--color-soft-pink);
+}

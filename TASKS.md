@@ -11,7 +11,7 @@
 Scaffolds the project, design system, layout shell, content utilities, and i18n.
 All other agents depend on this agent completing first.
 
-### F1 — Project Scaffolding
+### F1 — Project Scaffolding ✅
 - **Priority:** 🔴 Critical (blocks everything)
 - **Description:** Initialize Next.js 14+ App Router project with TypeScript, Tailwind CSS v4, Framer Motion, and next-intl. Configure `tsconfig.json`, `next.config.ts`, `tailwind.config.ts`. Install all dependencies.
 - **Acceptance criteria:**
@@ -21,7 +21,7 @@ All other agents depend on this agent completing first.
   - TypeScript strict mode enabled
 - **Output:** Root project files, `src/app/[locale]/layout.tsx`, `src/app/[locale]/page.tsx` (placeholder)
 
-### F2 — Design System & Theme
+### F2 — Design System & Theme ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1
 - **Description:** Implement the "Sweet Edition" candy theme in Tailwind config. Define CSS variables, color palette, typography with self-hosted fonts (Fredoka One or Baloo 2 for display, DM Sans or Nunito for body via `next/font`). Create global styles in `globals.css`.
@@ -37,7 +37,7 @@ All other agents depend on this agent completing first.
   - Fonts load correctly via `next/font/google` or `next/font/local`
   - A test page renders all theme colors and font weights correctly
 
-### F3 — Layout Components
+### F3 — Layout Components ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F2
 - **Description:** Build the persistent layout shell used by every page.
@@ -53,7 +53,7 @@ All other agents depend on this agent completing first.
   - Floating CTA visible on all pages, does not overlap content
   - Footer renders social links and secondary nav
 
-### F4 — Content Utilities
+### F4 — Content Utilities ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1
 - **Description:** Build TypeScript utilities to read and parse Markdown/MDX/JSON content files at build time.
@@ -66,7 +66,7 @@ All other agents depend on this agent completing first.
   - MDX files compile correctly with frontmatter extraction
   - Functions work at build time (compatible with `generateStaticParams`)
 
-### F5 — i18n Setup
+### F5 — i18n Setup ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1
 - **Description:** Configure `next-intl` for Italian (default) and English. Set up locale routing, translation file structure, and middleware.
@@ -86,7 +86,7 @@ All other agents depend on this agent completing first.
 
 Builds all individual page components. Depends on `foundation` completing F1–F5.
 
-### P1 — Homepage
+### P1 — Homepage ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1–F5
 - **Description:** Build the full homepage composed of these sections (top to bottom):
@@ -104,7 +104,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Lineup preview adapts to the phase set in `config.json`
   - Scroll animations (Framer Motion) on section entry
 
-### P2 — Lineup Page
+### P2 — Lineup Page ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F4, F5
 - **Description:** Build the lineup page with the progressive reveal system.
@@ -122,7 +122,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - Mystery cards have candy-themed animation
   - "NEW" badge appears on recently revealed artists and disappears after `newBadgeDays`
 
-### P3 — Tickets Page
+### P3 — Tickets Page ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F3 (FloatingTicketCTA), F4
 - **Description:** Build the ticket page with release-based pricing.
@@ -257,39 +257,39 @@ Runs after `pages` has completed the core page structure.
 Prepares all content files, translations, and media assets.
 Can work in parallel with `foundation` from the start.
 
-### C1 — Italian UI Strings
+### C1 — Italian UI Strings ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create `/messages/it.json` with all Italian UI text.
   - Nav labels, button text, section headings, form labels, form validation messages, error messages, CTA text, footer text, meta descriptions, 404 page text, accessibility labels (aria-labels), etc.
 - **Acceptance criteria:** Every user-visible string in the UI has a corresponding key in `it.json`
 
-### C2 — English UI Strings
+### C2 — English UI Strings ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** C1
 - **Description:** Create `/messages/en.json` — English translations of all keys in `it.json`.
 - **Acceptance criteria:** Every key in `it.json` exists in `en.json` with a proper English translation
 
-### C3 — About Page Content
+### C3 — About Page Content ✅
 - **Priority:** 🟡 Medium
 - **Description:** Write `/content/about/it.md` and `/content/about/en.md`.
   - Festival origin story, team description, mission statement.
   - Reference: the festival started in 2023 in Morrovalle (MC), organized by a group of friends, themed editions each year (Parrot → Jungle → Flowers → Sweet), 6,500+ attendees, promotes electronic music as art, enhances local territory.
 - **Acceptance criteria:** Both locale files written, factually accurate, compelling narrative
 
-### C4 — Rules Page Content
+### C4 — Rules Page Content ✅
 - **Priority:** 🟡 Medium
 - **Description:** Write `/content/rules/it.md` and `/content/rules/en.md`.
   - Entry requirements, prohibited items, behavior policy, safety, sustainability.
 - **Acceptance criteria:** Both locale files written, clear and comprehensive
 
-### C5 — Lineup Placeholder Content
+### C5 — Lineup Placeholder Content ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create lineup content structure:
   - `/content/lineup/config.json` — Set to `phase: "coming_soon"`, `totalSlots: 12`, `newBadgeDays: 7`
   - At least 2 sample artist `.md` files with `revealed: false` (as templates for real artists later)
 - **Acceptance criteria:** Config file valid JSON, sample artist files have correct frontmatter schema
 
-### C6 — Tickets Content
+### C6 — Tickets Content ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create `/content/tickets.json` with all 9 SKUs (3 releases × 3 types).
   - Use placeholder Clappit URLs (to be replaced with real ones later)
@@ -297,14 +297,14 @@ Can work in parallel with `foundation` from the start.
   - Include realistic placeholder prices
 - **Acceptance criteria:** Valid JSON, all 9 SKUs present, schema matches what the tickets page expects
 
-### C7 — Sponsors Placeholder
+### C7 — Sponsors Placeholder ✅
 - **Priority:** 🟢 Low
 - **Description:** Create `/content/sponsors/sponsors.json` with 3–5 placeholder sponsor entries.
   - Each entry: name, logo filename, URL, tier (gold/silver/bronze)
   - Add placeholder SVG logos to `/public/images/sponsors/`
 - **Acceptance criteria:** Valid JSON, placeholder logos render
 
-### C8 — Sample Blog Posts
+### C8 — Sample Blog Posts ✅
 - **Priority:** 🟢 Low
 - **Description:** Create 2 sample blog posts:
   - `/content/blog/it/2026-02-14-sweet-edition-announcement.mdx` — First announcement of 2026 Sweet Edition
@@ -312,13 +312,13 @@ Can work in parallel with `foundation` from the start.
   - Include frontmatter: title, date, excerpt, image, tags, locale
 - **Acceptance criteria:** MDX files valid, frontmatter correct, renders in blog list and post pages
 
-### C9 — FAQ Content
+### C9 — FAQ Content ✅
 - **Priority:** 🟢 Low
 - **Description:** Create `/content/faq/it.json` and `/content/faq/en.json` with 6–8 common questions.
   - Topics: refunds, age restrictions, dress code, food/drink policy, release differences, accessibility, parking, drink card system.
 - **Acceptance criteria:** Valid JSON arrays, questions and answers in both locales
 
-### C10 — Gallery Placeholder
+### C10 — Gallery Placeholder ✅
 - **Priority:** 🟢 Low
 - **Description:** Create `/content/gallery.json` with metadata structure and add 3–4 placeholder images per edition year (2023, 2024, 2025) to `/public/images/gallery/{year}/`.
 - **Acceptance criteria:** JSON file valid, images load on gallery page
@@ -330,7 +330,7 @@ Can work in parallel with `foundation` from the start.
 Infrastructure, deployment, SEO, and monitoring.
 Can start I1 in parallel with `foundation`. Other tasks run at the end.
 
-### I1 — Vercel Project & Git Setup
+### I1 — Vercel Project & Git Setup ✅
 - **Priority:** 🔴 Critical
 - **Description:** Initialize Git repo, configure Vercel project.
   - Create `.gitignore` (node_modules, .next, .env.local, etc.)

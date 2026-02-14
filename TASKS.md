@@ -235,7 +235,7 @@ Runs after `pages` has completed the core page structure.
   - Respects `prefers-reduced-motion` media query
   - Decorative elements enhance but don't distract
 
-### X2 — Mobile Optimization Pass
+### X2 — Mobile Optimization Pass ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** P1–P8
 - **Description:** Ensure every page works flawlessly on mobile.
@@ -351,7 +351,7 @@ Can start I1 in parallel with `foundation`. Other tasks run at the end.
   - `www.pablothegarden.com` redirects to apex domain
   - SSL certificate active
 
-### I3 — SEO Configuration
+### I3 — SEO Configuration ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** All P tasks
 - **Description:** Implement SEO across all pages.

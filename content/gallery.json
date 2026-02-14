@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2023,
+    "theme": "Parrot Edition",
+    "images": [
+      { "src": "/images/gallery/2023/01.svg", "alt": "Pablo The Garden 2023 - Main Stage", "order": 1 },
+      { "src": "/images/gallery/2023/02.svg", "alt": "Pablo The Garden 2023 - Crowd", "order": 2 },
+      { "src": "/images/gallery/2023/03.svg", "alt": "Pablo The Garden 2023 - DJ Set", "order": 3 },
+      { "src": "/images/gallery/2023/04.svg", "alt": "Pablo The Garden 2023 - Scenography", "order": 4 }
+    ]
+  },
+  {
+    "year": 2024,
+    "theme": "Jungle Edition",
+    "images": [
+      { "src": "/images/gallery/2024/01.svg", "alt": "Pablo The Garden 2024 - Jungle Stage", "order": 1 },
+      { "src": "/images/gallery/2024/02.svg", "alt": "Pablo The Garden 2024 - Night Crowd", "order": 2 },
+      { "src": "/images/gallery/2024/03.svg", "alt": "Pablo The Garden 2024 - Food Area", "order": 3 },
+      { "src": "/images/gallery/2024/04.svg", "alt": "Pablo The Garden 2024 - Fun Zone", "order": 4 }
+    ]
+  },
+  {
+    "year": 2025,
+    "theme": "Flower Edition",
+    "images": [
+      { "src": "/images/gallery/2025/01.svg", "alt": "Pablo The Garden 2025 - Flower Stage", "order": 1 },
+      { "src": "/images/gallery/2025/02.svg", "alt": "Pablo The Garden 2025 - Sunset Set", "order": 2 },
+      { "src": "/images/gallery/2025/03.svg", "alt": "Pablo The Garden 2025 - Garden Vibes", "order": 3 },
+      { "src": "/images/gallery/2025/04.svg", "alt": "Pablo The Garden 2025 - Closing Party", "order": 4 }
+    ]
+  }
+]

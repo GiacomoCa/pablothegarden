@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Birra Moretti",
+    "logo": "/images/sponsors/birra-moretti.svg",
+    "url": "https://www.birramoretti.it",
+    "tier": "gold"
+  },
+  {
+    "name": "Red Bull",
+    "logo": "/images/sponsors/red-bull.svg",
+    "url": "https://www.redbull.com",
+    "tier": "gold"
+  },
+  {
+    "name": "Comune di Morrovalle",
+    "logo": "/images/sponsors/comune-morrovalle.svg",
+    "url": "https://www.comune.morrovalle.mc.it",
+    "tier": "silver"
+  },
+  {
+    "name": "Radio Deejay",
+    "logo": "/images/sponsors/radio-deejay.svg",
+    "url": "https://www.deejay.it",
+    "tier": "silver"
+  },
+  {
+    "name": "Local Bar Example",
+    "logo": "/images/sponsors/local-bar.svg",
+    "url": "https://example.com",
+    "tier": "bronze"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "day": 1,
+    "artists": [
+      { "name": "Olivieri", "revealed": true },
+      { "name": "Tommy B", "revealed": true },
+      { "name": "Giulio Zega", "revealed": true },
+      { "name": "LOVRA", "revealed": true },
+      { "name": "Viviana Casanova", "revealed": false },
+      { "name": "Nicola Torresi", "revealed": true },
+      { "name": "Ercy", "revealed": true, "tag": "closing" },
+      { "name": "Carpa", "revealed": true, "tag": "hiphop", "secondStage": true },
+      { "name": "Bato", "revealed": true, "secondStage": true }
+    ]
+  },
+  {
+    "day": 2,
+    "artists": [
+      { "name": "Mutze", "revealed": true },
+      { "name": "Michele Cesaretti", "revealed": true },
+      { "name": "Elion", "revealed": true },
+      { "name": "Nicola Pigini", "revealed": false },
+      { "name": "Stephani B", "revealed": true },
+      { "name": "N4C", "revealed": true },
+      { "name": "Citano Ballemo", "revealed": true, "secondStage": true },
+      { "name": "Jacopo Galletta", "revealed": true, "tag": "hiphop", "secondStage": true }
+    ]
+  }
+]

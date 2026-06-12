@@ -87,6 +87,26 @@
     "promo_urgency": "Available Now",
     "regular_urgency": "Last Availability"
   },
+  "lineup_home": {
+    "title": "Lineup",
+    "subtitle": "Two days of music in the garden",
+    "day1": "Friday, August 15",
+    "day2": "Saturday, August 16",
+    "view_full": "See Full Lineup",
+    "coming_soon": "Coming Soon",
+    "badge_closing": "Closing",
+    "badge_hiphop": "Hip Hop",
+    "badge_second_stage": "Second Stage"
+  },
+  "tickets_home": {
+    "title": "Tickets",
+    "subtitle": "Secure your spot at the Sweet Edition",
+    "view_all": "See all tickets",
+    "buy": "Buy",
+    "sold_out": "Sold Out",
+    "coming_soon": "Coming Soon",
+    "from": "from"
+  },
   "experience": {
     "title": "The Experience",
     "subtitle": "Not just music, a complete experience",

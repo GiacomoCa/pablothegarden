@@ -39,12 +39,29 @@ export default function Hero() {
       className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden bg-gradient-to-b from-night-purple via-night-purple to-candy-pink/80 md:min-h-[calc(100vh-5rem)]"
       aria-label={t('title')}
     >
+      {/* Background cover video — autoplay, muted, looped. Skipped when the
+          user prefers reduced motion (the gradient background remains). */}
+      {!shouldReduceMotion && (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/images/hero-poster.svg"
+          aria-hidden="true"
+        >
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+      )}
+
       {/* Candy confetti particles */}
       <CandyParticles />
 
-      {/* Gradient overlay for depth */}
+      {/* Gradient overlay for depth + video legibility */}
       <div
-        className="absolute inset-0 bg-gradient-to-t from-night-purple/60 via-transparent to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-night-purple/85 via-night-purple/45 to-night-purple/40"
         aria-hidden="true"
       />
 

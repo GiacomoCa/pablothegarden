@@ -87,6 +87,26 @@
     "promo_urgency": "Disponibile Ora",
     "regular_urgency": "Ultime Disponibilità"
   },
+  "lineup_home": {
+    "title": "Lineup",
+    "subtitle": "Due giorni di musica nel giardino",
+    "day1": "Venerdì 15 Agosto",
+    "day2": "Sabato 16 Agosto",
+    "view_full": "Vedi Lineup Completo",
+    "coming_soon": "Prossimamente",
+    "badge_closing": "Chiusura",
+    "badge_hiphop": "Hip Hop",
+    "badge_second_stage": "Seconda Sala"
+  },
+  "tickets_home": {
+    "title": "Biglietti",
+    "subtitle": "Assicurati il tuo posto alla Sweet Edition",
+    "view_all": "Vai a tutti i biglietti",
+    "buy": "Acquista",
+    "sold_out": "Sold Out",
+    "coming_soon": "Prossimamente",
+    "from": "da"
+  },
   "experience": {
     "title": "L'Esperienza",
     "subtitle": "Non solo musica, un'esperienza completa",

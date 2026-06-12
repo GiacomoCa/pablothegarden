@@ -1,0 +1,52 @@
+[
+  {
+    "id": "twoday-r1",
+    "title": { "it": "Abbonamento 2 Giorni", "en": "Two-Day Pass" },
+    "release": { "it": "Prima Release", "en": "First Release" },
+    "status": "sold_out",
+    "price": 25,
+    "url": "",
+    "image": "/images/tickets/twoday.svg",
+    "row": 1
+  },
+  {
+    "id": "twoday-r2",
+    "title": { "it": "Abbonamento 2 Giorni", "en": "Two-Day Pass" },
+    "release": { "it": "Seconda Release", "en": "Second Release" },
+    "status": "sold_out",
+    "price": 30,
+    "url": "",
+    "image": "/images/tickets/twoday.svg",
+    "row": 1
+  },
+  {
+    "id": "fullpass-r3",
+    "title": { "it": "Abbonamento 2 Giorni", "en": "Full Pass 2 Days" },
+    "release": { "it": "Terza Release", "en": "Third Release" },
+    "status": "available",
+    "price": 35,
+    "url": "https://www.clappit.com/biglietti/pablo-regular-fullpass",
+    "image": "/images/tickets/fullpass.svg",
+    "row": 2
+  },
+  {
+    "id": "day1",
+    "title": { "it": "Biglietto Venerdì 15", "en": "Friday 15 Ticket" },
+    "release": { "it": "Giorno Singolo", "en": "Single Day" },
+    "status": "available",
+    "price": 22,
+    "url": "https://www.clappit.com/biglietti/pablo-regular-day1",
+    "image": "/images/tickets/day1.svg",
+    "row": 2
+  },
+  {
+    "id": "day2",
+    "title": { "it": "Biglietto Sabato 16", "en": "Saturday 16 Ticket" },
+    "release": { "it": "Giorno Singolo", "en": "Single Day" },
+    "status": "available",
+    "price": 22,
+    "url": "https://www.clappit.com/biglietti/pablo-regular-day2",
+    "image": "/images/tickets/day2.svg",
+    "row": 2
+  }
+]

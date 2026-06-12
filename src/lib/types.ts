@@ -144,3 +144,40 @@ export interface SweetWorldContent {
   images: string[];
   body: string;
 }
+
+/**
+ * A single artist within a day-grouped lineup (homepage lineup section)
+ */
+export interface LineupDayArtist {
+  name: string;
+  revealed: boolean;
+  /** Special role tag: closing set or hip-hop set */
+  tag?: 'closing' | 'hiphop';
+  /** Plays on the second stage ("Seconda Sala") */
+  secondStage?: boolean;
+  /** Optional artist photo path (placeholder until provided) */
+  photo?: string;
+}
+
+/**
+ * Lineup grouped by festival day (1 = Aug 15, 2 = Aug 16)
+ */
+export interface LineupDayGroup {
+  day: 1 | 2;
+  artists: LineupDayArtist[];
+}
+
+/**
+ * A purchase card shown in the homepage tickets section (5 cards over 2 rows)
+ */
+export interface HomeTicket {
+  id: string;
+  title: { it: string; en: string };
+  release: { it: string; en: string };
+  status: 'available' | 'sold_out' | 'coming_soon';
+  price?: number | null;
+  url?: string;
+  image?: string;
+  /** Layout row: 1 (top, the two-day passes) or 2 (bottom, third release) */
+  row: 1 | 2;
+}

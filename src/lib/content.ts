@@ -11,6 +11,8 @@ import type {
   GalleryEdition,
   FestivalStat,
   SweetWorldContent,
+  LineupDayGroup,
+  HomeTicket,
 } from './types';
 
 // =============================================================================
@@ -329,4 +331,30 @@ export function getSweetWorld(locale: string): SweetWorldContent | null {
     images: (data.images as string[]) ?? [],
     body: content.trim(),
   };
+}
+
+// =============================================================================
+// Lineup by day (homepage lineup section)
+// =============================================================================
+
+/**
+ * Read the festival lineup grouped by day for the homepage section.
+ * Returns an empty array if the file doesn't exist yet.
+ */
+export function getLineupByDay(): LineupDayGroup[] {
+  const filePath = path.join(contentDir, 'lineup', 'festival-2026.json');
+  return readJsonFile<LineupDayGroup[]>(filePath) ?? [];
+}
+
+// =============================================================================
+// Homepage tickets section
+// =============================================================================
+
+/**
+ * Read the homepage tickets cards (5 cards across 2 rows).
+ * Returns an empty array if the file doesn't exist yet.
+ */
+export function getHomeTickets(): HomeTicket[] {
+  const filePath = path.join(contentDir, 'tickets-home.json');
+  return readJsonFile<HomeTicket[]>(filePath) ?? [];
 }

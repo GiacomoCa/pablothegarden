@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
-  getLineupConfig,
-  getLineup,
   getSponsors,
   getStats,
   getSweetWorld,
+  getLineupByDay,
+  getHomeTickets,
 } from '@/lib/content';
 import { routing } from '@/i18n/routing';
 import Hero from '@/components/home/Hero';
 import BrandTagline from '@/components/home/BrandTagline';
 import Countdown from '@/components/home/Countdown';
 import SweetWorldSection from '@/components/home/SweetWorldSection';
-import LineupPreview from '@/components/home/LineupPreview';
+import LineupSection from '@/components/home/LineupSection';
+import TicketsSection from '@/components/home/TicketsSection';
 import ExperienceCards from '@/components/home/ExperienceCards';
 import EditionTimeline from '@/components/home/EditionTimeline';
 import StatsCounter from '@/components/home/StatsCounter';
@@ -60,11 +61,11 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   // Load all content at build time
-  const lineupConfig = getLineupConfig();
-  const artists = getLineup();
   const sponsors = getSponsors();
   const stats = getStats();
   const sweetWorld = getSweetWorld(locale);
+  const lineupDays = getLineupByDay();
+  const homeTickets = getHomeTickets();
 
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -113,7 +114,10 @@ export default async function HomePage({ params }: Props) {
         </ScrollReveal>
       )}
       <ScrollReveal delay={0.1}>
-        <LineupPreview config={lineupConfig} artists={artists} />
+        <LineupSection days={lineupDays} />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <TicketsSection tickets={homeTickets} />
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <ExperienceCards />

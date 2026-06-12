@@ -41,7 +41,7 @@ export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAPro
           target="_blank"
           rel="noopener noreferrer"
           aria-label={tFooter('instagram')}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-candy-pink text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:scale-105 active:scale-95"
+          className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-candy-pink text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:scale-105 active:scale-95"
         >
           <svg
             viewBox="0 0 24 24"
@@ -74,9 +74,9 @@ export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAPro
             }
           `}
         >
-          {/* Pulse ring for available state */}
+          {/* Pulse ring for available state (decorative, must not catch clicks) */}
           {!allSoldOut && (
-            <span className="absolute inset-0 animate-ping rounded-pill bg-candy-pink/30" />
+            <span className="pointer-events-none absolute inset-0 animate-ping rounded-pill bg-candy-pink/30" />
           )}
 
           {/* Ticket icon */}

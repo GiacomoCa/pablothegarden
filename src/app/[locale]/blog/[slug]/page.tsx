@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `/${locale}/blog/${slug}`,
       siteName: 'Pablo The Garden',
+      images: ['/og-image.jpg'],
       type: 'article',
       locale: locale === 'it' ? 'it_IT' : 'en_US',
       publishedTime: post.date,

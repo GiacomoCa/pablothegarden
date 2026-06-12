@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `/${locale}/lineup`,
       siteName: 'Pablo The Garden',
+      images: ['/og-image.jpg'],
       type: 'website',
       locale: locale === 'it' ? 'it_IT' : 'en_US',
     },

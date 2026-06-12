@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `/${locale}/tickets`,
       siteName: 'Pablo The Garden',
+      images: ['/og-image.jpg'],
       type: 'website',
       locale: locale === 'it' ? 'it_IT' : 'en_US',
     },
@@ -58,8 +59,31 @@ export default async function TicketsPage({ params }: Props) {
 
   const t = await getTranslations({ locale, namespace: 'tickets' });
 
+  // FAQPage structured data — eligible for rich results and AI answers
+  const faqJsonLd =
+    faqItems.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqItems.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
       {/* Page header */}
       <div className="mb-12 text-center sm:mb-16">
         <h1 className="font-display text-4xl font-bold text-candy-pink sm:text-5xl">

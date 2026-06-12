@@ -17,15 +17,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const currentDate = new Date();
 
-  // Static pages for both locales
-  const staticEntries = locales.flatMap((locale) =>
-    staticPages.map((page) => ({
+  // Static pages for both locales, each declaring its hreflang alternates
+  const staticEntries = staticPages.flatMap((page) => {
+    const languages = {
+      it: `${baseUrl}/it${page}`,
+      en: `${baseUrl}/en${page}`,
+    };
+    return locales.map((locale) => ({
       url: `${baseUrl}/${locale}${page}`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: page === '' ? 1 : page === '/lineup' || page === '/tickets' ? 0.9 : 0.8,
-    }))
-  );
+      alternates: { languages },
+    }));
+  });
 
   // Blog posts for both locales
   const blogEntries = locales.flatMap((locale) => {

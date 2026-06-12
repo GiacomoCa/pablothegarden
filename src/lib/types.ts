@@ -121,3 +121,26 @@ export interface GalleryEdition {
   theme: string;
   images: GalleryImage[];
 }
+
+/**
+ * A single animated festival statistic (e.g. "15.000+ Attendees")
+ */
+export interface FestivalStat {
+  value: number;
+  label_it: string;
+  label_en: string;
+  prefix?: string;
+  suffix?: string;
+}
+
+/**
+ * "Sweet World" homepage section content, parsed from markdown frontmatter + body
+ */
+export interface SweetWorldContent {
+  heading: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaUrl: string;
+  images: string[];
+  body: string;
+}

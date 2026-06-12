@@ -1,12 +1,21 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getLineupConfig, getLineup, getSponsors } from '@/lib/content';
+import {
+  getLineupConfig,
+  getLineup,
+  getSponsors,
+  getStats,
+  getSweetWorld,
+} from '@/lib/content';
 import { routing } from '@/i18n/routing';
 import Hero from '@/components/home/Hero';
+import BrandTagline from '@/components/home/BrandTagline';
 import Countdown from '@/components/home/Countdown';
+import SweetWorldSection from '@/components/home/SweetWorldSection';
 import LineupPreview from '@/components/home/LineupPreview';
 import ExperienceCards from '@/components/home/ExperienceCards';
 import EditionTimeline from '@/components/home/EditionTimeline';
+import StatsCounter from '@/components/home/StatsCounter';
 import SponsorsBar from '@/components/home/SponsorsBar';
 import InstagramFeed from '@/components/home/InstagramFeed';
 import ScrollReveal from '@/components/shared/ScrollReveal';
@@ -54,6 +63,8 @@ export default async function HomePage({ params }: Props) {
   const lineupConfig = getLineupConfig();
   const artists = getLineup();
   const sponsors = getSponsors();
+  const stats = getStats();
+  const sweetWorld = getSweetWorld(locale);
 
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -92,9 +103,15 @@ export default async function HomePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
+      <BrandTagline />
       <ScrollReveal>
         <Countdown />
       </ScrollReveal>
+      {sweetWorld && (
+        <ScrollReveal delay={0.1}>
+          <SweetWorldSection content={sweetWorld} />
+        </ScrollReveal>
+      )}
       <ScrollReveal delay={0.1}>
         <LineupPreview config={lineupConfig} artists={artists} />
       </ScrollReveal>
@@ -103,6 +120,9 @@ export default async function HomePage({ params }: Props) {
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <EditionTimeline />
+      </ScrollReveal>
+      <ScrollReveal delay={0.1}>
+        <StatsCounter stats={stats} />
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <SponsorsBar sponsors={sponsors} />

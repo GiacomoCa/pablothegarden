@@ -9,6 +9,8 @@ import type {
   BlogPost,
   FAQ,
   GalleryEdition,
+  FestivalStat,
+  SweetWorldContent,
 } from './types';
 
 // =============================================================================
@@ -287,4 +289,44 @@ export function getFaq(locale: string): FAQ[] {
 export function getGallery(): GalleryEdition[] {
   const filePath = path.join(contentDir, 'gallery.json');
   return readJsonFile<GalleryEdition[]>(filePath) ?? [];
+}
+
+// =============================================================================
+// Festival Stats
+// =============================================================================
+
+/**
+ * Read the animated festival statistics.
+ * Returns an empty array if the file doesn't exist yet.
+ */
+export function getStats(): FestivalStat[] {
+  const filePath = path.join(contentDir, 'stats.json');
+  return readJsonFile<FestivalStat[]>(filePath) ?? [];
+}
+
+// =============================================================================
+// Sweet World
+// =============================================================================
+
+/**
+ * Read the "Sweet World" homepage section content for the given locale.
+ * Frontmatter provides heading/subtitle/CTA/images, the body holds the narrative.
+ * Returns `null` if the file doesn't exist yet.
+ */
+export function getSweetWorld(locale: string): SweetWorldContent | null {
+  const filePath = path.join(contentDir, 'sweetworld', `${locale}.md`);
+  const raw = readTextFile(filePath);
+
+  if (!raw) return null;
+
+  const { data, content } = matter(raw);
+
+  return {
+    heading: (data.heading as string) ?? '',
+    subtitle: (data.subtitle as string) ?? '',
+    ctaLabel: (data.ctaLabel as string) ?? '',
+    ctaUrl: (data.ctaUrl as string) ?? '',
+    images: (data.images as string[]) ?? [],
+    body: content.trim(),
+  };
 }

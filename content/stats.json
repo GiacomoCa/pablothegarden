@@ -1,0 +1,6 @@
+[
+  { "value": 4, "label_it": "Edizioni", "label_en": "Editions" },
+  { "value": 1, "label_it": "Giardino", "label_en": "Garden" },
+  { "value": 15000, "label_it": "Presenze", "label_en": "Attendees", "suffix": "+" },
+  { "value": 1, "label_it": "Estate Marchigiana", "label_en": "Marche Summer" }
+]

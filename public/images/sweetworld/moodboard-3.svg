@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#FFB347"/>
+  <circle cx="220" cy="200" r="85" fill="#FF6B9D"/>
+  <circle cx="600" cy="420" r="95" fill="#87CEEB"/>
+  <text x="400" y="300" text-anchor="middle" font-family="sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Sweet Edition</text>
+  <text x="400" y="345" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#ffffff">Moodboard 3 — Lollipop Garden</text>
+</svg>

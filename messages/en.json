@@ -27,6 +27,13 @@
     "seconds": "Seconds",
     "expired": "The festival has started!"
   },
+  "brandTagline": {
+    "text": "One night. One garden. Another world."
+  },
+  "statsSection": {
+    "title": "Pablo in Numbers",
+    "subtitle": "A sweet story that grows every summer"
+  },
   "lineup": {
     "title": "Lineup",
     "subtitle": "Sweet Edition 2026",

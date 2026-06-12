@@ -6,7 +6,7 @@
     "status": "sold_out",
     "price": 25,
     "url": "",
-    "image": "/images/tickets/twoday.svg",
+    "image": "/images/tickets/card.png",
     "row": 1
   },
   {
@@ -16,7 +16,7 @@
     "status": "sold_out",
     "price": 30,
     "url": "",
-    "image": "/images/tickets/twoday.svg",
+    "image": "/images/tickets/card.png",
     "row": 1
   },
   {
@@ -26,7 +26,7 @@
     "status": "available",
     "price": 35,
     "url": "https://www.clappit.com/biglietti/abbonamento-2-giorni-pablo-the-garden-15-agosto-2026-pablo-the-garden-morrovalle-38591.html",
-    "image": "/images/tickets/fullpass.svg",
+    "image": "/images/tickets/card.png",
     "row": 2
   },
   {
@@ -36,7 +36,7 @@
     "status": "available",
     "price": 22,
     "url": "https://www.clappit.com/biglietti/pablo-regular-day1",
-    "image": "/images/tickets/day1.svg",
+    "image": "/images/tickets/card.png",
     "row": 2
   },
   {
@@ -46,7 +46,7 @@
     "status": "available",
     "price": 22,
     "url": "https://www.clappit.com/biglietti/pablo-regular-day2",
-    "image": "/images/tickets/day2.svg",
+    "image": "/images/tickets/card.png",
     "row": 2
   }
 ]

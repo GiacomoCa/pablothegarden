@@ -2,6 +2,7 @@
 
 > **Project:** pablothegarden.com — Sweet Edition 2026
 > **Design Doc:** `docs/DESIGN.md`
+> **Benchmark Reference:** `docs/BENCHMARK.md`
 > **Status:** Each task should be marked ✅ when complete
 
 ---
@@ -24,7 +25,7 @@ All other agents depend on this agent completing first.
 ### F2 — Design System & Theme ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1
-- **Description:** Implement the "Sweet Edition" candy theme in Tailwind config. Define CSS variables, color palette, typography with self-hosted fonts (Fredoka One or Baloo 2 for display, DM Sans or Nunito for body via `next/font`). Create global styles in `globals.css`.
+- **Description:** Implement the "Sweet Edition" candy theme in Tailwind config. Define CSS variables, color palette, typography with self-hosted fonts (Fredoka One o Baloo 2 per il display, DM Sans o Nunito per il body via `next/font`). Create global styles in `globals.css`.
 - **Color palette:**
   - Primary: `#FF6B9D` (Candy Pink), Primary Dark: `#E8457A`
   - Secondary: `#FFB347` (Orange Cream)
@@ -42,11 +43,11 @@ All other agents depend on this agent completing first.
 - **Dependencies:** F2
 - **Description:** Build the persistent layout shell used by every page.
 - **Components to build:**
-  - `Header.tsx` — Logo, primary nav (Lineup · Tickets · Gallery · Blog · About), language switcher, mobile hamburger menu with slide-out drawer
-  - `Footer.tsx` — Logo, secondary nav (Rules · Contact · Privacy Policy), social links (Instagram, Facebook), language switcher, copyright
+  - `Header.tsx` — Logo, primary nav (Lineup · Tickets · Gallery · About), language switcher, mobile hamburger menu con slide-out drawer. **Nav massimo 4 voci** (lesson da benchmark: nav ultra-minimale)
+  - `Footer.tsx` — Logo, secondary nav (Rules · Contact · Privacy Policy), social links (Instagram first, Facebook), language switcher, copyright
   - `Navigation.tsx` — Shared nav link list, active state highlighting
   - `LanguageSwitcher.tsx` — IT/EN toggle, uses `next-intl` locale routing
-  - `FloatingTicketCTA.tsx` — Sticky "Acquista Biglietti" / "Get Tickets" button. On click: opens `TicketSelectorModal` (a bottom drawer on mobile, centered modal on desktop) showing 3 buttons for the current active release (Full Pass / Day 1 / Day 2), each linking to the corresponding Clappit URL. Reads from `/content/tickets.json`. If all tickets sold out, shows disabled "Sold Out" state.
+  - `FloatingTicketCTA.tsx` — Sticky "Acquista Biglietti" / "Get Tickets" button. On click: opens `TicketSelectorModal` (bottom drawer on mobile, centered modal on desktop) showing 3 buttons for the current active release (Full Pass / Day 1 / Day 2), each linking to the corresponding Clappit URL. Reads from `/content/tickets.json`. If all tickets sold out, shows disabled "Sold Out" state.
 - **Acceptance criteria:**
   - Header responsive: horizontal nav on desktop, hamburger on mobile
   - Language switch navigates between `/it/...` and `/en/...` preserving the current path
@@ -58,9 +59,9 @@ All other agents depend on this agent completing first.
 - **Dependencies:** F1
 - **Description:** Build TypeScript utilities to read and parse Markdown/MDX/JSON content files at build time.
 - **Files to create:**
-  - `src/lib/content.ts` — Functions: `getLineup()`, `getLineupConfig()`, `getBlogPosts(locale)`, `getBlogPost(slug, locale)`, `getSponsors()`, `getTickets()`, `getRules(locale)`, `getAbout(locale)`, `getFaq(locale)`
-  - `src/lib/types.ts` — TypeScript interfaces for Artist, BlogPost, Sponsor, TicketRelease, TicketConfig, FAQ, LineupConfig, etc.
-  - `src/lib/utils.ts` — Date formatting, locale helpers, "NEW" badge calculator (based on `revealDate` + `newBadgeDays`)
+  - `src/lib/content.ts` — Functions: `getLineup()`, `getLineupConfig()`, `getBlogPosts(locale)`, `getBlogPost(slug, locale)`, `getSponsors()`, `getTickets()`, `getRules(locale)`, `getAbout(locale)`, `getFaq(locale)`, `getStats()`
+  - `src/lib/types.ts` — TypeScript interfaces per Artist, BlogPost, Sponsor, TicketRelease, TicketConfig, FAQ, LineupConfig, FestivalStats, etc.
+  - `src/lib/utils.ts` — Date formatting, locale helpers, "NEW" badge calculator (based on `revealDate` + `newBadgeDays`), animated counter utilities
 - **Acceptance criteria:**
   - All content functions return typed data from the `/content/` directory
   - MDX files compile correctly with frontmatter extraction
@@ -71,7 +72,7 @@ All other agents depend on this agent completing first.
 - **Dependencies:** F1
 - **Description:** Configure `next-intl` for Italian (default) and English. Set up locale routing, translation file structure, and middleware.
 - **Files:**
-  - `messages/it.json` — All Italian UI strings (nav labels, button text, section headings, form labels, error messages, CTA text, etc.)
+  - `messages/it.json` — All Italian UI strings (nav labels, button text, section headings, form labels, error messages, CTA text, **brand tagline**, section "Sweet World", sezione stats, etc.)
   - `messages/en.json` — English translations of the above
   - `src/middleware.ts` — Locale detection, default locale redirect
   - `src/i18n.ts` — next-intl configuration
@@ -89,19 +90,65 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 ### P1 — Homepage ✅
 - **Priority:** 🔴 Critical
 - **Dependencies:** F1–F5
-- **Description:** Build the full homepage composed of these sections (top to bottom):
-  1. **Hero** — Full-screen candy-themed background (image or gradient + particles), festival logo, dates "15–16 Agosto 2026", location "Morrovalle (MC)", primary CTA (opens TicketSelectorModal), secondary CTA "Scopri il Lineup". Animated candy confetti particles using Framer Motion.
-  2. **Countdown** — Days/Hours/Minutes/Seconds to Aug 15, 2026 18:00 CEST. Candy-styled number cards with flip animation.
-  3. **Lineup Preview** — Phase-aware: if `coming_soon` → teaser banner with mystery silhouettes + Instagram CTA; if `revealing` → latest revealed artists with "NEW" badge + mystery slots; if `complete` → top 6 headliners. "Vedi Lineup Completo →" link.
-  4. **Experience Cards** — 3–4 cards: Music · Food & Drink · Fun Zone · Scenography. Short text + icons/illustrations.
-  5. **Edition Timeline** — Horizontal scroll strip: 2023 (Parrot) → 2024 (Jungle) → 2025 (Flowers) → 2026 (Sweet). Each with a key visual.
-  6. **Sponsors Bar** — Logo grid from `sponsors.json`, each linked. "Diventa Partner →" CTA.
-  7. **Instagram Section** — Styled link block to @pablo_thegarden or curated photo grid.
-- **Components:** `Hero.tsx`, `Countdown.tsx`, `LineupPreview.tsx`, `ExperienceCards.tsx`, `EditionTimeline.tsx`, `SponsorsBar.tsx`, `InstagramFeed.tsx`
+- **Description:** Build the full homepage. Struttura sezioni dall'alto al basso:
+
+  **1. Hero (video full-screen)**
+  Il benchmark (elrow, Awakenings, Sonus) conferma: l'hero è sempre un **video in autoplay muto**, mai un'immagine statica. Il video mostra la folla, le luci, le scenografie delle edizioni passate. Sopra il video: logo festival, **brand tagline** (vedi sotto), date "15–16 Agosto 2026", location "Morrovalle (MC)", CTA primaria (apre TicketSelectorModal), CTA secondaria "Scopri il Lineup". Confetti candy animati via Framer Motion.
+  - **Componente:** `Hero.tsx`
+  - **Nota video:** Se non disponibile, fallback su gradient + foto HD. Il video va preparato dal team con le clip delle edizioni 2023–2025.
+
+  **2. Brand Tagline Block** *(nuovo — da benchmark)*
+  Sezione dedicata al claim del brand, **prima del countdown**. Ispirata a elrow ("The kind of craziness this world needs") e Sonus ("Your ultimate Festival Vacation"). Una singola frase memorabile che posiziona Pablo The Garden come identità, non come evento.
+  - **Testo suggerito:** *"Una notte. Un giardino. Un altro mondo."* (da confermare con il team)
+  - **Visual:** Typography grande, centrata, sfondo dark, animazione fade-in su scroll
+  - **Componente:** `BrandTagline.tsx`
+
+  **3. Countdown**
+  Days/Hours/Minutes/Seconds to Aug 15, 2026 18:00 CEST. Candy-styled number cards with flip animation.
+  - **Componente:** `Countdown.tsx`
+
+  **4. Sweet World Section** *(nuovo — da benchmark)*
+  Sezione dedicata al mondo visivo della Sweet Edition. Ispirata al pattern di elrow che tratta ogni "tema" come un prodotto a sé con una pagina dedicata. Qui si racconta l'universo candy: colori, scenografie, atmosfera attesa.
+  - **Contenuto:** Heading "Entra nella Sweet Edition", sottotitolo descrittivo (da `content/sweetworld/it.md`), 3–4 immagini teaser delle scenografie candy (anticipazioni o moodboard), piccolo testo narrativo
+  - **Visual:** Sfondo con pattern caramelle/sprinkles, colori accesi (candy pink + orange), illustrazioni o foto mockup
+  - **Componente:** `SweetWorldSection.tsx`
+  - **Content source:** `/content/sweetworld/{locale}.md`
+
+  **5. Lineup Preview**
+  Phase-aware: if `coming_soon` → teaser banner + Instagram CTA; if `revealing` → ultimi artisti rivelati con badge "NEW" + mystery slots; if `complete` → top 6 headliners. "Vedi Lineup Completo →" link.
+  - **Componente:** `LineupPreview.tsx`
+
+  **6. Experience Cards**
+  3–4 cards: Music · Food & Drink · Fun Zone · Scenography. Short text + icons/illustrations.
+  - **Componente:** `ExperienceCards.tsx`
+
+  **7. Edition Timeline**
+  Horizontal scroll strip: 2023 (Parrot) → 2024 (Jungle) → 2025 (Flowers) → 2026 (Sweet). Each with key visual.
+  - **Componente:** `EditionTimeline.tsx`
+
+  **8. Pablo Stats Counter** *(nuovo — da benchmark)*
+  Sezione con counter animati. Ispirata a "Planet Elrow" (680 shows · 3.8M attendees · 48 countries) ma scalata alla dimensione di Pablo. I numeri raccontano una storia di crescita e di radici locali.
+  - **Stats suggerite:** `4 Edizioni` · `1 Giardino` · `15.000+ Presenze` · `1 Estate Marchigiana`
+  - **Visual:** Counter che si animano quando entrano nel viewport (Intersection Observer + Framer Motion), sfondo dark candy, numeri grandi e colorati
+  - **Componente:** `StatsCounter.tsx`
+  - **Data source:** `/content/stats.json`
+
+  **9. Sponsors Bar**
+  Logo grid from `sponsors.json`, each linked. "Diventa Partner →" CTA.
+  - **Componente:** `SponsorsBar.tsx`
+
+  **10. Instagram Section**
+  Styled link block to @pablo_thegarden o curated photo grid.
+  - **Componente:** `InstagramFeed.tsx`
+
 - **Acceptance criteria:**
-  - All 7 sections render correctly and are responsive
-  - Countdown timer updates in real-time client-side
-  - Lineup preview adapts to the phase set in `config.json`
+  - Tutte le 10 sezioni renderizzano correttamente e sono responsive
+  - L'hero usa video se disponibile, fallback su immagine
+  - Il brand tagline è visibile e animato correttamente
+  - La Sweet World section mostra il contenuto da file markdown
+  - Il countdown aggiorna in real-time client-side
+  - Il lineup preview si adatta alla fase in `config.json`
+  - I counter si animano quando entrano nel viewport
   - Scroll animations (Framer Motion) on section entry
 
 ### P2 — Lineup Page ✅
@@ -113,8 +160,8 @@ Builds all individual page components. Depends on `foundation` completing F1–F
   - `coming_soon`: Full-width teaser graphic, grid of mystery cards (candy-wrapped silhouette with shimmer animation), "Lineup in Arrivo" heading, Instagram CTA
   - `revealing`: Mix of revealed ArtistCards + MysteryCards. Revealed cards show photo, name, genre. Recently revealed artists (within `newBadgeDays`) get animated "NEW" / "Appena Annunciato" badge. Mystery cards show "Chi sarà?" with pulse animation.
   - `complete`: Standard grid with day filter tabs (Venerdì 15 / Sabato 16 / Tutti). Artist cards expandable to show bio + social links.
-- **MysteryCard design:** Candy-wrapper shape or rounded card with "?" icon, sprinkle texture, subtle shimmer CSS animation.
-- **ArtistCard design:** Square photo, name overlay, genre tag pill, time slot. On click: expand inline or modal with bio + social links (Instagram, Spotify, Soundcloud).
+- **MysteryCard design:** Candy-wrapper shape o rounded card con "?" icon, sprinkle texture, subtle shimmer CSS animation.
+- **ArtistCard design:** Square photo, name overlay, genre tag pill, time slot. On click: expand inline o modal with bio + social links (Instagram, Spotify, Soundcloud).
 - **Acceptance criteria:**
   - All 3 phases render correctly based on `config.json`
   - Day filter works in `complete` phase
@@ -129,11 +176,11 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Components:** `ReleaseBanner.tsx`, `ReleaseSection.tsx`, `TicketCard.tsx`, `ReleaseComparison.tsx`, `TicketSelectorModal.tsx`, `FAQ.tsx`
 - **Sections:**
   1. **Release Banner** — Current active release badge + progress bar: `Early Bird (Sold Out) → Promo (Active) → Regular (Coming Soon)`
-  2. **Active Release Cards** — 3 cards: Full Pass / Day 1 (Fri 15) / Day 2 (Sat 16). Each shows: label, price, included items, status badge, CTA → Clappit URL. Visual states: Available (vibrant + pulse CTA), Sold Out (greyed + stamp), Coming Soon (blurred price + teaser).
-  3. **Release Comparison Table** — Matrix: rows = ticket types, columns = Early Bird / Promo / Regular. Sold-out prices shown with strikethrough (FOMO effect).
+  2. **Active Release Cards** — 3 cards: Full Pass / Day 1 (Fri 15) / Day 2 (Sat 16). Visual states: Available (vibrant + pulse CTA), Sold Out (greyed + stamp), Coming Soon (blurred price + teaser).
+  3. **Release Comparison Table** — Matrix con prezzi barrati sulle release esaurite (FOMO effect).
   4. **Practical Info** — Drink card explanation, age restrictions, wristband info.
   5. **FAQ Accordion** — Expandable Q&A items.
-- **TicketSelectorModal** — Reusable modal/drawer triggered by the floating CTA on any page. Shows 3 buttons for current release. Smart: if all sold out, shows "Sold Out" message.
+- **TicketSelectorModal** — Reusable modal/drawer triggered by the floating CTA on any page.
 - **Data source:** `/content/tickets.json` (9 SKUs: 3 releases × 3 types)
 - **Acceptance criteria:**
   - Release progress bar reflects correct statuses
@@ -150,8 +197,8 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Components:** `GalleryGrid.tsx`, `Lightbox.tsx`
 - **Layout:**
   - Edition filter tabs: 2023 (Parrot) / 2024 (Jungle) / 2025 (Flowers)
-  - Masonry or CSS grid of curated photos (10–15 per edition)
-  - Click to open in lightbox with prev/next navigation
+  - Masonry o CSS grid (10–15 foto per edizione)
+  - Click to open in lightbox con prev/next navigation
   - "Segui su Instagram →" prominent CTA
 - **Images:** Served from `/public/images/gallery/{year}/`, metadata in `/content/gallery.json`
 - **Acceptance criteria:**
@@ -164,14 +211,11 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Priority:** 🟡 Medium
 - **Dependencies:** F4, F5
 - **Description:** Blog list page + individual post page.
-- **List page (`/blog`):** Reverse-chronological grid of post cards. Each card: featured image, title, date, excerpt. Pagination or "load more".
-- **Post page (`/blog/[slug]`):** Full MDX rendering, featured image, share buttons (Instagram, WhatsApp, copy link), "Back to all posts" link.
-- **Components:** `PostList.tsx`, `PostCard.tsx`
 - **Content source:** `/content/blog/{locale}/YYYY-MM-DD-slug.mdx`
 - **Acceptance criteria:**
   - Blog list shows posts for current locale only
-  - MDX renders custom components (if any), images, links
-  - Share buttons work
+  - MDX renders custom components, images, links
+  - Share buttons work (Instagram, WhatsApp, copy link)
   - `generateStaticParams` generates all post routes at build time
 
 ### P6 — About Page ✅
@@ -179,61 +223,48 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Dependencies:** F4
 - **Description:** Festival history and team story.
 - **Sections:**
-  1. **The Story** — Origin narrative, "Pablo" the parrot mascot origin
-  2. **Edition Timeline** — Interactive/visual: 2023 (Parrot) → 2024 (Jungle) → 2025 (Flowers) → 2026 (Sweet). Each entry: key visual, description, stats. Animated on scroll with Framer Motion.
-  3. **The Team** — Group or individual photos with short descriptions
-  4. **Mission** — What the festival stands for
+  1. **The Story** — Origine del festival, nascita del personaggio Pablo il pappagallo
+  2. **Edition Timeline** — Interactive: 2023 (Parrot) → 2024 (Jungle) → 2025 (Flowers) → 2026 (Sweet). Ogni entry: key visual, descrizione, stats. Animated on scroll.
+  3. **The Team** — Foto e descrizioni
+  4. **Mission** — Cosa rappresenta il festival
 - **Content source:** `/content/about/{locale}.md`
-- **Acceptance criteria:**
-  - Timeline animates on scroll
-  - Responsive layout
-  - Content renders from markdown per locale
 
 ### P7 — Rules Page ✅
 - **Priority:** 🟢 Low
 - **Dependencies:** F4
-- **Description:** Entry rules and behavioral guidelines rendered from markdown.
-- **Content:** Entry requirements, prohibited items, behavior policy, safety info, sustainability.
 - **Content source:** `/content/rules/{locale}.md`
-- **Acceptance criteria:**
-  - Clean, readable prose rendering
-  - Responsive, uses the design system typography
 
 ### P8 — Contact Page ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** F3
-- **Description:** Partner/sponsor inquiry form + contact info.
 - **Sections:**
-  1. **Contact Form** — Fields: Name, Email, Company, Type (Sponsor / Media / Vendor / Other), Message. Handled by Formspree (free tier) or Web3Forms. Client-side validation. Success/error feedback states.
-  2. **Direct Contact** — Email, Instagram DM link, location map (static image or embedded)
+  1. **Contact Form** — Fields: Name, Email, Company, Type (Sponsor / Media / Vendor / Other), Message. Handled by Formspree.
+  2. **Direct Contact** — Email, Instagram DM link, location map
   3. **Sponsor CTA** — "Diventa Partner" messaging
-- **Components:** `ContactForm.tsx`
-- **Acceptance criteria:**
-  - Form submits successfully to external service
-  - Validation on required fields, email format
-  - Success and error states display correctly
-  - No backend required
 
 ---
 
 ## Agent: `polish`
 
 Animations, sweet-themed visual effects, mobile optimization, and final UX refinements.
-Runs after `pages` has completed the core page structure.
 
 ### X1 — Sweet Theme Animations & Effects ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** P1–P3
 - **Description:** Add candy-themed visual polish across the site.
-  - Hero: animated candy/confetti particles (Framer Motion or CSS)
-  - Scroll-triggered section reveals (fade up, stagger)
-  - Page transitions (subtle fade/slide between routes)
-  - Hover effects on cards (slight lift, glow)
-  - Candy-themed decorative elements: lollipop dividers, sprinkle patterns as section backgrounds, rounded blob shapes
+  - Hero: **video background** con overlay gradient (priorità assoluta — da benchmark tutti i festival top usano video autoplay muto come hero)
+  - Candy/confetti particles overlay sull'hero se non c'è video
+  - Scroll-triggered section reveals (fade up, stagger) — entry in viewport con Framer Motion
+  - Animazione dei counter in `StatsCounter.tsx` (count-up su Intersection Observer)
+  - Animated candy "unwrapping" transition per la Sweet World section
+  - Page transitions (subtle fade/slide tra routes)
+  - Hover effects on cards (slight lift, candy pink glow)
+  - Candy decorative elements: lollipop dividers, sprinkle patterns come section backgrounds, blob shapes
 - **Acceptance criteria:**
-  - Animations are smooth (60fps), don't cause layout shift
-  - Respects `prefers-reduced-motion` media query
-  - Decorative elements enhance but don't distract
+  - Hero video plays automatically, muted, looped, no controls visible
+  - Tutti gli altri punti da lista sopra ✅
+  - Animations smooth (60fps), no layout shift
+  - Rispetta `prefers-reduced-motion` media query
 
 ### X2 — Mobile Optimization Pass ✅
 - **Priority:** 🔴 Critical
@@ -242,9 +273,9 @@ Runs after `pages` has completed the core page structure.
   - Touch-friendly tap targets (min 44px)
   - Hamburger menu smooth open/close
   - Horizontal scrolling carousels work with swipe
-  - Floating CTA doesn't overlap critical content
+  - Floating CTA non copre contenuto critico
   - Images appropriately sized per viewport
-  - No horizontal overflow on any page
+  - No horizontal overflow su nessuna pagina
 - **Acceptance criteria:**
   - All pages pass manual review on iPhone SE, iPhone 14, Android mid-range viewport sizes
   - No horizontal scroll, no overlapping elements
@@ -260,7 +291,8 @@ Can work in parallel with `foundation` from the start.
 ### C1 — Italian UI Strings ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create `/messages/it.json` with all Italian UI text.
-  - Nav labels, button text, section headings, form labels, form validation messages, error messages, CTA text, footer text, meta descriptions, 404 page text, accessibility labels (aria-labels), etc.
+  - Nav labels, button text, section headings, form labels, form validation messages, error messages, CTA text, footer text, meta descriptions, 404 page text, accessibility labels (aria-labels)
+  - **Aggiungere:** chiave `brandTagline` ("Una notte. Un giardino. Un altro mondo." — da confermare con il team), chiavi per `sweetWorldSection` (heading, sottotitolo, CTA), chiavi per `statsSection` (label di ciascun counter)
 - **Acceptance criteria:** Every user-visible string in the UI has a corresponding key in `it.json`
 
 ### C2 — English UI Strings ✅
@@ -273,134 +305,90 @@ Can work in parallel with `foundation` from the start.
 - **Priority:** 🟡 Medium
 - **Description:** Write `/content/about/it.md` and `/content/about/en.md`.
   - Festival origin story, team description, mission statement.
-  - Reference: the festival started in 2023 in Morrovalle (MC), organized by a group of friends, themed editions each year (Parrot → Jungle → Flowers → Sweet), 6,500+ attendees, promotes electronic music as art, enhances local territory.
 - **Acceptance criteria:** Both locale files written, factually accurate, compelling narrative
 
 ### C4 — Rules Page Content ✅
 - **Priority:** 🟡 Medium
 - **Description:** Write `/content/rules/it.md` and `/content/rules/en.md`.
-  - Entry requirements, prohibited items, behavior policy, safety, sustainability.
 - **Acceptance criteria:** Both locale files written, clear and comprehensive
 
 ### C5 — Lineup Placeholder Content ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create lineup content structure:
   - `/content/lineup/config.json` — Set to `phase: "coming_soon"`, `totalSlots: 12`, `newBadgeDays: 7`
-  - At least 2 sample artist `.md` files with `revealed: false` (as templates for real artists later)
-- **Acceptance criteria:** Config file valid JSON, sample artist files have correct frontmatter schema
+  - Almeno 2 sample artist `.md` files con `revealed: false`
 
 ### C6 — Tickets Content ✅
 - **Priority:** 🔴 Critical
 - **Description:** Create `/content/tickets.json` with all 9 SKUs (3 releases × 3 types).
-  - Use placeholder Clappit URLs (to be replaced with real ones later)
-  - Set Early Bird as `active`, Promo and Regular as `coming_soon`
-  - Include realistic placeholder prices
-- **Acceptance criteria:** Valid JSON, all 9 SKUs present, schema matches what the tickets page expects
+  - Early Bird come `active`, Promo e Regular come `coming_soon`
 
 ### C7 — Sponsors Placeholder ✅
 - **Priority:** 🟢 Low
-- **Description:** Create `/content/sponsors/sponsors.json` with 3–5 placeholder sponsor entries.
-  - Each entry: name, logo filename, URL, tier (gold/silver/bronze)
-  - Add placeholder SVG logos to `/public/images/sponsors/`
-- **Acceptance criteria:** Valid JSON, placeholder logos render
+- **Description:** Create `/content/sponsors/sponsors.json` con 3–5 placeholder sponsor entries.
 
 ### C8 — Sample Blog Posts ✅
 - **Priority:** 🟢 Low
-- **Description:** Create 2 sample blog posts:
-  - `/content/blog/it/2026-02-14-sweet-edition-announcement.mdx` — First announcement of 2026 Sweet Edition
-  - `/content/blog/en/2026-02-14-sweet-edition-announcement.mdx` — English version
-  - Include frontmatter: title, date, excerpt, image, tags, locale
-- **Acceptance criteria:** MDX files valid, frontmatter correct, renders in blog list and post pages
+- **Description:** 2 sample blog posts IT/EN.
 
 ### C9 — FAQ Content ✅
 - **Priority:** 🟢 Low
-- **Description:** Create `/content/faq/it.json` and `/content/faq/en.json` with 6–8 common questions.
-  - Topics: refunds, age restrictions, dress code, food/drink policy, release differences, accessibility, parking, drink card system.
-- **Acceptance criteria:** Valid JSON arrays, questions and answers in both locales
+- **Description:** Create `/content/faq/it.json` and `/content/faq/en.json` con 6–8 domande.
 
 ### C10 — Gallery Placeholder ✅
 - **Priority:** 🟢 Low
-- **Description:** Create `/content/gallery.json` with metadata structure and add 3–4 placeholder images per edition year (2023, 2024, 2025) to `/public/images/gallery/{year}/`.
-- **Acceptance criteria:** JSON file valid, images load on gallery page
+- **Description:** Create `/content/gallery.json` e placeholder images per year.
+
+### C11 — Sweet World Content *(nuovo)* ✅
+- **Priority:** 🟡 Medium
+- **Description:** Write `/content/sweetworld/it.md` e `/content/sweetworld/en.md`.
+  - Testo narrativo che racconta il mondo visivo della Sweet Edition: colori, atmosfera, scenografie previste, l'idea di "entrare in un mondo di caramelle".
+  - Include frontmatter: `heading`, `subtitle`, `ctaLabel`, `ctaUrl`, array `images` con percorsi a 3–4 immagini teaser (moodboard candy, foto delle scenografie in preparazione, o immagini di reference)
+- **Acceptance criteria:** Both locale files written, testo coinvolgente e in linea col brand, immagini placeholder presenti
+
+### C12 — Festival Stats *(nuovo)* ✅
+- **Priority:** 🟡 Medium
+- **Description:** Create `/content/stats.json` con i numeri delle edizioni.
+  - Schema: `[{ "value": 4, "label_it": "Edizioni", "label_en": "Editions" }, { "value": 1, "label_it": "Giardino", "label_en": "Garden" }, { "value": 15000, "label_it": "Presenze", "label_en": "Attendees", "suffix": "+" }, { "value": 1, "label_it": "Estate Marchigiana", "label_en": "Marche Summer", "prefix": "" }]`
+  - I numeri devono essere verificati con il team prima di pubblicare
+- **Acceptance criteria:** Valid JSON, schema corretto, numeri realistici e verificati
 
 ---
 
 ## Agent: `infra`
 
 Infrastructure, deployment, SEO, and monitoring.
-Can start I1 in parallel with `foundation`. Other tasks run at the end.
+Can start I1 in parallel with `foundation`.
 
 ### I1 — Vercel Project & Git Setup ✅
 - **Priority:** 🔴 Critical
-- **Description:** Initialize Git repo, configure Vercel project.
-  - Create `.gitignore` (node_modules, .next, .env.local, etc.)
-  - Configure Vercel project settings (framework: Next.js, build command, output directory)
-  - Set up automatic deployments from `main` branch
-  - Configure preview deployments for PRs
-- **Acceptance criteria:**
-  - Push to `main` triggers automatic build + deploy
-  - Preview URLs generated for branches/PRs
-  - Build completes without errors
 
 ### I2 — Domain & DNS
-- **Priority:** 🟡 Medium (can be done close to launch)
+- **Priority:** 🟡 Medium
 - **Dependencies:** I1
-- **Description:** Point pablothegarden.com DNS to Vercel. Configure HTTPS, www redirect.
-- **Acceptance criteria:**
-  - `pablothegarden.com` serves the site over HTTPS
-  - `www.pablothegarden.com` redirects to apex domain
-  - SSL certificate active
 
 ### I3 — SEO Configuration ✅
 - **Priority:** 🟡 Medium
 - **Dependencies:** All P tasks
 - **Description:** Implement SEO across all pages.
-  - Per-page meta tags (title, description, og:image) via Next.js metadata API
-  - JSON-LD structured data (Event schema on homepage)
-  - Auto-generated `sitemap.xml` via `next-sitemap` or built-in
+  - Per-page meta tags via Next.js metadata API
+  - JSON-LD Event schema su homepage
+  - Auto-generated `sitemap.xml`
   - `robots.txt`
-  - `hreflang` alternate links for IT/EN
-  - Open Graph images (at least one default, ideally per-page)
-- **Acceptance criteria:**
-  - All pages have unique title + description
-  - Social sharing preview (OG image) works on WhatsApp, Instagram, Twitter
-  - `sitemap.xml` lists all pages in both locales
-  - JSON-LD validates in Google's Rich Results Test
+  - `hreflang` alternate links IT/EN
+  - Open Graph images (og:image ottimizzata per WhatsApp, Instagram, Twitter — **fondamentale per condivisione social**)
 
 ### I4 — Analytics
 - **Priority:** 🟢 Low
 - **Dependencies:** I2
-- **Description:** Set up privacy-friendly analytics.
-  - Option A: Umami (self-hosted, free) — requires a small server or use Umami Cloud free tier
-  - Option B: Plausible Cloud (~€9/mo)
-  - Option C: Vercel Analytics (free tier)
-- **Acceptance criteria:**
-  - Page views tracked across all routes
-  - No cookies set (GDPR-friendly)
-  - Dashboard accessible to team
 
 ### I5 — Accessibility Audit
 - **Priority:** 🟡 Medium
 - **Dependencies:** All P tasks, X1
-- **Description:** Run accessibility audit and fix issues.
-  - Use `axe-core` or Lighthouse accessibility audit
-  - Ensure WCAG 2.1 AA compliance
-  - Check: color contrast ≥ 4.5:1, keyboard navigation, focus indicators, alt text, semantic HTML, aria labels
-- **Acceptance criteria:**
-  - Lighthouse accessibility score ≥ 90
-  - No critical or serious axe violations
-  - All interactive elements keyboard-accessible
 
 ### I6 — Performance Audit
 - **Priority:** 🟡 Medium
 - **Dependencies:** All P tasks, X1, X2
-- **Description:** Run performance audit and optimize.
-  - Lighthouse performance score target: 90+
-  - Check: FCP < 1.5s, LCP < 2.5s, CLS < 0.1
-  - Optimize: image sizes, font loading, JS bundle size, unused CSS
-- **Acceptance criteria:**
-  - Lighthouse performance score ≥ 90 on mobile and desktop
-  - All Core Web Vitals in green
 
 ---
 
@@ -408,21 +396,30 @@ Can start I1 in parallel with `foundation`. Other tasks run at the end.
 
 ```
 Week 1 (Foundation):
-  [foundation] F1 → F2 → F3, F4, F5 (F4 and F5 can parallel after F1)
-  [content]    C1 → C2, C3, C4, C5, C6 (all content can start day 1)
+  [foundation] F1 → F2 → F3, F4, F5 (F4 e F5 parallel dopo F1)
+  [content]    C1 → C2, C3, C4, C5, C6, C11, C12 (tutto content può partire giorno 1)
   [infra]      I1 (Git + Vercel setup)
 
 Week 2 (Core Pages):
-  [pages]      P1, P2, P3 (can parallel once foundation is done)
+  [pages]      P1, P2, P3 (parallel una volta completata foundation)
   [content]    C7, C8, C9, C10
 
 Week 3 (Remaining Pages + Polish):
-  [pages]      P4, P5, P6, P7, P8 (can parallel)
-  [polish]     X1 (once P1-P3 are done)
+  [pages]      P4, P5, P6, P7, P8 (parallel)
+  [polish]     X1 (dopo P1-P3)
   [infra]      I2 (DNS)
 
 Week 4 (Launch):
   [polish]     X2 (mobile pass)
-  [infra]      I3, I4, I5, I6 (SEO, analytics, audits)
+  [infra]      I3, I4, I5, I6 (SEO, analytics, audit)
   [all]        Final QA
 ```
+
+---
+
+## Changelog
+
+| Data | Modifica |
+|---|---|
+| Feb 2026 | Versione iniziale |
+| Giu 2026 | Aggiornato da benchmark Tomorrowland / elrow / Awakenings / Sonus: aggiunto brand tagline (P1), Sweet World section (P1 + C11), Stats counter (P1 + C12), spec hero video obbligatorio (X1), nav ridotta a 4 voci (F3) |

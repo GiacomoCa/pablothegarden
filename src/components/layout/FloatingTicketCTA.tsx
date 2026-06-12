@@ -10,9 +10,12 @@ interface FloatingTicketCTAProps {
   ticketConfig: TicketConfig;
 }
 
+const INSTAGRAM_URL = 'https://www.instagram.com/pablo_thegarden';
+
 export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAProps) {
   const t = useTranslations('tickets');
   const tA11y = useTranslations('accessibility');
+  const tFooter = useTranslations('footer');
   const [modalOpen, setModalOpen] = useState(false);
 
   // Check if all tickets are sold out across all releases
@@ -27,11 +30,34 @@ export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAPro
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', damping: 20, stiffness: 200 }}
         className="
-          fixed z-40
+          fixed z-40 flex items-center gap-3
           bottom-4 left-1/2 -translate-x-1/2
           md:bottom-6 md:left-auto md:right-6 md:translate-x-0
         "
       >
+        {/* Instagram link */}
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={tFooter('instagram')}
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-candy-pink text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:scale-105 active:scale-95"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-6 w-6"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="5" />
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+
         <button
           onClick={() => !allSoldOut && setModalOpen(true)}
           disabled={allSoldOut}

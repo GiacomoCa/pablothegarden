@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
 import CandyParticles from '@/components/shared/CandyParticles';
@@ -72,15 +73,27 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.h1
-          className="font-display text-4xl font-bold text-white drop-shadow-lg sm:text-5xl md:text-6xl lg:text-7xl"
-          variants={itemVariants}
-        >
-          {t('title')}
+        <motion.h1 variants={itemVariants}>
+          <span className="sr-only">{t('title')}</span>
+          <Image
+            src="/images/logo/pablo.png"
+            alt=""
+            width={1600}
+            height={402}
+            priority
+            className="mx-auto w-full max-w-[300px] drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)] sm:max-w-[420px] md:max-w-[540px] lg:max-w-[620px]"
+          />
         </motion.h1>
 
         <motion.p
-          className="mt-3 font-display text-xl text-candy-pink drop-shadow-md sm:text-2xl md:text-3xl"
+          className="mt-4 font-display text-2xl font-bold text-white drop-shadow-md sm:text-3xl md:text-4xl"
+          variants={itemVariants}
+        >
+          {t('garden')}
+        </motion.p>
+
+        <motion.p
+          className="mt-1 font-display text-xl text-candy-pink drop-shadow-md sm:text-2xl md:text-3xl"
           variants={itemVariants}
         >
           {t('subtitle')}

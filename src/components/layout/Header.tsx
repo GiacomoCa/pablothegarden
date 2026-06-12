@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import Navigation from './Navigation';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -83,9 +84,17 @@ export default function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 font-display text-xl font-bold text-candy-pink transition-colors hover:text-candy-pink-dark md:text-2xl"
+              className="flex items-center transition-opacity hover:opacity-80"
+              aria-label="Pablo The Garden"
             >
-              Pablo The Garden
+              <Image
+                src="/images/logo/pablo-pink.png"
+                alt="Pablo The Garden"
+                width={900}
+                height={226}
+                priority
+                className="h-7 w-auto md:h-9"
+              />
             </Link>
 
             {/* Desktop navigation */}

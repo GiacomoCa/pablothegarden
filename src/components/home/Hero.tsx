@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
 import CandyParticles from '@/components/shared/CandyParticles';
 
@@ -110,9 +109,9 @@ export default function Hero() {
           className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center"
           variants={itemVariants}
         >
-          <Link
-            href="/tickets"
-            className="group inline-flex items-center justify-center rounded-pill bg-candy-pink px-8 py-4 text-base font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover sm:text-lg"
+          <a
+            href="#tickets"
+            className="group inline-flex items-center justify-center rounded-pill bg-candy-pink px-8 py-4 text-base font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover sm:text-lg"
           >
             <motion.span
               whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -120,9 +119,9 @@ export default function Hero() {
             >
               {t('cta_tickets')}
             </motion.span>
-          </Link>
-          <Link
-            href="/lineup"
+          </a>
+          <a
+            href="#lineup"
             className="group inline-flex items-center justify-center rounded-pill border-2 border-white/60 px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:border-white hover:bg-white/10 sm:text-lg"
           >
             <motion.span
@@ -131,7 +130,7 @@ export default function Hero() {
             >
               {t('cta_lineup')}
             </motion.span>
-          </Link>
+          </a>
         </motion.div>
       </motion.div>
     </section>

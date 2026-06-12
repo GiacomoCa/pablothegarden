@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { HomeTicket } from '@/lib/types';
 
@@ -131,16 +130,6 @@ export default function TicketsSection({ tickets }: TicketsSectionProps) {
             ))}
           </div>
         )}
-
-        <div className="mt-10 text-center">
-          <Link
-            href="/tickets"
-            className="inline-flex items-center gap-2 font-semibold text-candy-pink transition-colors hover:text-candy-pink-dark"
-          >
-            {t('view_all')}
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
       </div>
     </section>
   );

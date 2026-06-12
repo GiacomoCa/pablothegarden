@@ -1,110 +1,79 @@
 'use client';
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import TicketSelectorModal from '@/components/tickets/TicketSelectorModal';
-import type { TicketConfig } from '@/lib/types';
-
-interface FloatingTicketCTAProps {
-  ticketConfig: TicketConfig;
-}
 
 const INSTAGRAM_URL = 'https://www.instagram.com/pablo_thegarden';
 
-export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAProps) {
+export default function FloatingTicketCTA() {
   const t = useTranslations('tickets');
-  const tA11y = useTranslations('accessibility');
   const tFooter = useTranslations('footer');
-  const [modalOpen, setModalOpen] = useState(false);
+  const locale = useLocale();
 
-  // Check if all tickets are sold out across all releases
-  const allSoldOut = Object.values(ticketConfig.releases).every(
-    (release) => release.status === 'sold_out'
-  );
+  // Always points to the tickets section on the homepage. On the homepage this
+  // is a same-page smooth scroll; from any other page it navigates home + anchor.
+  const ticketsHref = `/${locale}#tickets`;
 
   return (
-    <>
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1, type: 'spring', damping: 20, stiffness: 200 }}
-        className="
-          fixed z-40 flex items-center gap-3
-          bottom-4 left-1/2 -translate-x-1/2
-          md:bottom-6 md:left-auto md:right-6 md:translate-x-0
-        "
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 1, type: 'spring', damping: 20, stiffness: 200 }}
+      className="
+        fixed z-40 flex items-center gap-3
+        bottom-4 left-1/2 -translate-x-1/2
+        md:bottom-6 md:left-auto md:right-6 md:translate-x-0
+      "
+    >
+      {/* Instagram link */}
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={tFooter('instagram')}
+        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-candy-pink text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:scale-105 active:scale-95"
       >
-        {/* Instagram link */}
-        <a
-          href={INSTAGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={tFooter('instagram')}
-          className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-candy-pink text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:scale-105 active:scale-95"
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-6 w-6"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+
+      {/* Buy tickets — scrolls to the tickets section on the homepage */}
+      <a
+        href={ticketsHref}
+        aria-label={t('buy_now')}
+        className="group relative flex items-center gap-2 rounded-pill bg-candy-pink px-6 py-3.5 text-base font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-105 active:scale-95"
+      >
+        {/* Pulse ring (decorative, must not catch clicks) */}
+        <span className="pointer-events-none absolute inset-0 animate-ping rounded-pill bg-candy-pink/30" />
+
+        {/* Ticket icon */}
+        <svg
+          className="relative h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+        >
+          <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-6 w-6"
-          >
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-            <circle cx="12" cy="12" r="5" />
-            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-          </svg>
-        </a>
+            d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+          />
+        </svg>
 
-        <button
-          onClick={() => !allSoldOut && setModalOpen(true)}
-          disabled={allSoldOut}
-          aria-label={tA11y('open_ticket_modal')}
-          className={`
-            group relative flex items-center gap-2
-            rounded-pill px-6 py-3.5
-            text-base font-semibold text-night-purple shadow-candy
-            transition-all duration-300
-            ${
-              allSoldOut
-                ? 'cursor-not-allowed bg-gray-400 shadow-none'
-                : 'bg-candy-pink hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-105 active:scale-95'
-            }
-          `}
-        >
-          {/* Pulse ring for available state (decorative, must not catch clicks) */}
-          {!allSoldOut && (
-            <span className="pointer-events-none absolute inset-0 animate-ping rounded-pill bg-candy-pink/30" />
-          )}
-
-          {/* Ticket icon */}
-          <svg
-            className="relative h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-            />
-          </svg>
-
-          <span className="relative">
-            {allSoldOut ? t('sold_out') : t('buy_now')}
-          </span>
-        </button>
-      </motion.div>
-
-      <TicketSelectorModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        ticketConfig={ticketConfig}
-      />
-    </>
+        <span className="relative">{t('buy_now')}</span>
+      </a>
+    </motion.div>
   );
 }

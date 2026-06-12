@@ -44,7 +44,7 @@ export default function Navigation({
         const active = isActive(item.href);
         return (
           <Link
-            key={item.href}
+            key={`${item.href}-${item.label}`}
             href={item.href}
             onClick={onClick}
             className={`${linkClassName} ${active ? activeLinkClassName : ''}`}

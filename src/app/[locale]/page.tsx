@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
-  getSponsors,
   getStats,
-  getSweetWorld,
   getLineupByDay,
   getHomeTickets,
 } from '@/lib/content';
@@ -11,13 +9,11 @@ import { routing } from '@/i18n/routing';
 import Hero from '@/components/home/Hero';
 import BrandTagline from '@/components/home/BrandTagline';
 import Countdown from '@/components/home/Countdown';
-import SweetWorldSection from '@/components/home/SweetWorldSection';
 import LineupSection from '@/components/home/LineupSection';
 import TicketsSection from '@/components/home/TicketsSection';
 import ExperienceCards from '@/components/home/ExperienceCards';
 import EditionTimeline from '@/components/home/EditionTimeline';
 import StatsCounter from '@/components/home/StatsCounter';
-import SponsorsBar from '@/components/home/SponsorsBar';
 import InstagramFeed from '@/components/home/InstagramFeed';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 
@@ -62,9 +58,7 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
 
   // Load all content at build time
-  const sponsors = getSponsors();
   const stats = getStats();
-  const sweetWorld = getSweetWorld(locale);
   const lineupDays = getLineupByDay();
   const homeTickets = getHomeTickets();
 
@@ -159,17 +153,16 @@ export default async function HomePage({ params }: Props) {
       <ScrollReveal>
         <Countdown />
       </ScrollReveal>
-      {sweetWorld && (
+      <div id="lineup" className="scroll-mt-20 md:scroll-mt-24">
         <ScrollReveal delay={0.1}>
-          <SweetWorldSection content={sweetWorld} />
+          <LineupSection days={lineupDays} />
         </ScrollReveal>
-      )}
-      <ScrollReveal delay={0.1}>
-        <LineupSection days={lineupDays} />
-      </ScrollReveal>
-      <ScrollReveal delay={0.1}>
-        <TicketsSection tickets={homeTickets} />
-      </ScrollReveal>
+      </div>
+      <div id="tickets" className="scroll-mt-20 md:scroll-mt-24">
+        <ScrollReveal delay={0.1}>
+          <TicketsSection tickets={homeTickets} />
+        </ScrollReveal>
+      </div>
       <ScrollReveal delay={0.1}>
         <ExperienceCards />
       </ScrollReveal>
@@ -178,9 +171,6 @@ export default async function HomePage({ params }: Props) {
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <StatsCounter stats={stats} />
-      </ScrollReveal>
-      <ScrollReveal delay={0.1}>
-        <SponsorsBar sponsors={sponsors} />
       </ScrollReveal>
       <ScrollReveal delay={0.1}>
         <InstagramFeed />

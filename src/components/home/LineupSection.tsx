@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { LineupDayArtist, LineupDayGroup } from '@/lib/types';
 
@@ -139,16 +138,6 @@ export default function LineupSection({ days }: LineupSectionProps) {
           {days.map((group) => (
             <DayRow key={group.day} group={group} />
           ))}
-        </div>
-
-        <div className="mt-10 px-4 text-center sm:px-6 lg:px-8">
-          <Link
-            href="/lineup"
-            className="inline-flex items-center gap-2 font-semibold text-candy-pink transition-colors hover:text-candy-pink-dark"
-          >
-            {t('view_full')}
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
         </div>
       </div>
     </section>

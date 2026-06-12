@@ -9,10 +9,12 @@ import type { NavItem } from './Navigation';
 export default function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
+  const tSponsors = useTranslations('sponsors');
 
   const secondaryNavItems: NavItem[] = [
     { href: '/rules', label: tNav('rules') },
     { href: '/contact', label: tNav('contact') },
+    { href: '/contact', label: tSponsors('become_partner') },
     { href: '/privacy', label: tNav('privacy') },
   ];
 

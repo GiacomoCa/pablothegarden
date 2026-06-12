@@ -17,8 +17,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   const navItems: NavItem[] = [
-    { href: '/lineup', label: t('lineup') },
-    { href: '/tickets', label: t('tickets') },
     { href: '/gallery', label: t('gallery') },
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },

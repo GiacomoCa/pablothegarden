@@ -62,7 +62,7 @@ export default async function TicketsPage({ params }: Props) {
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       {/* Page header */}
       <div className="mb-12 text-center sm:mb-16">
-        <h1 className="font-display text-4xl font-bold text-night-purple sm:text-5xl">
+        <h1 className="font-display text-4xl font-bold text-candy-pink sm:text-5xl">
           {t('title')}
         </h1>
         <p className="mt-2 text-lg text-orange-cream">

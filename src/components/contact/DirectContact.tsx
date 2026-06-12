@@ -83,7 +83,7 @@ export default function DirectContact() {
 
   return (
     <div className="rounded-candy bg-surface-elevated p-6 shadow-candy sm:p-8">
-      <h2 className="mb-6 font-display text-xl font-bold text-night-purple">
+      <h2 className="mb-6 font-display text-xl font-bold text-candy-pink">
         {t('direct_contact_title')}
       </h2>
 
@@ -96,7 +96,7 @@ export default function DirectContact() {
               rel={contact.external ? 'noopener noreferrer' : undefined}
               className="group flex items-start gap-4 transition-colors"
             >
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors group-hover:bg-candy-pink group-hover:text-white">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors group-hover:bg-candy-pink group-hover:text-night-purple">
                 {contact.icon}
               </span>
               <div>

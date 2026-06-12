@@ -106,7 +106,7 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={() => setFormState('idle')}
-          className="mt-6 inline-flex items-center rounded-pill bg-candy-pink px-6 py-2.5 font-medium text-white transition-colors hover:bg-candy-pink-dark"
+          className="mt-6 inline-flex items-center rounded-pill bg-candy-pink px-6 py-2.5 font-medium text-night-purple transition-colors hover:bg-candy-pink-dark"
         >
           {t('form_submit')}
         </button>
@@ -150,7 +150,7 @@ export default function ContactForm() {
               if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
             }}
             placeholder={t('form_name_placeholder')}
-            className={`w-full rounded-candy border-2 bg-surface px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
+            className={`w-full rounded-candy border-2 bg-surface-elevated px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
               errors.name ? 'border-candy-pink-dark' : 'border-candy-pink/20 focus:border-candy-pink'
             }`}
             aria-invalid={errors.name ? 'true' : undefined}
@@ -180,7 +180,7 @@ export default function ContactForm() {
               if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
             }}
             placeholder={t('form_email_placeholder')}
-            className={`w-full rounded-candy border-2 bg-surface px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
+            className={`w-full rounded-candy border-2 bg-surface-elevated px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
               errors.email ? 'border-candy-pink-dark' : 'border-candy-pink/20 focus:border-candy-pink'
             }`}
             aria-invalid={errors.email ? 'true' : undefined}
@@ -207,7 +207,7 @@ export default function ContactForm() {
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder={t('form_company_placeholder')}
-            className="w-full rounded-candy border-2 border-candy-pink/20 bg-surface px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:border-candy-pink focus:outline-none focus:ring-2 focus:ring-candy-pink/30"
+            className="w-full rounded-candy border-2 border-candy-pink/20 bg-surface-elevated px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:border-candy-pink focus:outline-none focus:ring-2 focus:ring-candy-pink/30"
           />
         </div>
 
@@ -226,7 +226,7 @@ export default function ContactForm() {
               setRequestType(e.target.value);
               if (errors.type) setErrors((prev) => ({ ...prev, type: undefined }));
             }}
-            className={`w-full appearance-none rounded-candy border-2 bg-surface px-4 py-3 text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
+            className={`w-full appearance-none rounded-candy border-2 bg-surface-elevated px-4 py-3 text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
               !requestType ? 'text-text-primary/40' : ''
             } ${
               errors.type ? 'border-candy-pink-dark' : 'border-candy-pink/20 focus:border-candy-pink'
@@ -267,7 +267,7 @@ export default function ContactForm() {
             }}
             placeholder={t('form_message_placeholder')}
             rows={5}
-            className={`w-full resize-y rounded-candy border-2 bg-surface px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
+            className={`w-full resize-y rounded-candy border-2 bg-surface-elevated px-4 py-3 text-text-primary transition-colors placeholder:text-text-primary/40 focus:outline-none focus:ring-2 focus:ring-candy-pink/30 ${
               errors.message ? 'border-candy-pink-dark' : 'border-candy-pink/20 focus:border-candy-pink'
             }`}
             aria-invalid={errors.message ? 'true' : undefined}
@@ -284,12 +284,12 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={formState === 'submitting'}
-          className="inline-flex w-full items-center justify-center rounded-pill bg-candy-pink px-8 py-4 font-display text-base font-bold text-white shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-pill bg-candy-pink px-8 py-4 font-display text-base font-bold text-night-purple shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {formState === 'submitting' ? (
             <>
               <svg
-                className="-ml-1 mr-2 h-5 w-5 animate-spin text-white"
+                className="-ml-1 mr-2 h-5 w-5 animate-spin text-night-purple"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

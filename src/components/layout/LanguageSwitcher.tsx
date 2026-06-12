@@ -40,7 +40,7 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
       <span
         className={`
           px-3 py-1.5 rounded-pill transition-all duration-200
-          ${locale === 'it' ? 'bg-candy-pink text-white' : 'text-text-primary'}
+          ${locale === 'it' ? 'bg-candy-pink text-night-purple' : 'text-text-primary'}
         `}
       >
         IT
@@ -48,7 +48,7 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
       <span
         className={`
           px-3 py-1.5 rounded-pill transition-all duration-200
-          ${locale === 'en' ? 'bg-candy-pink text-white' : 'text-text-primary'}
+          ${locale === 'en' ? 'bg-candy-pink text-night-purple' : 'text-text-primary'}
         `}
       >
         EN

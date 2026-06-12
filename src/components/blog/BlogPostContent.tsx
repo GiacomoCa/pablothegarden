@@ -142,7 +142,7 @@ export default function BlogPostContent({
       </div>
 
       {/* Title */}
-      <h1 className="font-display text-3xl font-bold text-night-purple sm:text-4xl lg:text-5xl">
+      <h1 className="font-display text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">
         {post.title}
       </h1>
 
@@ -167,7 +167,7 @@ export default function BlogPostContent({
       )}
 
       {/* Divider */}
-      <hr className="my-8 border-surface-elevated" />
+      <hr className="my-8 border-white/10" />
 
       {/* Content */}
       <div
@@ -176,7 +176,7 @@ export default function BlogPostContent({
       />
 
       {/* Divider */}
-      <hr className="my-8 border-surface-elevated" />
+      <hr className="my-8 border-white/10" />
 
       {/* Share buttons */}
       <ShareButtons title={post.title} slug={post.slug} />
@@ -185,7 +185,7 @@ export default function BlogPostContent({
       <div className="mt-12 text-center">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 rounded-pill bg-candy-pink px-6 py-3 font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-105"
+          className="inline-flex items-center gap-2 rounded-pill bg-candy-pink px-6 py-3 font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-105"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

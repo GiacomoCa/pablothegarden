@@ -39,7 +39,7 @@ export default function FloatingTicketCTA({ ticketConfig }: FloatingTicketCTAPro
           className={`
             group relative flex items-center gap-2
             rounded-pill px-6 py-3.5
-            text-base font-semibold text-white shadow-candy
+            text-base font-semibold text-night-purple shadow-candy
             transition-all duration-300
             ${
               allSoldOut

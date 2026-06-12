@@ -61,7 +61,7 @@ export default function Header() {
       {/* Skip to content link */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-candy focus:bg-candy-pink focus:px-4 focus:py-2 focus:text-white focus:shadow-candy"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-candy focus:bg-candy-pink focus:px-4 focus:py-2 focus:text-night-purple focus:shadow-candy"
       >
         {tA11y('skip_to_content')}
       </a>

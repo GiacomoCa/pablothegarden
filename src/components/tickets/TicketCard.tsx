@@ -44,9 +44,9 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
         transition-all duration-300
         ${
           isAvailable
-            ? 'border-candy-pink/30 bg-gradient-to-br from-white via-soft-pink to-candy-pink/10 shadow-candy'
+            ? 'border-candy-pink/30 bg-gradient-to-br from-surface-elevated via-soft-pink to-candy-pink/10 shadow-candy'
             : isSoldOut
-              ? 'border-gray-200 bg-gray-50'
+              ? 'border-white/10 bg-surface/60'
               : 'border-bubblegum/20 bg-soft-pink/50'
         }
       `}
@@ -54,7 +54,7 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
       {/* Sold out stamp */}
       {isSoldOut && (
         <div className="absolute top-4 right-4 rotate-12" aria-hidden="true">
-          <span className="inline-block rounded-pill border-2 border-gray-400 px-3 py-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+          <span className="inline-block rounded-pill border-2 border-text-primary/40 px-3 py-1 text-xs font-bold tracking-wider text-text-primary/50 uppercase">
             {t('sold_out')}
           </span>
         </div>
@@ -72,7 +72,7 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
       {/* Ticket label */}
       <h3
         className={`font-display text-xl font-bold ${
-          isSoldOut ? 'text-gray-400' : 'text-text-primary'
+          isSoldOut ? 'text-text-primary/50' : 'text-text-primary'
         }`}
       >
         {ticket.label[localeKey]}
@@ -85,7 +85,7 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
             isAvailable
               ? 'text-candy-pink'
               : isSoldOut
-                ? 'text-gray-300 line-through'
+                ? 'text-text-primary/40 line-through'
                 : 'text-text-primary/30 blur-[2px]'
           }`}
         >
@@ -99,12 +99,12 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
           <li
             key={item}
             className={`flex items-start gap-2 text-sm ${
-              isSoldOut ? 'text-gray-400' : 'text-text-primary/70'
+              isSoldOut ? 'text-text-primary/50' : 'text-text-primary/70'
             }`}
           >
             <svg
               className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
-                isSoldOut ? 'text-gray-300' : 'text-mint-green'
+                isSoldOut ? 'text-text-primary/30' : 'text-mint-green'
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${t('buy_now')} — ${ticket.label[localeKey]} (${tA11y('external_link_notice')})`}
-            className="group relative block w-full overflow-hidden rounded-pill bg-candy-pink py-3 text-center font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-[1.02]"
+            className="group relative block w-full overflow-hidden rounded-pill bg-candy-pink py-3 text-center font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-[1.02]"
           >
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-candy-pink-dark/0 via-white/20 to-candy-pink-dark/0"
@@ -141,7 +141,7 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
             <span className="relative">{t('buy_now')}</span>
           </a>
         ) : isSoldOut ? (
-          <div className="w-full rounded-pill bg-gray-200 py-3 text-center font-semibold text-gray-400">
+          <div className="w-full rounded-pill bg-white/10 py-3 text-center font-semibold text-text-primary/50">
             {t('sold_out')}
           </div>
         ) : (

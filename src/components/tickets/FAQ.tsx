@@ -24,7 +24,7 @@ function FAQItem({ item, index, isOpen, onToggle }: FAQItemProps) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border-b border-gray-100 last:border-b-0"
+      className="border-b border-white/10 last:border-b-0"
     >
       <button
         onClick={onToggle}

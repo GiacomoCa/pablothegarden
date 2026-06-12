@@ -74,7 +74,7 @@ function SectionBlock({
       viewport={{ once: true, margin: '-80px' }}
       variants={fadeUpVariants}
     >
-      <h2 className="mb-6 font-display text-3xl font-bold text-night-purple sm:text-4xl">
+      <h2 className="mb-6 font-display text-3xl font-bold text-candy-pink sm:text-4xl">
         {title}
       </h2>
       {children}

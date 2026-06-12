@@ -54,7 +54,7 @@ function ComingSoonView({ config }: { config: LineupConfig }) {
               <path d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5z" />
             </svg>
           </div>
-          <p className="font-display text-xl font-bold text-night-purple sm:text-2xl">
+          <p className="font-display text-xl font-bold text-candy-pink sm:text-2xl">
             {t('coming_soon')}
           </p>
           <p className="mt-2 text-sm text-text-primary/60">
@@ -94,7 +94,7 @@ function ComingSoonView({ config }: { config: LineupConfig }) {
           className="
             inline-flex items-center gap-2
             rounded-pill bg-candy-pink px-6 py-3
-            text-sm font-semibold text-white
+            text-sm font-semibold text-night-purple
             shadow-candy
             transition-all duration-200
             hover:bg-candy-pink-dark hover:shadow-candy-hover

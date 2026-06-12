@@ -11,7 +11,7 @@ export default function NewBadge() {
         absolute -top-2 -right-2 z-10
         inline-flex items-center
         rounded-pill bg-candy-pink px-2.5 py-0.5
-        text-xs font-semibold text-white
+        text-xs font-semibold text-night-purple
         shadow-candy
         animate-[glow-pulse_2s_ease-in-out_infinite]
       "

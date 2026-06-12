@@ -76,7 +76,7 @@ export default function GalleryGrid({ editions }: GalleryGridProps) {
             onClick={() => setActiveFilter(tab.value)}
             className={`rounded-pill px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-base ${
               activeFilter === tab.value
-                ? 'bg-candy-pink text-white shadow-candy'
+                ? 'bg-candy-pink text-night-purple shadow-candy'
                 : 'bg-surface-elevated text-text-primary hover:bg-candy-pink/10'
             }`}
           >
@@ -135,7 +135,7 @@ export default function GalleryGrid({ editions }: GalleryGridProps) {
           href="https://instagram.com/pablo_thegarden"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-pill bg-gradient-to-r from-candy-pink to-orange-cream px-8 py-4 text-lg font-semibold text-white shadow-candy transition-all duration-300 hover:shadow-candy-hover hover:scale-105"
+          className="inline-flex items-center gap-2 rounded-pill bg-gradient-to-r from-candy-pink to-orange-cream px-8 py-4 text-lg font-semibold text-night-purple shadow-candy transition-all duration-300 hover:shadow-candy-hover hover:scale-105"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

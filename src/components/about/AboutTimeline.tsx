@@ -50,7 +50,7 @@ export default function AboutTimeline() {
       >
         <motion.h2
           variants={itemVariants}
-          className="mb-12 text-center font-display text-3xl font-bold text-night-purple sm:text-4xl"
+          className="mb-12 text-center font-display text-3xl font-bold text-candy-pink sm:text-4xl"
         >
           {tAbout('timeline_title')}
         </motion.h2>
@@ -88,7 +88,7 @@ export default function AboutTimeline() {
                   <div
                     className={`relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full text-lg shadow-candy sm:absolute sm:left-1/2 sm:-translate-x-1/2 ${
                       edition.isCurrent
-                        ? 'bg-candy-pink text-white'
+                        ? 'bg-candy-pink text-night-purple'
                         : 'border-2 border-candy-pink/30 bg-surface'
                     }`}
                     aria-hidden="true"
@@ -128,27 +128,27 @@ function TimelineCard({ edition }: { edition: Edition }) {
     <div
       className={`rounded-candy p-6 shadow-candy transition-all duration-300 hover:-translate-y-1 hover:shadow-candy-hover ${
         edition.isCurrent
-          ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
+          ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
           : 'bg-surface'
       }`}
     >
       <span
         className={`font-display text-2xl font-bold ${
-          edition.isCurrent ? 'text-white' : 'text-candy-pink'
+          edition.isCurrent ? 'text-night-purple' : 'text-candy-pink'
         }`}
       >
         {t(`${edition.key}.year`)}
       </span>
       <h3
         className={`mt-1 font-display text-lg font-bold ${
-          edition.isCurrent ? 'text-white/90' : 'text-text-primary'
+          edition.isCurrent ? 'text-night-purple/90' : 'text-text-primary'
         }`}
       >
         {t(`${edition.key}.name`)}
       </h3>
       <p
         className={`mt-2 text-sm leading-relaxed ${
-          edition.isCurrent ? 'text-white/80' : 'text-text-primary/60'
+          edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
         }`}
       >
         {t(`${edition.key}.description`)}

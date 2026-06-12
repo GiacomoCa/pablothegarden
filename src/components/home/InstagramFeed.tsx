@@ -44,7 +44,7 @@ export default function InstagramFeed() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 rounded-pill bg-gradient-to-r from-candy-pink to-orange-cream px-8 py-4 text-lg font-semibold text-white shadow-candy transition-all duration-300 hover:shadow-candy-hover hover:scale-105"
+                className="inline-flex items-center gap-3 rounded-pill bg-gradient-to-r from-candy-pink to-orange-cream px-8 py-4 text-lg font-semibold text-night-purple shadow-candy transition-all duration-300 hover:shadow-candy-hover hover:scale-105"
               >
                 <svg
                   viewBox="0 0 24 24"

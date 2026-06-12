@@ -33,8 +33,8 @@ export default function MarkdownContent({
     // Base typography
     'prose-content',
     // Headings
-    '[&_h1]:font-display [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-night-purple [&_h1]:mt-10 [&_h1]:mb-4 sm:[&_h1]:text-4xl',
-    '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-night-purple [&_h2]:mt-8 [&_h2]:mb-3 sm:[&_h2]:text-3xl',
+    '[&_h1]:font-display [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-candy-pink [&_h1]:mt-10 [&_h1]:mb-4 sm:[&_h1]:text-4xl',
+    '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-candy-pink [&_h2]:mt-8 [&_h2]:mb-3 sm:[&_h2]:text-3xl',
     '[&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-text-primary [&_h3]:mt-6 [&_h3]:mb-2 sm:[&_h3]:text-2xl',
     // Paragraphs
     '[&_p]:text-text-primary/80 [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-base sm:[&_p]:text-lg',

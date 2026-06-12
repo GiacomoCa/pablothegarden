@@ -52,7 +52,7 @@ export default function SponsorsBar({ sponsors }: SponsorsBarProps) {
         <div className="mt-10 text-center">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-pill bg-candy-pink px-6 py-3 font-semibold text-white shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover"
+            className="inline-flex items-center gap-2 rounded-pill bg-candy-pink px-6 py-3 font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover"
           >
             {t('become_partner')}
             <span aria-hidden="true">&rarr;</span>

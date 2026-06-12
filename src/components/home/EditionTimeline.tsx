@@ -42,7 +42,7 @@ export default function EditionTimeline() {
                 key={edition.key}
                 className={`flex min-w-[260px] flex-shrink-0 flex-col rounded-candy p-5 shadow-candy snap-center ${
                   edition.isCurrent
-                    ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
+                    ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
                     : 'bg-surface'
                 }`}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
@@ -52,21 +52,21 @@ export default function EditionTimeline() {
                 </span>
                 <span
                   className={`mt-3 font-display text-2xl font-bold ${
-                    edition.isCurrent ? 'text-white' : 'text-candy-pink'
+                    edition.isCurrent ? 'text-night-purple' : 'text-candy-pink'
                   }`}
                 >
                   {t(`${edition.key}.year`)}
                 </span>
                 <span
                   className={`mt-1 font-display text-sm font-bold ${
-                    edition.isCurrent ? 'text-white/90' : 'text-text-primary'
+                    edition.isCurrent ? 'text-night-purple/90' : 'text-text-primary'
                   }`}
                 >
                   {t(`${edition.key}.name`)}
                 </span>
                 <p
                   className={`mt-2 text-xs leading-relaxed ${
-                    edition.isCurrent ? 'text-white/80' : 'text-text-primary/60'
+                    edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
                   }`}
                 >
                   {t(`${edition.key}.description`)}
@@ -91,7 +91,7 @@ export default function EditionTimeline() {
                 <div
                   className={`relative z-10 mb-4 flex h-12 w-12 items-center justify-center rounded-full text-xl shadow-candy ${
                     edition.isCurrent
-                      ? 'bg-candy-pink text-white'
+                      ? 'bg-candy-pink text-night-purple'
                       : 'bg-surface border-2 border-candy-pink/30'
                   }`}
                   aria-hidden="true"
@@ -103,7 +103,7 @@ export default function EditionTimeline() {
                 <motion.div
                   className={`w-full rounded-candy p-6 text-center shadow-candy transition-all duration-300 ${
                     edition.isCurrent
-                      ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-white'
+                      ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
                       : 'bg-surface'
                   }`}
                   whileHover={
@@ -118,21 +118,21 @@ export default function EditionTimeline() {
                 >
                   <span
                     className={`font-display text-3xl font-bold ${
-                      edition.isCurrent ? 'text-white' : 'text-candy-pink'
+                      edition.isCurrent ? 'text-night-purple' : 'text-candy-pink'
                     }`}
                   >
                     {t(`${edition.key}.year`)}
                   </span>
                   <h3
                     className={`mt-1 font-display text-base font-bold ${
-                      edition.isCurrent ? 'text-white/90' : 'text-text-primary'
+                      edition.isCurrent ? 'text-night-purple/90' : 'text-text-primary'
                     }`}
                   >
                     {t(`${edition.key}.name`)}
                   </h3>
                   <p
                     className={`mt-3 text-sm leading-relaxed ${
-                      edition.isCurrent ? 'text-white/80' : 'text-text-primary/60'
+                      edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
                     }`}
                   >
                     {t(`${edition.key}.description`)}

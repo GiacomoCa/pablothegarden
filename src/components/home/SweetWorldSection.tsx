@@ -35,7 +35,7 @@ export default function SweetWorldSection({ content }: SweetWorldSectionProps) {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
-          <h2 className="font-display text-3xl font-bold text-night-purple sm:text-4xl md:text-5xl">
+          <h2 className="font-display text-3xl font-bold text-candy-pink sm:text-4xl md:text-5xl">
             {content.heading}
           </h2>
           {content.subtitle && (

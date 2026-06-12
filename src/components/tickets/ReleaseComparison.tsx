@@ -24,7 +24,7 @@ function PriceCell({
 }) {
   if (status === 'sold_out') {
     return (
-      <span className="text-gray-400 line-through">
+      <span className="text-text-primary/40 line-through">
         {price.toFixed(0)}&euro;
       </span>
     );
@@ -54,7 +54,7 @@ function StatusBadge({ release }: { release: Release }) {
 
   if (release.status === 'sold_out') {
     return (
-      <span className="inline-block rounded-pill bg-gray-200 px-3 py-1 text-xs font-semibold text-gray-500">
+      <span className="inline-block rounded-pill bg-white/10 px-3 py-1 text-xs font-semibold text-text-primary/50">
         {t('sold_out')}
       </span>
     );
@@ -126,7 +126,7 @@ export default function ReleaseComparison({
                           isActive
                             ? 'text-candy-pink'
                             : release.status === 'sold_out'
-                              ? 'text-gray-400'
+                              ? 'text-text-primary/50'
                               : 'text-text-primary/60'
                         }`}
                       >
@@ -139,7 +139,7 @@ export default function ReleaseComparison({
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.key} className="border-t border-gray-100">
+                <tr key={row.key} className="border-t border-white/10">
                   <td className="p-4 text-sm font-medium text-text-primary/80">
                     {row.label}
                   </td>
@@ -167,7 +167,7 @@ export default function ReleaseComparison({
               ))}
 
               {/* Status row */}
-              <tr className="border-t border-gray-100">
+              <tr className="border-t border-white/10">
                 <td className="p-4 text-sm font-medium text-text-primary/80">
                   Status
                 </td>

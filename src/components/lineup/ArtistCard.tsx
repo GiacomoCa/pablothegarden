@@ -114,7 +114,7 @@ export default function ArtistCard({ artist, isNew }: ArtistCardProps) {
                         href={artist.social.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-white"
+                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-night-purple"
                         aria-label={`${artist.name} Instagram`}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -129,7 +129,7 @@ export default function ArtistCard({ artist, isNew }: ArtistCardProps) {
                         href={artist.social.spotify}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-white"
+                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-night-purple"
                         aria-label={`${artist.name} Spotify`}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -144,7 +144,7 @@ export default function ArtistCard({ artist, isNew }: ArtistCardProps) {
                         href={artist.social.soundcloud}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-white"
+                        className="flex h-11 w-11 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink transition-colors hover:bg-candy-pink hover:text-night-purple"
                         aria-label={`${artist.name} SoundCloud`}
                         onClick={(e) => e.stopPropagation()}
                       >

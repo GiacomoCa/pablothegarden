@@ -71,7 +71,7 @@ export default function PostCard({ post, index }: PostCardProps) {
           )}
 
           {/* Title */}
-          <h2 className="font-display text-xl font-bold text-night-purple transition-colors duration-200 group-hover:text-candy-pink sm:text-2xl">
+          <h2 className="font-display text-xl font-bold text-text-primary transition-colors duration-200 group-hover:text-candy-pink sm:text-2xl">
             {post.title}
           </h2>
 

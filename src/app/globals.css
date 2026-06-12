@@ -1,18 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Sweet Edition Color Palette */
-  --color-candy-pink: #FF6B9D;
-  --color-candy-pink-dark: #E8457A;
+  /* Sweet Edition Color Palette — DARK THEME
+     Brand pink is exactly #FFCDFF (from the official logo). On the dark
+     purple background it reads as a bright accent; pink-filled buttons use
+     dark (night-purple) text for contrast. */
+  --color-candy-pink: #FFCDFF;        /* brand accent (light pink) */
+  --color-candy-pink-dark: #F4A9EC;   /* deeper accent / hover */
   --color-orange-cream: #FFB347;
   --color-cotton-candy: #87CEEB;
   --color-bubblegum: #DDA0DD;
   --color-mint-green: #98FB98;
-  --color-night-purple: #1A0A2E;
-  --color-soft-pink: #FFF5F8;
-  --color-text-primary: #2D1B40;
-  --color-surface: #FFFFFF;
-  --color-surface-elevated: #FFF0F5;
+  --color-night-purple: #150526;      /* darkest — page bg & dark text on pink */
+  --color-soft-pink: #241039;         /* soft dark surface (section bg/gradients) */
+  --color-text-primary: #F6EAF8;      /* primary light text */
+  --color-text-muted: #C9B3D6;        /* muted light text */
+  --color-surface: #1E0B35;           /* card surface */
+  --color-surface-elevated: #2B1349;  /* elevated surface */
 
   /* Typography */
   --font-display: var(--font-fredoka);
@@ -35,22 +39,22 @@ html {
 
 body {
   font-family: var(--font-body), system-ui, sans-serif;
-  background-color: var(--color-surface);
+  background-color: var(--color-night-purple);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Selection color */
+/* Selection color — pink highlight with dark text */
 ::selection {
   background-color: var(--color-candy-pink);
-  color: white;
+  color: var(--color-night-purple);
 }
 
 ::-moz-selection {
   background-color: var(--color-candy-pink);
-  color: white;
+  color: var(--color-night-purple);
 }
 
 /* Scrollbar styling */
@@ -138,7 +142,7 @@ body {
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-night-purple);
+  color: var(--color-candy-pink);
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.3;
@@ -148,7 +152,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-night-purple);
+  color: var(--color-candy-pink);
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
   line-height: 1.3;
@@ -158,7 +162,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-night-purple);
+  color: var(--color-candy-pink);
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   line-height: 1.4;
@@ -181,7 +185,7 @@ body {
 
 .blog-prose strong {
   font-weight: 600;
-  color: var(--color-night-purple);
+  color: var(--color-text-primary);
 }
 
 .blog-prose em {

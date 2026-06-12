@@ -46,7 +46,7 @@ export default function ReleaseBanner({
         <div className="relative flex items-center justify-between">
           {/* Connecting line behind the steps */}
           <div
-            className="absolute top-5 right-8 left-8 h-1 rounded-full bg-gray-200 sm:right-12 sm:left-12"
+            className="absolute top-5 right-8 left-8 h-1 rounded-full bg-white/10 sm:right-12 sm:left-12"
             aria-hidden="true"
           />
           {/* Filled line up to active step */}
@@ -85,10 +85,10 @@ export default function ReleaseBanner({
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                     state === 'completed'
-                      ? 'border-candy-pink bg-candy-pink text-white'
+                      ? 'border-candy-pink bg-candy-pink text-night-purple'
                       : state === 'active'
-                        ? 'border-candy-pink bg-white text-candy-pink shadow-candy'
-                        : 'border-gray-300 bg-white text-gray-400'
+                        ? 'border-candy-pink bg-surface text-candy-pink shadow-candy'
+                        : 'border-white/10 bg-surface text-text-primary/40'
                   }`}
                 >
                   {state === 'completed' ? (
@@ -112,7 +112,7 @@ export default function ReleaseBanner({
                       transition={{ duration: 1.5, repeat: Infinity }}
                     />
                   ) : (
-                    <div className="h-3 w-3 rounded-full bg-gray-300" />
+                    <div className="h-3 w-3 rounded-full bg-text-primary/30" />
                   )}
                 </div>
 
@@ -123,7 +123,7 @@ export default function ReleaseBanner({
                       ? 'text-text-primary/60'
                       : state === 'active'
                         ? 'text-candy-pink'
-                        : 'text-gray-400'
+                        : 'text-text-primary/50'
                   }`}
                 >
                   {label}
@@ -133,10 +133,10 @@ export default function ReleaseBanner({
                 <span
                   className={`text-center text-[10px] sm:text-xs ${
                     state === 'completed'
-                      ? 'font-medium text-gray-400'
+                      ? 'font-medium text-text-primary/50'
                       : state === 'active'
                         ? 'font-bold text-candy-pink'
-                        : 'text-gray-400'
+                        : 'text-text-primary/50'
                   }`}
                 >
                   {state === 'completed'

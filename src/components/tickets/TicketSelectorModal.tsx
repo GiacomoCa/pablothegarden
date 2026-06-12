@@ -24,14 +24,14 @@ function TicketButton({
 
   if (ticket.status === 'sold_out') {
     return (
-      <div className="flex items-center justify-between rounded-candy bg-gray-100 px-5 py-4 opacity-60">
+      <div className="flex items-center justify-between rounded-candy bg-white/5 px-5 py-4 opacity-60">
         <div>
           <p className="font-medium text-text-primary">{ticket.label[localeKey]}</p>
           <p className="text-sm text-text-primary/60">
             {ticket.currency} {ticket.price.toFixed(2)}
           </p>
         </div>
-        <span className="rounded-pill bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-600">
+        <span className="rounded-pill bg-white/10 px-4 py-2 text-sm font-semibold text-text-primary/60">
           {t('sold_out')}
         </span>
       </div>
@@ -40,7 +40,7 @@ function TicketButton({
 
   if (ticket.status === 'coming_soon') {
     return (
-      <div className="flex items-center justify-between rounded-candy bg-gray-50 px-5 py-4 opacity-70">
+      <div className="flex items-center justify-between rounded-candy bg-white/5 px-5 py-4 opacity-70">
         <div>
           <p className="font-medium text-text-primary">{ticket.label[localeKey]}</p>
           <p className="text-sm text-text-primary/60">
@@ -67,7 +67,7 @@ function TicketButton({
           {ticket.currency} {ticket.price.toFixed(2)}
         </p>
       </div>
-      <span className="rounded-pill bg-candy-pink px-4 py-2 text-sm font-semibold text-white shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover">
+      <span className="rounded-pill bg-candy-pink px-4 py-2 text-sm font-semibold text-night-purple shadow-candy transition-all duration-200 hover:bg-candy-pink-dark hover:shadow-candy-hover">
         {t('buy_now')}
       </span>
     </a>
@@ -202,7 +202,7 @@ export default function TicketSelectorModal({
             {/* Content */}
             <div className="mt-6 space-y-3">
               {allSoldOut ? (
-                <div className="rounded-candy bg-gray-50 p-6 text-center">
+                <div className="rounded-candy bg-white/5 p-6 text-center">
                   <p className="text-lg font-semibold text-text-primary">
                     {t('all_sold_out_message')}
                   </p>

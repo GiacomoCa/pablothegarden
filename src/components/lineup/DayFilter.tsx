@@ -39,7 +39,7 @@ export default function DayFilter({
               sm:px-5 sm:py-2.5 sm:text-base
               ${
                 isActive
-                  ? 'bg-candy-pink text-white shadow-candy'
+                  ? 'bg-candy-pink text-night-purple shadow-candy'
                   : 'bg-surface-elevated text-text-primary hover:bg-candy-pink/10 hover:text-candy-pink'
               }
             `}

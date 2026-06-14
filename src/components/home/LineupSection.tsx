@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -21,6 +22,8 @@ function initials(name: string): string {
 function ArtistCard({ artist }: { artist: LineupDayArtist }) {
   const shouldReduceMotion = useReducedMotion();
   const t = useTranslations('lineup_home');
+  // "open" drives both desktop hover and mobile tap (no hover on touch)
+  const [open, setOpen] = useState(false);
 
   if (!artist.revealed) {
     // Unannounced artist — catchy mystery placeholder
@@ -38,8 +41,12 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
 
   return (
     <motion.div
-      className="group relative z-0 w-40 flex-shrink-0 snap-start hover:z-20 sm:w-48"
-      whileHover={shouldReduceMotion ? {} : { scale: 1.06, y: -6 }}
+      className="relative z-0 w-40 flex-shrink-0 cursor-pointer snap-start sm:w-48"
+      style={{ zIndex: open ? 20 : 0 }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onClick={() => setOpen((o) => !o)}
+      animate={shouldReduceMotion ? {} : { scale: open ? 1.08 : 1, y: open ? -6 : 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
       <div className="relative aspect-square w-full overflow-hidden rounded-candy shadow-candy">
@@ -49,7 +56,9 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
             alt={artist.name}
             fill
             sizes="(max-width: 640px) 160px, 192px"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+            className={`object-cover transition-transform duration-500 ease-out ${
+              open ? 'scale-[1.3]' : 'scale-100'
+            }`}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-candy-pink/30 to-bubblegum/30">
@@ -59,9 +68,13 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
           </div>
         )}
 
-        {/* Bio overlay revealed on hover */}
+        {/* Bio overlay revealed on hover / tap */}
         {artist.bio && (
-          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-night-purple/95 via-night-purple/55 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div
+            className={`absolute inset-0 flex items-end bg-gradient-to-t from-night-purple/95 via-night-purple/55 to-transparent transition-opacity duration-300 ${
+              open ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
             <p className="p-3 text-left text-[11px] leading-snug text-white sm:text-xs">
               {artist.bio}
             </p>

@@ -1,6 +1,6 @@
 [
   { "value": 4, "label_it": "Edizioni", "label_en": "Editions" },
-  { "value": 1, "label_it": "Giardino", "label_en": "Garden" },
-  { "value": 15000, "label_it": "Presenze", "label_en": "Attendees", "suffix": "+" },
-  { "value": 1, "label_it": "Estate Marchigiana", "label_en": "Marche Summer" }
+  { "value": 2, "label_it": "Stage", "label_en": "Stages" },
+  { "value": 25, "label_it": "Artisti", "label_en": "Artists", "suffix": "+" },
+  { "value": 15000, "label_it": "Presenze", "label_en": "Attendees", "suffix": "+" }
 ]

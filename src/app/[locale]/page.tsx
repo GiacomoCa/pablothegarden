@@ -153,12 +153,12 @@ export default async function HomePage({ params }: Props) {
       <ScrollReveal>
         <Countdown />
       </ScrollReveal>
-      <div id="lineup" className="scroll-mt-20 md:scroll-mt-24">
+      <div id="lineup">
         <ScrollReveal delay={0.1}>
           <LineupSection days={lineupDays} />
         </ScrollReveal>
       </div>
-      <div id="tickets" className="scroll-mt-20 md:scroll-mt-24">
+      <div id="tickets">
         <ScrollReveal delay={0.1}>
           <TicketsSection tickets={homeTickets} />
         </ScrollReveal>

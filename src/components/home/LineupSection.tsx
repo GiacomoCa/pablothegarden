@@ -48,11 +48,11 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
   if (!artist.revealed) {
     // Unannounced artist — catchy mystery placeholder
     return (
-      <div className="flex w-40 flex-shrink-0 snap-start flex-col items-center justify-center rounded-candy border-2 border-dashed border-candy-pink/40 bg-surface/50 p-4 text-center sm:w-44">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-candy-pink/10 sm:h-20 sm:w-20">
-          <span className="font-display text-3xl font-bold text-candy-pink">?</span>
+      <div className="w-40 flex-shrink-0 snap-start sm:w-48">
+        <div className="flex aspect-square w-full flex-col items-center justify-center rounded-candy border-2 border-dashed border-candy-pink/40 bg-surface/40">
+          <span className="font-display text-5xl font-bold text-candy-pink">?</span>
         </div>
-        <p className="mt-3 font-display text-sm font-bold text-candy-pink">
+        <p className="mt-3 text-center font-display text-sm font-bold text-candy-pink sm:text-base">
           {t('coming_soon')}
         </p>
       </div>
@@ -61,28 +61,28 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
 
   return (
     <motion.div
-      className="flex w-40 flex-shrink-0 snap-start flex-col items-center rounded-candy bg-surface-elevated p-4 text-center shadow-candy sm:w-44"
-      whileHover={shouldReduceMotion ? {} : { y: -4, scale: 1.02 }}
+      className="w-40 flex-shrink-0 snap-start sm:w-48"
+      whileHover={shouldReduceMotion ? {} : { y: -4 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      <div className="relative h-16 w-16 overflow-hidden rounded-full sm:h-20 sm:w-20">
+      <div className="relative aspect-square w-full overflow-hidden rounded-candy shadow-candy">
         {artist.photo ? (
           <Image
             src={artist.photo}
             alt={artist.name}
             fill
-            sizes="80px"
+            sizes="(max-width: 640px) 160px, 192px"
             className="object-cover"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-candy-pink/30 to-bubblegum/30">
-            <span className="font-display text-xl font-bold text-candy-pink">
+            <span className="font-display text-3xl font-bold text-candy-pink">
               {initials(artist.name)}
             </span>
           </div>
         )}
       </div>
-      <p className="mt-3 font-display text-sm font-bold text-text-primary sm:text-base">
+      <p className="mt-3 text-center font-display text-base font-bold text-text-primary">
         {artist.name}
       </p>
       <Badges artist={artist} />
@@ -106,7 +106,7 @@ function DayRow({ group }: { group: LineupDayGroup }) {
       </div>
 
       {/* Horizontally scrolling artist strip */}
-      <div className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-4 scrollbar-thin snap-x sm:px-6 lg:px-8">
+      <div className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-4 pt-2 scrollbar-thin snap-x sm:px-6 lg:px-8">
         {group.artists.map((artist) => (
           <ArtistCard key={artist.name} artist={artist} />
         ))}

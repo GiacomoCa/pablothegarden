@@ -35,6 +35,8 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* Offset anchor jumps so section headings aren't hidden under the fixed header */
+  scroll-padding-top: 5.5rem;
 }
 
 body {

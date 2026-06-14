@@ -2,28 +2,28 @@
   {
     "day": 1,
     "artists": [
-      { "name": "Olivieri", "revealed": true },
-      { "name": "Tommy B", "revealed": true },
-      { "name": "Giulio Zega", "revealed": true },
-      { "name": "LOVRA", "revealed": true },
+      { "name": "Olivieri", "revealed": true, "photo": "/images/lineup/olivieri.jpg" },
+      { "name": "Tommy B", "revealed": true, "photo": "/images/lineup/tommy-b.jpg" },
+      { "name": "Giulio Zega", "revealed": true, "photo": "/images/lineup/giulio-zega.jpg" },
+      { "name": "LOVRA", "revealed": true, "photo": "/images/lineup/lovra.jpg" },
       { "name": "Viviana Casanova", "revealed": false },
-      { "name": "Nicola Torresi", "revealed": true },
-      { "name": "Ercy", "revealed": true, "tag": "closing" },
-      { "name": "Carpa", "revealed": true, "tag": "hiphop", "secondStage": true },
-      { "name": "Bato", "revealed": true, "secondStage": true }
+      { "name": "Nicola Torresi", "revealed": true, "photo": "/images/lineup/nicola-torresi.jpg" },
+      { "name": "Ercy", "revealed": true, "tag": "closing", "photo": "/images/lineup/ercy.jpg" },
+      { "name": "Carpa", "revealed": true, "tag": "hiphop", "secondStage": true, "photo": "/images/lineup/carpa.jpg" },
+      { "name": "Bato", "revealed": true, "secondStage": true, "photo": "/images/lineup/bato.jpg" }
     ]
   },
   {
     "day": 2,
     "artists": [
-      { "name": "Mutze", "revealed": true },
-      { "name": "Michele Cesaretti", "revealed": true },
-      { "name": "Elion", "revealed": true },
+      { "name": "Mutze", "revealed": true, "photo": "/images/lineup/mutze.jpg" },
+      { "name": "Michele Cesaretti", "revealed": true, "photo": "/images/lineup/michele-cesaretti.jpg" },
+      { "name": "Elion", "revealed": true, "photo": "/images/lineup/elion.jpg" },
       { "name": "Nicola Pigini", "revealed": false },
-      { "name": "Stephani B", "revealed": true },
-      { "name": "N4C", "revealed": true },
-      { "name": "Citano Ballemo", "revealed": true, "secondStage": true },
-      { "name": "Jacopo Galletta", "revealed": true, "tag": "hiphop", "secondStage": true }
+      { "name": "Stephani B", "revealed": true, "photo": "/images/lineup/stephani-b.jpg" },
+      { "name": "N4C", "revealed": true, "photo": "/images/lineup/n4c.jpg" },
+      { "name": "Citano Ballemo", "revealed": true, "secondStage": true, "photo": "/images/lineup/citano-ballemo.jpg" },
+      { "name": "Jacopo Galletta", "revealed": true, "tag": "hiphop", "secondStage": true, "photo": "/images/lineup/jacopo-galletta.jpg" }
     ]
   }
 ]

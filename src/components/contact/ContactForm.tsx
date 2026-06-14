@@ -12,7 +12,7 @@ interface FormErrors {
   message?: string;
 }
 
-const FORMSPREE_URL = 'https://formspree.io/f/placeholder';
+const FORMSPREE_URL = 'https://formspree.io/f/mbdeqbkg';
 
 const REQUEST_TYPES = ['sponsor', 'media', 'vendor', 'other'] as const;
 
@@ -62,13 +62,17 @@ export default function ContactForm() {
     try {
       const response = await fetch(FORMSPREE_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
           company: company.trim(),
           type: requestType,
           message: message.trim(),
+          _subject: `Pablo The Garden — nuovo messaggio (${requestType})`,
         }),
       });
 

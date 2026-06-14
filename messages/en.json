@@ -325,8 +325,9 @@
     "go_to_tickets_page": "Go to Tickets Page"
   },
   "cookie": {
-    "message": "This site uses technical cookies to ensure proper functionality.",
+    "message": "We use necessary technical cookies and, only with your consent, Google Analytics cookies to measure visits in aggregate.",
     "accept": "Accept",
+    "reject": "Reject",
     "learn_more": "Learn more"
   },
   "newsletter": {

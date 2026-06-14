@@ -2,35 +2,35 @@ This policy describes how personal data of users who browse **pablothegarden.com
 
 ## Data Controller
 
-The Data Controller is **[Pablo The Garden — legal entity / organizer]**, with registered office at **[address]**, VAT / Tax Code **[•••]**.
+The Data Controller is **GO BANANAS Associazione Culturale**, VAT 02111990434, Tax Code 93070680439.
 
 Contact email: **pablothegarden@gmail.com**
-
-No Data Protection Officer (DPO) has been appointed, as it is not mandatory.
 
 ## Data we process
 
 - **Contact form data**: name, email address, optional company/organization, request type and the content of the message you send us via the Contact page.
 - **Browsing data**: technical data automatically collected by IT systems (e.g. IP address, browser and device type, date and time of the request) through the hosting provider's logs, necessary for the operation and security of the site.
-- **Cookies**: the site uses **technical cookies only**, necessary for proper functioning. We do not use profiling cookies or analytics tools that track users. Fonts are hosted directly on our site, with no requests to external CDNs.
+- **Cookies**: the site uses **technical cookies** necessary for functioning (always active) and, **only with your prior consent** given via the banner, **Google Analytics 4 analytics cookies** to measure visits in aggregate. Without consent, no analytics cookie is installed; you can change your choice by clearing the site's cookies. Fonts are hosted directly on our site, with no requests to external CDNs.
 
 ## Purposes and legal basis
 
 - **Responding to requests** sent via the contact form (partnerships, press, vendors, information). Legal basis: performance of pre-contractual measures and/or legitimate interest in responding; where the request is not necessary, the consent given by submitting the form.
 - **Security and proper functioning of the site**. Legal basis: legitimate interest of the Controller (Art. 6(1)(f) GDPR).
+- **Aggregate statistical analysis** of visits via Google Analytics 4, active **only if you give consent**. Legal basis: your **consent** (Art. 6(1)(a) GDPR), revocable at any time.
 
 ## Recipients of the data
 
 Data may be processed on our behalf, as Data Processors, by service providers such as:
 
 - **Vercel Inc.** — site hosting and delivery;
-- **Formspree, Inc.** — handling of contact form submissions.
+- **Formspree, Inc.** — handling of contact form submissions;
+- **Google Ireland Ltd. / Google LLC** — statistical analysis of visits (Google Analytics 4), active only with prior consent.
 
 Data is not disseminated or sold to third parties for commercial purposes.
 
 ## Transfers outside the EU
 
-Some providers (Vercel, Formspree) are based in the United States. Any transfer of data outside the European Economic Area takes place in compliance with the GDPR, on the basis of **Standard Contractual Clauses** approved by the European Commission or other adequate safeguards.
+Some providers (Vercel, Formspree, Google) may also process data in the United States. Any transfer of data outside the European Economic Area takes place in compliance with the GDPR, on the basis of **Standard Contractual Clauses** approved by the European Commission or other adequate safeguards.
 
 ## Retention period
 

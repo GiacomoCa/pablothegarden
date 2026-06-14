@@ -2,35 +2,35 @@ La presente informativa descrive le modalità di trattamento dei dati personali 
 
 ## Titolare del Trattamento
 
-Il Titolare del trattamento è **[Pablo The Garden — ragione sociale / organizzatore]**, con sede in **[indirizzo]**, C.F. / P.IVA **[•••]**.
+Il Titolare del trattamento è **GO BANANAS Associazione Culturale**, P.IVA 02111990434, C.F. 93070680439.
 
 Email di contatto: **pablothegarden@gmail.com**
-
-Non è stato nominato un Responsabile della Protezione dei Dati (DPO), non essendone obbligatoria la designazione.
 
 ## Dati che trattiamo
 
 - **Dati del modulo di contatto**: nome, indirizzo email, eventuale azienda/organizzazione, tipo di richiesta e contenuto del messaggio che ci invii tramite la pagina Contatti.
 - **Dati di navigazione**: dati tecnici raccolti automaticamente dai sistemi informatici (ad esempio indirizzo IP, tipo di browser e dispositivo, data e ora della richiesta) tramite i log del fornitore di hosting, necessari al funzionamento e alla sicurezza del sito.
-- **Cookie**: il sito utilizza **esclusivamente cookie tecnici** necessari al corretto funzionamento. Non utilizziamo cookie di profilazione né strumenti di analisi che tracciano l'utente. I caratteri tipografici (font) sono ospitati direttamente sul nostro sito, senza richieste a CDN esterne.
+- **Cookie**: il sito utilizza **cookie tecnici** necessari al funzionamento (sempre attivi) e, **solo previo tuo consenso** prestato tramite l'apposito banner, **cookie analitici di Google Analytics 4** per misurare in forma aggregata le visite. In assenza di consenso non viene installato alcun cookie analitico; puoi modificare la tua scelta cancellando i cookie del sito. I caratteri tipografici (font) sono ospitati direttamente sul nostro sito, senza richieste a CDN esterne.
 
 ## Finalità e base giuridica del trattamento
 
 - **Riscontro alle richieste** inviate tramite il modulo di contatto (collaborazioni, stampa, vendor, informazioni). Base giuridica: esecuzione di misure precontrattuali e/o legittimo interesse a rispondere; ove la richiesta non sia necessaria, il consenso prestato con l'invio del modulo.
 - **Sicurezza e corretto funzionamento del sito**. Base giuridica: legittimo interesse del Titolare (art. 6, par. 1, lett. f, GDPR).
+- **Analisi statistica aggregata** delle visite tramite Google Analytics 4, attiva **solo se presti il consenso**. Base giuridica: il tuo **consenso** (art. 6, par. 1, lett. a, GDPR), revocabile in qualsiasi momento.
 
 ## Destinatari dei dati
 
 I dati possono essere trattati, per nostro conto e in qualità di Responsabili del trattamento, da fornitori di servizi quali:
 
 - **Vercel Inc.** — hosting e distribuzione del sito;
-- **Formspree, Inc.** — gestione dell'invio dei messaggi dal modulo di contatto.
+- **Formspree, Inc.** — gestione dell'invio dei messaggi dal modulo di contatto;
+- **Google Ireland Ltd. / Google LLC** — analisi statistica delle visite (Google Analytics 4), attiva solo previo consenso.
 
 I dati non vengono diffusi né ceduti a terzi per finalità commerciali.
 
 ## Trasferimenti di dati extra-UE
 
-Alcuni fornitori (Vercel, Formspree) hanno sede negli Stati Uniti. Eventuali trasferimenti di dati al di fuori dello Spazio Economico Europeo avvengono nel rispetto del GDPR, sulla base di **Clausole Contrattuali Standard** approvate dalla Commissione Europea o di altre garanzie adeguate previste dalla normativa.
+Alcuni fornitori (Vercel, Formspree, Google) possono trattare dati anche negli Stati Uniti. Eventuali trasferimenti di dati al di fuori dello Spazio Economico Europeo avvengono nel rispetto del GDPR, sulla base di **Clausole Contrattuali Standard** approvate dalla Commissione Europea o di altre garanzie adeguate previste dalla normativa.
 
 ## Periodo di conservazione
 

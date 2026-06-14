@@ -325,8 +325,9 @@
     "go_to_tickets_page": "Vai alla Pagina Biglietti"
   },
   "cookie": {
-    "message": "Questo sito utilizza cookie tecnici per garantire il corretto funzionamento.",
+    "message": "Usiamo cookie tecnici necessari e, solo con il tuo consenso, cookie di Google Analytics per misurare in forma aggregata le visite.",
     "accept": "Accetta",
+    "reject": "Rifiuta",
     "learn_more": "Scopri di più"
   },
   "newsletter": {

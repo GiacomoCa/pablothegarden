@@ -7,6 +7,7 @@ import { routing } from '@/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingTicketCTAWrapper from '@/components/layout/FloatingTicketCTAWrapper';
+import AnalyticsConsent from '@/components/analytics/AnalyticsConsent';
 import '@/app/globals.css';
 
 const fredoka = Fredoka({
@@ -56,6 +57,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </main>
           <Footer />
           <FloatingTicketCTAWrapper />
+          <AnalyticsConsent />
         </NextIntlClientProvider>
       </body>
     </html>

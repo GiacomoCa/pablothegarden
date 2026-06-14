@@ -46,10 +46,16 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       onClick={() => setOpen((o) => !o)}
-      animate={shouldReduceMotion ? {} : { scale: open ? 1.08 : 1, y: open ? -6 : 0 }}
+      animate={shouldReduceMotion ? {} : { scale: open ? 1.3 : 1, y: open ? -10 : 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
-      <div className="relative aspect-square w-full overflow-hidden rounded-candy shadow-candy">
+      <div
+        className={`relative aspect-square w-full overflow-hidden rounded-candy ring-candy-pink transition-shadow duration-300 ${
+          open
+            ? 'shadow-[0_0_50px_12px_rgba(255,205,255,0.65)] ring-4'
+            : 'shadow-candy ring-0'
+        }`}
+      >
         {artist.photo ? (
           <Image
             src={artist.photo}
@@ -103,8 +109,9 @@ function DayRow({ group }: { group: LineupDayGroup }) {
         </span>
       </div>
 
-      {/* Horizontally scrolling artist strip */}
-      <div className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-6 pt-4 scrollbar-thin snap-x sm:px-6 lg:px-8">
+      {/* Horizontally scrolling artist strip (generous vertical padding so the
+          enlarged/lifted card and its glow aren't clipped) */}
+      <div className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-14 pt-14 scrollbar-thin snap-x lg:px-8">
         {group.artists.map((artist) => (
           <ArtistCard key={artist.name} artist={artist} />
         ))}

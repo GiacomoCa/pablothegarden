@@ -256,6 +256,19 @@ export function getRules(locale: string): string {
 }
 
 // =============================================================================
+// Privacy Policy
+// =============================================================================
+
+/**
+ * Read the privacy policy markdown for the given locale.
+ * Returns an empty string if the file doesn't exist yet.
+ */
+export function getPrivacy(locale: string): string {
+  const filePath = path.join(contentDir, 'privacy', `${locale}.md`);
+  return readTextFile(filePath) ?? '';
+}
+
+// =============================================================================
 // About
 // =============================================================================
 

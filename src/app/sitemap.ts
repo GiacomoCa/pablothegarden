@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/rules',
     '/contact',
+    '/privacy',
   ];
 
   const currentDate = new Date();

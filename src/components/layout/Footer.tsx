@@ -116,7 +116,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 py-6">
+        <div id="footer-bottom" className="border-t border-white/10 py-6">
           <div className="flex flex-col items-center gap-2 text-center text-sm text-white/50 sm:flex-row sm:justify-between">
             <p>{t('copyright', { year: currentYear })}</p>
             <p>{t('made_with_love')}</p>

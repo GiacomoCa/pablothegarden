@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 
@@ -10,6 +11,20 @@ export default function FloatingTicketCTA() {
   const tFooter = useTranslations('footer');
   const locale = useLocale();
 
+  // Lift the buttons above the footer's bottom bar when it scrolls into view,
+  // so the copyright / "made with love" line stays readable.
+  const [liftBy, setLiftBy] = useState(0);
+  useEffect(() => {
+    const el = document.getElementById('footer-bottom');
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setLiftBy(entry.isIntersecting ? el.offsetHeight + 12 : 0),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Always points to the tickets section on the homepage. On the homepage this
   // is a same-page smooth scroll; from any other page it navigates home + anchor.
   const ticketsHref = `/${locale}#tickets`;
@@ -17,8 +32,8 @@ export default function FloatingTicketCTA() {
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 1, type: 'spring', damping: 20, stiffness: 200 }}
+      animate={{ y: -liftBy, opacity: 1 }}
+      transition={{ type: 'spring', damping: 20, stiffness: 200 }}
       className="
         fixed z-40 flex items-center gap-3
         bottom-4 left-1/2 -translate-x-1/2

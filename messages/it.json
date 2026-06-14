@@ -208,6 +208,11 @@
     "subtitle": "Leggi attentamente prima di partecipare",
     "last_updated": "Ultimo aggiornamento: {date}"
   },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "Come trattiamo i tuoi dati personali",
+    "last_updated": "Ultimo aggiornamento: {date}"
+  },
   "contact": {
     "title": "Contatti",
     "subtitle": "Scrivici per qualsiasi informazione o proposta di collaborazione",
@@ -288,6 +293,8 @@
     "about_description": "La storia di Pablo The Garden: da un gruppo di amici a uno dei festival di musica elettronica più amati delle Marche. Scopri le nostre edizioni e il team.",
     "rules_title": "Regolamento — Pablo The Garden",
     "rules_description": "Regolamento di ingresso e norme di comportamento per Pablo The Garden Candy Edition 2026. Leggi attentamente prima di partecipare.",
+    "privacy_title": "Privacy Policy — Pablo The Garden",
+    "privacy_description": "Informativa sul trattamento dei dati personali degli utenti del sito Pablo The Garden, ai sensi del GDPR (Reg. UE 2016/679).",
     "contact_title": "Contatti — Pablo The Garden",
     "contact_description": "Contatta il team di Pablo The Garden per collaborazioni, partnership, informazioni stampa o qualsiasi domanda sul festival."
   },

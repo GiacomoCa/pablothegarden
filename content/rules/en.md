@@ -5,9 +5,10 @@ Welcome to Pablo The Garden! To ensure a safe and enjoyable experience for every
 ## Entry Requirements
 
 - **Valid ID** required for all attendees
-- **Minimum age:** 16 years old. Minors aged 16-17 must be accompanied by a parent or legal guardian
+- **Under 18s:** must be accompanied by an adult
 - **Valid ticket** and wristband pickup at the entrance
-- **The wristband** must be worn at all times throughout the event. If you remove it, you won't be able to re-enter
+- **The wristband** must be worn throughout the event
+- **Single entry:** your ticket grants one entry only. Once you leave the event area, re-entry is not allowed
 
 ## Prohibited Items
 
@@ -33,6 +34,10 @@ Pablo The Garden is a space of freedom, respect, and fun. We ask everyone to hel
 
 If you witness inappropriate behavior, report it immediately to staff. Your safety and that of others is our priority.
 
+## Accessibility and Inclusion
+
+Pablo The Garden stands for accessibility and inclusion. We provide **dedicated access for people with disabilities**, **reserved parking** and **suitable restrooms**, in compliance with current regulations. For specific needs, contact us in advance: we'll do our best to welcome you.
+
 ## Safety
 
 Your safety is essential to us:
@@ -40,7 +45,6 @@ Your safety is essential to us:
 - **First aid station** available inside the festival
 - **Emergency exits** clearly marked throughout the area
 - **Designated drivers** strongly encouraged — if you drink, don't drive
-- **Free water stations** available at various points throughout the festival
 
 In case of emergency, look for staff wearing reflective vests or go to the information point.
 
@@ -49,21 +53,19 @@ In case of emergency, look for staff wearing reflective vests or go to the infor
 Pablo The Garden cares about the environment. Help us keep the garden clean:
 
 - Use the **recycling bins** located throughout the area
-- **Reusable cups** available at bars (deposit system)
 - Respect the natural environment of the garden: it's our home for two days
 
 Let's leave the garden more beautiful than we found it.
 
-## Drink Card
+## Tokens and Drink Card
 
-Pablo The Garden uses a **cashless system** for all purchases:
+Pablo The Garden uses a **token system** for food & drinks:
 
-1. **Purchase a Drink Card** at the cashier near the entrance or at dedicated sales points
-2. **Load credit** onto the card (cash or credit/debit card accepted)
-3. **Use the card** at all festival bars to purchase drinks and food
-4. **Remaining credit is non-refundable** at the end of the event
-
-Keep your card throughout the festival. If lost, it's not possible to recover remaining credit.
+- **Tokens are sold only in multiples of 5**: 5 tokens cost **€10**
+- For **larger purchases** there are bonuses and **free gadgets** (keyrings and assorted merchandise)
+- At the entrance, with the **2-Day Pass** you receive a **drink card valid only on August 15**, usable for all drinks **excluding premium ones**
+- With a **single-day ticket** you receive a **drink card valid for your day** (August 15 or 16), for drinks **excluding premium ones**
+- Once your included drink card is used up, **everything else — food and drinks — is purchased with tokens**
 
 ---
 

@@ -20,6 +20,7 @@ export default function Header() {
     { href: '/gallery', label: t('gallery') },
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },
+    { href: '/rules', label: t('rules') },
   ];
 
   const handleScroll = useCallback(() => {

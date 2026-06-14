@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Pablo The Garden - Sweet Edition 2026',
+        alt: 'Pablo The Garden - Candy Edition 2026',
       },
     ],
   },

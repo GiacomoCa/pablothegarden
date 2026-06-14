@@ -37,7 +37,7 @@ export default function Footer() {
               Pablo The Garden
             </Link>
             <p className="mt-3 text-sm text-white/70">
-              Sweet Edition 2026
+              Candy Edition 2026
             </p>
             <p className="mt-1 text-sm text-white/50">
               15-16 Agosto 2026 | Morrovalle (MC)

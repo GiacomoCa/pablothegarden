@@ -151,12 +151,14 @@ export interface SweetWorldContent {
 export interface LineupDayArtist {
   name: string;
   revealed: boolean;
-  /** Special role tag: closing set or hip-hop set */
+  /** Internal-only: special role tag (NOT shown publicly) */
   tag?: 'closing' | 'hiphop';
-  /** Plays on the second stage ("Seconda Sala") */
+  /** Internal-only: plays on the second stage (NOT shown publicly) */
   secondStage?: boolean;
   /** Optional artist photo path (placeholder until provided) */
   photo?: string;
+  /** Short artist description shown on hover */
+  bio?: string;
 }
 
 /**

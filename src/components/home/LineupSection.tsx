@@ -18,29 +18,6 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-function Badges({ artist }: { artist: LineupDayArtist }) {
-  const t = useTranslations('lineup_home');
-  const badges: string[] = [];
-  if (artist.tag === 'closing') badges.push(t('badge_closing'));
-  if (artist.tag === 'hiphop') badges.push(t('badge_hiphop'));
-  if (artist.secondStage) badges.push(t('badge_second_stage'));
-
-  if (badges.length === 0) return null;
-
-  return (
-    <div className="mt-2 flex flex-wrap justify-center gap-1">
-      {badges.map((b) => (
-        <span
-          key={b}
-          className="rounded-pill bg-candy-pink/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-candy-pink"
-        >
-          {b}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 function ArtistCard({ artist }: { artist: LineupDayArtist }) {
   const shouldReduceMotion = useReducedMotion();
   const t = useTranslations('lineup_home');
@@ -61,9 +38,9 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
 
   return (
     <motion.div
-      className="w-40 flex-shrink-0 snap-start sm:w-48"
-      whileHover={shouldReduceMotion ? {} : { y: -4 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="group relative z-0 w-40 flex-shrink-0 snap-start hover:z-20 sm:w-48"
+      whileHover={shouldReduceMotion ? {} : { scale: 1.06, y: -6 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
       <div className="relative aspect-square w-full overflow-hidden rounded-candy shadow-candy">
         {artist.photo ? (
@@ -72,7 +49,7 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
             alt={artist.name}
             fill
             sizes="(max-width: 640px) 160px, 192px"
-            className="object-cover"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-candy-pink/30 to-bubblegum/30">
@@ -81,11 +58,19 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
             </span>
           </div>
         )}
+
+        {/* Bio overlay revealed on hover */}
+        {artist.bio && (
+          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-night-purple/95 via-night-purple/55 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <p className="p-3 text-left text-[11px] leading-snug text-white sm:text-xs">
+              {artist.bio}
+            </p>
+          </div>
+        )}
       </div>
       <p className="mt-3 text-center font-display text-base font-bold text-text-primary">
         {artist.name}
       </p>
-      <Badges artist={artist} />
     </motion.div>
   );
 }
@@ -106,7 +91,7 @@ function DayRow({ group }: { group: LineupDayGroup }) {
       </div>
 
       {/* Horizontally scrolling artist strip */}
-      <div className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-4 pt-2 scrollbar-thin snap-x sm:px-6 lg:px-8">
+      <div className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-6 pt-4 scrollbar-thin snap-x sm:px-6 lg:px-8">
         {group.artists.map((artist) => (
           <ArtistCard key={artist.name} artist={artist} />
         ))}
@@ -117,7 +102,8 @@ function DayRow({ group }: { group: LineupDayGroup }) {
 
 /**
  * Homepage lineup section — the lineup split into two horizontally scrolling
- * rows, one per festival day. Unannounced artists show a mystery placeholder.
+ * rows, one per festival day. Revealed artists show a photo that zooms and
+ * reveals a short bio on hover; unannounced artists show a mystery placeholder.
  */
 export default function LineupSection({ days }: LineupSectionProps) {
   const t = useTranslations('lineup_home');

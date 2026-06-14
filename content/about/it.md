@@ -17,7 +17,7 @@ Pablo è migrato nella giungla. Scenografie dense, suoni esotici, un'immersione 
 **2025 — Flower Edition**
 Il giardino è sbocciato. Estetiche floreali, design colorato del palco, un'esplosione di vita e bellezza. La natura e la musica si sono fuse in un abbraccio perfetto.
 
-**2026 — Sweet Edition**
+**2026 — Candy Edition**
 Dolci e dolcezza conquistano il giardino. L'edizione più golosa di sempre, dove ogni angolo profuma di zucchero, colori pastello e vibes candyshop. Preparatevi a un'overdose di dolcezza.
 
 # Il Team

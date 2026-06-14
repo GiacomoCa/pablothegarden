@@ -13,7 +13,7 @@
   "hero": {
     "title": "Pablo The Garden",
     "garden": "The Garden",
-    "subtitle": "Sweet Edition",
+    "subtitle": "Candy Edition",
     "dates": "15–16 Agosto 2026",
     "location": "Morrovalle (MC)",
     "cta_tickets": "Acquista Biglietti",
@@ -37,7 +37,7 @@
   },
   "lineup": {
     "title": "Lineup",
-    "subtitle": "Sweet Edition 2026",
+    "subtitle": "Candy Edition 2026",
     "coming_soon": "Lineup in Arrivo",
     "coming_soon_description": "Lineup in arrivo... seguici per non perderti nulla!",
     "follow_cta": "Seguici su Instagram per scoprire i primi artisti",
@@ -60,8 +60,8 @@
   },
   "tickets": {
     "title": "Biglietti",
-    "subtitle": "Sweet Edition 2026",
-    "description": "Scegli il tuo biglietto per la Sweet Edition di Pablo The Garden!",
+    "subtitle": "Candy Edition 2026",
+    "description": "Scegli il tuo biglietto per la Candy Edition di Pablo The Garden!",
     "active_release": "Release Attiva",
     "release_progress": "Progressione Release",
     "current_release": "Release Attuale",
@@ -93,15 +93,11 @@
     "subtitle": "Due giorni di musica nel giardino",
     "day1": "Venerdì 15 Agosto",
     "day2": "Sabato 16 Agosto",
-    "view_full": "Vedi Lineup Completo",
-    "coming_soon": "Prossimamente",
-    "badge_closing": "Chiusura",
-    "badge_hiphop": "Hip Hop",
-    "badge_second_stage": "Seconda Sala"
+    "coming_soon": "Prossimamente"
   },
   "tickets_home": {
     "title": "Biglietti",
-    "subtitle": "Assicurati il tuo posto alla Sweet Edition",
+    "subtitle": "Assicurati il tuo posto alla Candy Edition",
     "view_all": "Vai a tutti i biglietti",
     "buy": "Acquista",
     "sold_out": "Sold Out",
@@ -125,7 +121,7 @@
     },
     "scenography": {
       "title": "Scenografia",
-      "description": "Installazioni immersive, luci e decorazioni a tema Sweet Edition. Il giardino si trasforma in un mondo di dolcezza."
+      "description": "Installazioni immersive, luci e decorazioni a tema Candy Edition. Il giardino si trasforma in un mondo di dolcezza."
     }
   },
   "editions": {
@@ -147,7 +143,7 @@
       "description": "Il giardino fiorisce: petali, colori pastello e atmosfere sognanti. Oltre 6.500 persone hanno ballato tra i fiori."
     },
     "edition_2026": {
-      "name": "Sweet Edition",
+      "name": "Candy Edition",
       "year": "2026",
       "description": "L'edizione più dolce di sempre! Caramelle, colori pastello e un mondo di zucchero ti aspettano il 15 e 16 agosto."
     }
@@ -278,20 +274,20 @@
     "download": "Scarica"
   },
   "meta": {
-    "home_title": "Pablo The Garden — Sweet Edition 2026 | Festival di Musica Elettronica",
-    "home_description": "Pablo The Garden — Sweet Edition: il festival di musica elettronica a Morrovalle (MC). 15–16 Agosto 2026. DJ set, food truck, fun zone e scenografie immersive a tema candy.",
-    "lineup_title": "Lineup — Pablo The Garden Sweet Edition 2026",
-    "lineup_description": "Scopri il lineup completo della Sweet Edition 2026 di Pablo The Garden. DJ nazionali e internazionali ti aspettano a Morrovalle il 15 e 16 agosto.",
-    "tickets_title": "Biglietti — Pablo The Garden Sweet Edition 2026",
-    "tickets_description": "Acquista i biglietti per Pablo The Garden Sweet Edition 2026. Abbonamento 2 giorni o biglietto singolo. Morrovalle (MC), 15–16 Agosto 2026.",
+    "home_title": "Pablo The Garden — Candy Edition 2026 | Festival di Musica Elettronica",
+    "home_description": "Pablo The Garden — Candy Edition: il festival di musica elettronica a Morrovalle (MC). 15–16 Agosto 2026. DJ set, food truck, fun zone e scenografie immersive a tema candy.",
+    "lineup_title": "Lineup — Pablo The Garden Candy Edition 2026",
+    "lineup_description": "Scopri il lineup completo della Candy Edition 2026 di Pablo The Garden. DJ nazionali e internazionali ti aspettano a Morrovalle il 15 e 16 agosto.",
+    "tickets_title": "Biglietti — Pablo The Garden Candy Edition 2026",
+    "tickets_description": "Acquista i biglietti per Pablo The Garden Candy Edition 2026. Abbonamento 2 giorni o biglietto singolo. Morrovalle (MC), 15–16 Agosto 2026.",
     "gallery_title": "Galleria — Pablo The Garden",
     "gallery_description": "Rivivi i momenti migliori delle edizioni passate di Pablo The Garden: Parrot Edition 2023, Jungle Edition 2024, Flower Edition 2025.",
     "blog_title": "Blog & News — Pablo The Garden",
-    "blog_description": "Novità, annunci e aggiornamenti su Pablo The Garden Sweet Edition 2026. Scopri il lineup, le date di vendita dei biglietti e molto altro.",
+    "blog_description": "Novità, annunci e aggiornamenti su Pablo The Garden Candy Edition 2026. Scopri il lineup, le date di vendita dei biglietti e molto altro.",
     "about_title": "Chi Siamo — Pablo The Garden",
     "about_description": "La storia di Pablo The Garden: da un gruppo di amici a uno dei festival di musica elettronica più amati delle Marche. Scopri le nostre edizioni e il team.",
     "rules_title": "Regolamento — Pablo The Garden",
-    "rules_description": "Regolamento di ingresso e norme di comportamento per Pablo The Garden Sweet Edition 2026. Leggi attentamente prima di partecipare.",
+    "rules_description": "Regolamento di ingresso e norme di comportamento per Pablo The Garden Candy Edition 2026. Leggi attentamente prima di partecipare.",
     "contact_title": "Contatti — Pablo The Garden",
     "contact_description": "Contatta il team di Pablo The Garden per collaborazioni, partnership, informazioni stampa o qualsiasi domanda sul festival."
   },
@@ -313,7 +309,7 @@
   },
   "tickets_modal": {
     "title": "Scegli il Tuo Biglietto",
-    "subtitle": "Seleziona il biglietto per la Sweet Edition 2026",
+    "subtitle": "Seleziona il biglietto per la Candy Edition 2026",
     "select_ticket": "Seleziona Biglietto",
     "sold_out_message": "I biglietti per questa release sono esauriti. Resta sintonizzato per la prossima release!",
     "all_sold_out_message": "Tutti i biglietti sono esauriti. Seguici su Instagram per aggiornamenti!",

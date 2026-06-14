@@ -90,13 +90,24 @@ export default async function HomePage({ params }: Props) {
     .filter((a) => a.revealed)
     .map((a) => ({ '@type': 'PerformingGroup', name: a.name }));
 
+  // Only public fields reach the client (tag / second-stage stay internal)
+  const publicLineup = lineupDays.map((d) => ({
+    day: d.day,
+    artists: d.artists.map((a) => ({
+      name: a.name,
+      revealed: a.revealed,
+      photo: a.photo,
+      bio: a.bio,
+    })),
+  }));
+
   // JSON-LD structured data for SEO + AI answer engines
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'MusicEvent',
-        name: 'Pablo The Garden — Sweet Edition 2026',
+        name: 'Pablo The Garden — Candy Edition 2026',
         startDate: '2026-08-15T18:00:00+02:00',
         endDate: '2026-08-17T04:00:00+02:00',
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
@@ -105,8 +116,8 @@ export default async function HomePage({ params }: Props) {
         url: localeUrl,
         description:
           locale === 'it'
-            ? 'Pablo The Garden — Sweet Edition: festival di musica elettronica a Morrovalle (MC), 15–16 agosto 2026. DJ set, food & drink, fun zone e scenografie immersive a tema candy.'
-            : 'Pablo The Garden — Sweet Edition: electronic music festival in Morrovalle (MC), Italy, 15–16 August 2026. DJ sets, food & drink, fun zone and immersive candy-themed scenography.',
+            ? 'Pablo The Garden — Candy Edition: festival di musica elettronica a Morrovalle (MC), 15–16 agosto 2026. DJ set, food & drink, fun zone e scenografie immersive a tema candy.'
+            : 'Pablo The Garden — Candy Edition: electronic music festival in Morrovalle (MC), Italy, 15–16 August 2026. DJ sets, food & drink, fun zone and immersive candy-themed scenography.',
         location: {
           '@type': 'Place',
           name: 'Pablo The Garden',
@@ -155,7 +166,7 @@ export default async function HomePage({ params }: Props) {
       </ScrollReveal>
       <div id="lineup">
         <ScrollReveal delay={0.1}>
-          <LineupSection days={lineupDays} />
+          <LineupSection days={publicLineup} />
         </ScrollReveal>
       </div>
       <div id="tickets">

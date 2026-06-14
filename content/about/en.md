@@ -17,7 +17,7 @@ Pablo migrated to the jungle. Dense scenography, exotic sounds, a total immersio
 **2025 — Flower Edition**
 The garden bloomed. Floral aesthetics, colorful stage design, an explosion of life and beauty. Nature and music merged in a perfect embrace.
 
-**2026 — Sweet Edition**
+**2026 — Candy Edition**
 Candies and sweetness take over the garden. The most delicious edition yet, where every corner smells like sugar, pastel colors, and candy shop vibes. Get ready for a sweetness overdose.
 
 # The Team

@@ -5,9 +5,9 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
-// Measurement ID is injected at build time via NEXT_PUBLIC_GA_ID.
-// If it's not set, no banner is shown and no analytics load.
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// Measurement ID — overridable via NEXT_PUBLIC_GA_ID, defaults to the GA4
+// property. If empty, no banner is shown and no analytics load.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-JJYQC40PT1';
 const STORAGE_KEY = 'pablo-cookie-consent';
 
 type Consent = 'granted' | 'denied' | null;

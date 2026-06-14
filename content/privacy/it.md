@@ -2,7 +2,7 @@ La presente informativa descrive le modalità di trattamento dei dati personali 
 
 ## Titolare del Trattamento
 
-Il Titolare del trattamento è **GO BANANAS Associazione Culturale**, P.IVA 02111990434, C.F. 93070680439.
+Il Titolare del trattamento è **GO BANANAS Associazione Culturale**, con sede in C.da Palombaretta 45, 62010 Morrovalle (MC), P.IVA 02111990434, C.F. 93070680439.
 
 Email di contatto: **pablothegarden@gmail.com**
 

@@ -2,7 +2,7 @@ This policy describes how personal data of users who browse **pablothegarden.com
 
 ## Data Controller
 
-The Data Controller is **GO BANANAS Associazione Culturale**, VAT 02111990434, Tax Code 93070680439.
+The Data Controller is **GO BANANAS Associazione Culturale**, with registered office at C.da Palombaretta 45, 62010 Morrovalle (MC), Italy, VAT 02111990434, Tax Code 93070680439.
 
 Contact email: **pablothegarden@gmail.com**
 

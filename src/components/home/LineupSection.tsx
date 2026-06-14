@@ -97,6 +97,10 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
 function DayRow({ group }: { group: LineupDayGroup }) {
   const t = useTranslations('lineup_home');
   const dayLabel = group.day === 1 ? t('day1') : t('day2');
+  // Alphabetical order so no artist is favored over another
+  const artists = [...group.artists].sort((a, b) =>
+    a.name.localeCompare(b.name, 'it')
+  );
 
   return (
     <div>
@@ -112,7 +116,7 @@ function DayRow({ group }: { group: LineupDayGroup }) {
       {/* Horizontally scrolling artist strip (generous vertical padding so the
           enlarged/lifted card and its glow aren't clipped) */}
       <div className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-14 pt-14 scrollbar-thin snap-x lg:px-8">
-        {group.artists.map((artist) => (
+        {artists.map((artist) => (
           <ArtistCard key={artist.name} artist={artist} />
         ))}
       </div>

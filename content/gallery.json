@@ -3,30 +3,208 @@
     "year": 2023,
     "theme": "Parrot Edition",
     "images": [
-      { "src": "/images/gallery/2023/01.svg", "alt": "Pablo The Garden 2023 - Main Stage", "order": 1 },
-      { "src": "/images/gallery/2023/02.svg", "alt": "Pablo The Garden 2023 - Crowd", "order": 2 },
-      { "src": "/images/gallery/2023/03.svg", "alt": "Pablo The Garden 2023 - DJ Set", "order": 3 },
-      { "src": "/images/gallery/2023/04.svg", "alt": "Pablo The Garden 2023 - Scenography", "order": 4 }
+      {
+        "src": "/images/gallery/2023/01.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (1)",
+        "order": 1
+      },
+      {
+        "src": "/images/gallery/2023/02.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (2)",
+        "order": 2
+      },
+      {
+        "src": "/images/gallery/2023/03.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (3)",
+        "order": 3
+      },
+      {
+        "src": "/images/gallery/2023/04.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (4)",
+        "order": 4
+      },
+      {
+        "src": "/images/gallery/2023/05.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (5)",
+        "order": 5
+      },
+      {
+        "src": "/images/gallery/2023/06.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (6)",
+        "order": 6
+      },
+      {
+        "src": "/images/gallery/2023/07.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (7)",
+        "order": 7
+      },
+      {
+        "src": "/images/gallery/2023/08.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (8)",
+        "order": 8
+      },
+      {
+        "src": "/images/gallery/2023/09.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (9)",
+        "order": 9
+      },
+      {
+        "src": "/images/gallery/2023/10.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (10)",
+        "order": 10
+      },
+      {
+        "src": "/images/gallery/2023/11.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (11)",
+        "order": 11
+      },
+      {
+        "src": "/images/gallery/2023/12.jpg",
+        "alt": "Pablo The Garden 2023 — Parrot Edition (12)",
+        "order": 12
+      }
     ]
   },
   {
     "year": 2024,
     "theme": "Jungle Edition",
     "images": [
-      { "src": "/images/gallery/2024/01.svg", "alt": "Pablo The Garden 2024 - Jungle Stage", "order": 1 },
-      { "src": "/images/gallery/2024/02.svg", "alt": "Pablo The Garden 2024 - Night Crowd", "order": 2 },
-      { "src": "/images/gallery/2024/03.svg", "alt": "Pablo The Garden 2024 - Food Area", "order": 3 },
-      { "src": "/images/gallery/2024/04.svg", "alt": "Pablo The Garden 2024 - Fun Zone", "order": 4 }
+      {
+        "src": "/images/gallery/2024/01.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (1)",
+        "order": 1
+      },
+      {
+        "src": "/images/gallery/2024/02.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (2)",
+        "order": 2
+      },
+      {
+        "src": "/images/gallery/2024/03.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (3)",
+        "order": 3
+      },
+      {
+        "src": "/images/gallery/2024/04.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (4)",
+        "order": 4
+      },
+      {
+        "src": "/images/gallery/2024/05.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (5)",
+        "order": 5
+      },
+      {
+        "src": "/images/gallery/2024/06.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (6)",
+        "order": 6
+      },
+      {
+        "src": "/images/gallery/2024/07.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (7)",
+        "order": 7
+      },
+      {
+        "src": "/images/gallery/2024/08.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (8)",
+        "order": 8
+      },
+      {
+        "src": "/images/gallery/2024/09.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (9)",
+        "order": 9
+      },
+      {
+        "src": "/images/gallery/2024/10.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (10)",
+        "order": 10
+      },
+      {
+        "src": "/images/gallery/2024/11.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (11)",
+        "order": 11
+      },
+      {
+        "src": "/images/gallery/2024/12.jpg",
+        "alt": "Pablo The Garden 2024 — Jungle Edition (12)",
+        "order": 12
+      }
     ]
   },
   {
     "year": 2025,
     "theme": "Flower Edition",
     "images": [
-      { "src": "/images/gallery/2025/01.svg", "alt": "Pablo The Garden 2025 - Flower Stage", "order": 1 },
-      { "src": "/images/gallery/2025/02.svg", "alt": "Pablo The Garden 2025 - Sunset Set", "order": 2 },
-      { "src": "/images/gallery/2025/03.svg", "alt": "Pablo The Garden 2025 - Garden Vibes", "order": 3 },
-      { "src": "/images/gallery/2025/04.svg", "alt": "Pablo The Garden 2025 - Closing Party", "order": 4 }
+      {
+        "src": "/images/gallery/2025/01.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (1)",
+        "order": 1
+      },
+      {
+        "src": "/images/gallery/2025/02.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (2)",
+        "order": 2
+      },
+      {
+        "src": "/images/gallery/2025/03.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (3)",
+        "order": 3
+      },
+      {
+        "src": "/images/gallery/2025/04.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (4)",
+        "order": 4
+      },
+      {
+        "src": "/images/gallery/2025/05.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (5)",
+        "order": 5
+      },
+      {
+        "src": "/images/gallery/2025/06.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (6)",
+        "order": 6
+      },
+      {
+        "src": "/images/gallery/2025/07.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (7)",
+        "order": 7
+      },
+      {
+        "src": "/images/gallery/2025/08.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (8)",
+        "order": 8
+      },
+      {
+        "src": "/images/gallery/2025/09.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (9)",
+        "order": 9
+      },
+      {
+        "src": "/images/gallery/2025/10.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (10)",
+        "order": 10
+      },
+      {
+        "src": "/images/gallery/2025/11.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (11)",
+        "order": 11
+      },
+      {
+        "src": "/images/gallery/2025/12.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (12)",
+        "order": 12
+      },
+      {
+        "src": "/images/gallery/2025/13.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (13)",
+        "order": 13
+      },
+      {
+        "src": "/images/gallery/2025/14.jpg",
+        "alt": "Pablo The Garden 2025 — Flower Edition (14)",
+        "order": 14
+      }
     ]
   }
 ]

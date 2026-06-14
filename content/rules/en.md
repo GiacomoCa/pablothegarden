@@ -38,6 +38,11 @@ If you witness inappropriate behavior, report it immediately to staff. Your safe
 
 Pablo The Garden stands for accessibility and inclusion. We provide **dedicated access for people with disabilities**, **reserved parking** and **suitable restrooms**, in compliance with current regulations. For specific needs, contact us in advance: we'll do our best to welcome you.
 
+## Parking
+
+- You may park **only in the designated and marked areas**
+- **Illegally parked cars will be towed** by the local authorities, at the owner's expense
+
 ## Safety
 
 Your safety is essential to us:
@@ -63,7 +68,7 @@ Pablo The Garden uses a **token system** for food & drinks:
 
 - **Tokens are sold only in multiples of 5**: 5 tokens cost **€10**
 - For **larger purchases** there are bonuses and **free gadgets** (keyrings and assorted merchandise)
-- At the entrance, with the **2-Day Pass** you receive a **drink card valid only on August 15**, usable for all drinks **excluding premium ones**
+- At the entrance, with the **2-Day Pass** you receive a **drink card on August 15** that you can **use whenever you like** during the festival, for all drinks **excluding premium ones**
 - With a **single-day ticket** you receive a **drink card valid for your day** (August 15 or 16), for drinks **excluding premium ones**
 - Once your included drink card is used up, **everything else — food and drinks — is purchased with tokens**
 

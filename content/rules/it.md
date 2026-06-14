@@ -38,6 +38,11 @@ Se vedi comportamenti inappropriati, segnalali immediatamente allo staff. La tua
 
 Pablo The Garden è garanzia di accessibilità e inclusione. Mettiamo a disposizione **accessi dedicati per persone con disabilità**, **parcheggi riservati** e **servizi igienici adeguati**, nel rispetto della normativa vigente. Per esigenze specifiche, contattaci in anticipo: faremo il possibile per accoglierti al meglio.
 
+## Parcheggio
+
+- Si può parcheggiare **esclusivamente negli spazi adibiti e segnalati**
+- Le **auto in sosta vietata saranno rimosse** dalle autorità locali, a spese del proprietario
+
 ## Sicurezza
 
 La vostra sicurezza è fondamentale per noi:
@@ -63,7 +68,7 @@ Pablo The Garden utilizza un **sistema a token** (gettoni) per food & drink:
 
 - I **token si acquistano solo a multipli di 5**: 5 token costano **10€**
 - Per gli **acquisti più consistenti** sono previsti bonus e **gadget in omaggio** (portachiavi e merchandising vario)
-- All'ingresso, con il **Pass 2 Giorni** ricevi una **drink card valida solo il 15 agosto**, utilizzabile per tutti i drink **esclusi quelli premium**
+- All'ingresso, con il **Pass 2 Giorni** ti viene consegnata una **drink card il 15 agosto**, che puoi **utilizzare quando vuoi** durante il festival, per tutti i drink **esclusi quelli premium**
 - Con il **biglietto giorno singolo** ricevi una **drink card valida per la tua giornata** (15 o 16 agosto), per i drink **esclusi quelli premium**
 - Esaurita la drink card inclusa, **tutto il resto — food e drink — si acquista con i token**
 

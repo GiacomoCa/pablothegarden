@@ -167,7 +167,7 @@ export default function Header() {
             activeLinkClassName="!text-candy-pink bg-candy-pink/10"
           />
 
-          <div className="mt-auto pt-6 border-t border-candy-pink/10">
+          <div className="mt-6 pt-6 border-t border-candy-pink/10">
             <LanguageSwitcher className="w-full justify-center" />
           </div>
         </div>

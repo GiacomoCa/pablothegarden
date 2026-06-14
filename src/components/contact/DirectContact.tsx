@@ -17,8 +17,8 @@ export default function DirectContact() {
   const contacts: ContactItem[] = [
     {
       label: t('direct_email'),
-      value: 'info@pablothegarden.com',
-      href: 'mailto:info@pablothegarden.com',
+      value: 'pablothegarden@gmail.com',
+      href: 'mailto:pablothegarden@gmail.com',
       icon: (
         <svg
           className="h-5 w-5"

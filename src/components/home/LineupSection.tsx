@@ -19,24 +19,22 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-function ArtistCard({ artist }: { artist: LineupDayArtist }) {
+function ArtistCard({
+  artist,
+  open,
+  onChange,
+}: {
+  artist: LineupDayArtist;
+  open: boolean;
+  onChange: (next: boolean) => void;
+}) {
   const shouldReduceMotion = useReducedMotion();
   const t = useTranslations('lineup_home');
-  // "open" drives both desktop hover and mobile tap (no hover on touch)
-  const [open, setOpen] = useState(false);
-  // Devices with a mouse use hover; touch devices use a single tap (otherwise
-  // the emulated mouseenter + click would cancel out and need two taps).
+  // Devices with a mouse use hover; touch devices use a single tap.
   const [hasHover, setHasHover] = useState(false);
   useEffect(() => {
     setHasHover(window.matchMedia('(hover: hover)').matches);
   }, []);
-
-  const interaction = hasHover
-    ? {
-        onMouseEnter: () => setOpen(true),
-        onMouseLeave: () => setOpen(false),
-      }
-    : { onClick: () => setOpen((o) => !o) };
 
   if (!artist.revealed) {
     // Unannounced artist — catchy mystery placeholder
@@ -51,6 +49,15 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
       </div>
     );
   }
+
+  // Hover (desktop) opens/closes; tap (touch) toggles. Both go through the
+  // parent so only one card can be open at a time.
+  const interaction = hasHover
+    ? {
+        onMouseEnter: () => onChange(true),
+        onMouseLeave: () => onChange(false),
+      }
+    : { onClick: () => onChange(!open) };
 
   return (
     <motion.div
@@ -88,7 +95,7 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
         {/* Bio overlay revealed on hover / tap */}
         {artist.bio && (
           <div
-            className={`absolute inset-0 flex items-end bg-gradient-to-t from-night-purple/95 via-night-purple/55 to-transparent transition-opacity duration-300 ${
+            className={`absolute inset-0 flex items-end overflow-y-auto bg-gradient-to-t from-night-purple/95 via-night-purple/55 to-transparent transition-opacity duration-300 ${
               open ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -105,7 +112,15 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
   );
 }
 
-function DayRow({ group }: { group: LineupDayGroup }) {
+function DayRow({
+  group,
+  openId,
+  setOpenId,
+}: {
+  group: LineupDayGroup;
+  openId: string | null;
+  setOpenId: (id: string | null) => void;
+}) {
   const t = useTranslations('lineup_home');
   const dayLabel = group.day === 1 ? t('day1') : t('day2');
   // Alphabetical order so no artist is favored over another
@@ -124,12 +139,19 @@ function DayRow({ group }: { group: LineupDayGroup }) {
         </span>
       </div>
 
-      {/* Horizontally scrolling artist strip (generous vertical padding so the
-          enlarged/lifted card and its glow aren't clipped) */}
+      {/* Horizontally scrolling artist strip */}
       <div className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-14 pt-14 scrollbar-thin snap-x lg:px-8">
-        {artists.map((artist) => (
-          <ArtistCard key={artist.name} artist={artist} />
-        ))}
+        {artists.map((artist) => {
+          const id = `${group.day}-${artist.name}`;
+          return (
+            <ArtistCard
+              key={id}
+              artist={artist}
+              open={openId === id}
+              onChange={(next) => setOpenId(next ? id : null)}
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -138,10 +160,12 @@ function DayRow({ group }: { group: LineupDayGroup }) {
 /**
  * Homepage lineup section — the lineup split into two horizontally scrolling
  * rows, one per festival day. Revealed artists show a photo that zooms and
- * reveals a short bio on hover; unannounced artists show a mystery placeholder.
+ * reveals a short bio on hover/tap; only one card can be open at a time.
  */
 export default function LineupSection({ days }: LineupSectionProps) {
   const t = useTranslations('lineup_home');
+  // A single source of truth so at most one card is highlighted/zoomed.
+  const [openId, setOpenId] = useState<string | null>(null);
 
   if (days.length === 0) return null;
 
@@ -157,7 +181,12 @@ export default function LineupSection({ days }: LineupSectionProps) {
 
         <div className="space-y-10">
           {days.map((group) => (
-            <DayRow key={group.day} group={group} />
+            <DayRow
+              key={group.day}
+              group={group}
+              openId={openId}
+              setOpenId={setOpenId}
+            />
           ))}
         </div>
       </div>

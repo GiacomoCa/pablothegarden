@@ -24,7 +24,7 @@
       { "name": "N4C", "revealed": true, "photo": "/images/lineup/n4c.jpg", "bio": "Ha portato la rave culture in giro per Italia ed Europa su un bus, suonando su palchi come Tomorrowland, EDC e Ultra. Prossima fermata: il Pablo." },
       { "name": "Citano Ballemo", "revealed": true, "secondStage": true, "photo": "/images/lineup/citano-ballemo.jpg", "bio": "Musica curata, attitudine cruda, groove garantito. Ai dischi: Rich Ramm e Lorenzo Ripari." },
       { "name": "Jacopo Galletta", "revealed": true, "tag": "hiphop", "secondStage": true, "photo": "/images/lineup/jacopo-galletta.jpg", "bio": "Marchigiano doc, classe 2002, da Civitanova. Front DJ del collettivo Hipop, oggi anche nell'underground milanese con EstRadio Sound System." },
-      { "name": "Notti Indie", "revealed": true, "photo": "/images/lineup/notti-indie.jpg" }
+      { "name": "Notti Indie", "revealed": true, "photo": "/images/lineup/notti-indie.jpg", "bio": "Il party italiano che celebra l'anima dell'indie pop e tutte le sue contaminazioni: da Gazzelle a Calcutta, da Frah Quintale ai Pinguini Tattici Nucleari, fino a Coez, Tananai, Cosmo, Blanco, Carl Brave e tutto il meglio della scena. Malinconia e festa, cuore e nostalgia: l'indie party che ti fa cantare a squarciagola." }
     ]
   }
 ]

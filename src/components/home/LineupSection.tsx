@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -24,6 +24,19 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
   const t = useTranslations('lineup_home');
   // "open" drives both desktop hover and mobile tap (no hover on touch)
   const [open, setOpen] = useState(false);
+  // Devices with a mouse use hover; touch devices use a single tap (otherwise
+  // the emulated mouseenter + click would cancel out and need two taps).
+  const [hasHover, setHasHover] = useState(false);
+  useEffect(() => {
+    setHasHover(window.matchMedia('(hover: hover)').matches);
+  }, []);
+
+  const interaction = hasHover
+    ? {
+        onMouseEnter: () => setOpen(true),
+        onMouseLeave: () => setOpen(false),
+      }
+    : { onClick: () => setOpen((o) => !o) };
 
   if (!artist.revealed) {
     // Unannounced artist — catchy mystery placeholder
@@ -43,9 +56,7 @@ function ArtistCard({ artist }: { artist: LineupDayArtist }) {
     <motion.div
       className="relative z-0 w-40 flex-shrink-0 cursor-pointer snap-start sm:w-48"
       style={{ zIndex: open ? 20 : 0 }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((o) => !o)}
+      {...interaction}
       animate={shouldReduceMotion ? {} : { scale: open ? 1.3 : 1, y: open ? -10 : 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >

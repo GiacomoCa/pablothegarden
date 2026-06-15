@@ -1,8 +1,14 @@
 [
   {
     "id": "twoday-r1",
-    "title": { "it": "Abbonamento 2 Giorni", "en": "Two-Day Pass" },
-    "release": { "it": "Prima Release", "en": "First Release" },
+    "title": {
+      "it": "Abbonamento 2 Giorni",
+      "en": "Two-Day Pass"
+    },
+    "release": {
+      "it": "Prima Release",
+      "en": "First Release"
+    },
     "status": "sold_out",
     "price": 25,
     "url": "",
@@ -11,8 +17,14 @@
   },
   {
     "id": "twoday-r2",
-    "title": { "it": "Abbonamento 2 Giorni", "en": "Two-Day Pass" },
-    "release": { "it": "Seconda Release", "en": "Second Release" },
+    "title": {
+      "it": "Abbonamento 2 Giorni",
+      "en": "Two-Day Pass"
+    },
+    "release": {
+      "it": "Seconda Release",
+      "en": "Second Release"
+    },
     "status": "sold_out",
     "price": 30,
     "url": "",
@@ -21,31 +33,49 @@
   },
   {
     "id": "fullpass-r3",
-    "title": { "it": "Abbonamento 2 Giorni", "en": "Full Pass 2 Days" },
-    "release": { "it": "Terza Release", "en": "Third Release" },
+    "title": {
+      "it": "Abbonamento 2 Giorni",
+      "en": "Full Pass 2 Days"
+    },
+    "release": {
+      "it": "Terza Release",
+      "en": "Third Release"
+    },
     "status": "available",
     "price": 35,
-    "url": "https://www.clappit.com/biglietti/abbonamento-2-giorni-pablo-the-garden-15-agosto-2026-pablo-the-garden-morrovalle-38591.html",
+    "url": "https://www.clappit.com/biglietti/abbonamento-2-giorni-pablo-the-garden-15-agosto-2026-pablo-the-garden-morrovalle-38591.html?cdBusinessPartner=web",
     "image": "/images/tickets/card.png",
     "row": 2
   },
   {
     "id": "day1",
-    "title": { "it": "Biglietto Venerdì 15", "en": "Friday 15 Ticket" },
-    "release": { "it": "Giorno Singolo", "en": "Single Day" },
+    "title": {
+      "it": "Biglietto Venerdì 15",
+      "en": "Friday 15 Ticket"
+    },
+    "release": {
+      "it": "Giorno Singolo",
+      "en": "Single Day"
+    },
     "status": "available",
     "price": 22,
-    "url": "https://www.clappit.com/biglietti/pablo-regular-day1",
+    "url": "https://www.clappit.com/biglietti/pablo-the-garden-15-agosto-2026-pablo-the-garden-morrovalle-38592.html?cdBusinessPartner=web",
     "image": "/images/tickets/card.png",
     "row": 2
   },
   {
     "id": "day2",
-    "title": { "it": "Biglietto Sabato 16", "en": "Saturday 16 Ticket" },
-    "release": { "it": "Giorno Singolo", "en": "Single Day" },
+    "title": {
+      "it": "Biglietto Sabato 16",
+      "en": "Saturday 16 Ticket"
+    },
+    "release": {
+      "it": "Giorno Singolo",
+      "en": "Single Day"
+    },
     "status": "available",
     "price": 22,
-    "url": "https://www.clappit.com/biglietti/pablo-regular-day2",
+    "url": "https://www.clappit.com/biglietti/pablo-the-garden-16-agosto-2026-pablo-the-garden-morrovalle-38590.html?cdBusinessPartner=web",
     "image": "/images/tickets/card.png",
     "row": 2
   }

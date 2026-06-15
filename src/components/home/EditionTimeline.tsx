@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, useReducedMotion } from 'framer-motion';
 
@@ -20,6 +21,8 @@ const EDITIONS: Edition[] = [
 export default function EditionTimeline() {
   const t = useTranslations('editions');
   const shouldReduceMotion = useReducedMotion();
+  // Mobile: which edition card is expanded (only one at a time)
+  const [openKey, setOpenKey] = useState<string | null>(null);
 
   return (
     <section
@@ -34,46 +37,65 @@ export default function EditionTimeline() {
           <p className="mt-2 text-lg text-text-primary/70">{t('subtitle')}</p>
         </div>
 
-        {/* Mobile: horizontal scrollable strip — narrow, taller cards so it's
-            clear there's more to swipe (~2 cards + a peek of the next) */}
+        {/* Mobile: horizontal scrollable strip. Tap a card to expand it and
+            read the full text; tapping another collapses the previous one. */}
         <div className="md:hidden">
           <div className="flex gap-4 overflow-x-auto px-1 pb-4 pt-1 scrollbar-thin snap-x">
-            {EDITIONS.map((edition) => (
-              <motion.div
-                key={edition.key}
-                className={`flex w-40 flex-shrink-0 flex-col items-center rounded-candy p-5 text-center shadow-candy snap-start ${
-                  edition.isCurrent
-                    ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
-                    : 'bg-surface'
-                }`}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              >
-                <span className="text-4xl" aria-hidden="true">
-                  {edition.emoji}
-                </span>
-                <span
-                  className={`mt-3 font-display text-2xl font-bold ${
-                    edition.isCurrent ? 'text-night-purple' : 'text-candy-pink'
+            {EDITIONS.map((edition) => {
+              const open = openKey === edition.key;
+              return (
+                <motion.div
+                  key={edition.key}
+                  layout
+                  onClick={() => setOpenKey(open ? null : edition.key)}
+                  className={`flex flex-shrink-0 cursor-pointer flex-col items-center rounded-candy p-5 text-center snap-start transition-[width] ${
+                    open
+                      ? 'w-72 shadow-[0_0_30px_4px_rgba(255,205,255,0.5)]'
+                      : 'w-40 shadow-candy'
+                  } ${
+                    edition.isCurrent
+                      ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
+                      : 'bg-surface'
                   }`}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                  {t(`${edition.key}.year`)}
-                </span>
-                <span
-                  className={`mt-1 font-display text-sm font-bold ${
-                    edition.isCurrent ? 'text-night-purple/90' : 'text-text-primary'
-                  }`}
-                >
-                  {t(`${edition.key}.name`)}
-                </span>
-                <p
-                  className={`mt-2 text-xs leading-relaxed line-clamp-4 ${
-                    edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
-                  }`}
-                >
-                  {t(`${edition.key}.description`)}
-                </p>
-              </motion.div>
-            ))}
+                  <span className="text-4xl" aria-hidden="true">
+                    {edition.emoji}
+                  </span>
+                  <span
+                    className={`mt-3 font-display text-2xl font-bold ${
+                      edition.isCurrent ? 'text-night-purple' : 'text-candy-pink'
+                    }`}
+                  >
+                    {t(`${edition.key}.year`)}
+                  </span>
+                  <span
+                    className={`mt-1 font-display text-sm font-bold ${
+                      edition.isCurrent ? 'text-night-purple/90' : 'text-text-primary'
+                    }`}
+                  >
+                    {t(`${edition.key}.name`)}
+                  </span>
+                  <p
+                    className={`mt-2 text-xs leading-relaxed ${open ? '' : 'line-clamp-3'} ${
+                      edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
+                    }`}
+                  >
+                    {t(`${edition.key}.description`)}
+                  </p>
+                  {!open && (
+                    <span
+                      className={`mt-2 text-[10px] font-semibold uppercase tracking-wide ${
+                        edition.isCurrent ? 'text-night-purple/70' : 'text-candy-pink'
+                      }`}
+                    >
+                      {t('tap_more')}
+                    </span>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

@@ -127,6 +127,7 @@
   "editions": {
     "title": "The Editions",
     "subtitle": "A journey through our themed editions",
+    "tap_more": "Tap to read",
     "edition_2023": {
       "name": "Parrot Edition",
       "year": "2023",

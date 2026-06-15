@@ -47,6 +47,14 @@ function TicketCard({ ticket }: { ticket: HomeTicket }) {
         aria-hidden="true"
       />
 
+      {/* Free-drink chip on purchasable tickets */}
+      {isAvailable && (
+        <span className="absolute right-3 top-3 z-20 inline-flex items-center gap-1 rounded-pill bg-candy-pink px-2.5 py-1 text-[11px] font-bold text-night-purple shadow-candy">
+          <span aria-hidden="true">🍹</span>
+          {t('free_drink')}
+        </span>
+      )}
+
       {/* Sold-out treatment */}
       {isSoldOut && (
         <>

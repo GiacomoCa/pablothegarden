@@ -10,7 +10,7 @@
       "en": "First Release"
     },
     "status": "sold_out",
-    "price": 25,
+    "price": 15,
     "url": "",
     "image": "/images/tickets/card.png",
     "row": 1
@@ -26,7 +26,7 @@
       "en": "Second Release"
     },
     "status": "sold_out",
-    "price": 30,
+    "price": 25,
     "url": "",
     "image": "/images/tickets/card.png",
     "row": 1

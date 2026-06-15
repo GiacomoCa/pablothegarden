@@ -34,20 +34,21 @@ export default function EditionTimeline() {
           <p className="mt-2 text-lg text-text-primary/70">{t('subtitle')}</p>
         </div>
 
-        {/* Mobile: horizontal scrollable strip */}
+        {/* Mobile: horizontal scrollable strip — narrow, taller cards so it's
+            clear there's more to swipe (~2 cards + a peek of the next) */}
         <div className="md:hidden">
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin snap-x snap-mandatory">
+          <div className="flex gap-4 overflow-x-auto px-1 pb-4 pt-1 scrollbar-thin snap-x">
             {EDITIONS.map((edition) => (
               <motion.div
                 key={edition.key}
-                className={`flex min-w-[260px] flex-shrink-0 flex-col rounded-candy p-5 shadow-candy snap-center ${
+                className={`flex w-40 flex-shrink-0 flex-col items-center rounded-candy p-5 text-center shadow-candy snap-start ${
                   edition.isCurrent
                     ? 'bg-gradient-to-br from-candy-pink to-candy-pink-dark text-night-purple'
                     : 'bg-surface'
                 }`}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               >
-                <span className="text-3xl" aria-hidden="true">
+                <span className="text-4xl" aria-hidden="true">
                   {edition.emoji}
                 </span>
                 <span
@@ -65,7 +66,7 @@ export default function EditionTimeline() {
                   {t(`${edition.key}.name`)}
                 </span>
                 <p
-                  className={`mt-2 text-xs leading-relaxed ${
+                  className={`mt-2 text-xs leading-relaxed line-clamp-4 ${
                     edition.isCurrent ? 'text-night-purple/80' : 'text-text-primary/60'
                   }`}
                 >

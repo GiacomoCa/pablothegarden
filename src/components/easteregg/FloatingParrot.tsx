@@ -8,20 +8,23 @@ interface FloatingParrotProps {
   onOpen: () => void;
 }
 
-// Roam inside a safe band that avoids the fixed header (top) and the floating
-// ticket/Instagram CTAs (bottom). Values are viewport-relative (vw / vh).
+// Roam the left/right margins only, so Pablo never parks over the centred
+// primary CTAs (hero Tickets/Lineup, ticket cards) and steals their taps.
+// Also avoids the fixed header (top) and the floating ticket CTA (bottom).
+// Values are viewport-relative (vw / vh).
 function randomPos(): { x: number; y: number } {
-  return {
-    x: 6 + Math.random() * 72,
-    y: 20 + Math.random() * 42,
-  };
+  const onLeft = Math.random() < 0.5;
+  const x = onLeft
+    ? 4 + Math.random() * 10 // 4–14vw  (left margin)
+    : 74 + Math.random() * 9; // 74–83vw (right margin, kept clear of the edge)
+  return { x, y: 16 + Math.random() * 46 }; // 16–62vh
 }
 
 export default function FloatingParrot({ onOpen }: FloatingParrotProps) {
   const t = useTranslations('game');
   const [visible, setVisible] = useState(false);
   const [shown, setShown] = useState(false);
-  const [pos, setPos] = useState({ x: 70, y: 52 });
+  const [pos, setPos] = useState({ x: 8, y: 40 });
   const [hint, setHint] = useState(false);
   const [reduce, setReduce] = useState(false);
 

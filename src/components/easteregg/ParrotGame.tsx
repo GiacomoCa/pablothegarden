@@ -183,6 +183,10 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
   // --- setup: loop, listeners, sizing (runs once) ---
   useEffect(() => {
+    // Element focused when the game opened, so focus can return to it on close.
+    // (Often already gone — the parrot trigger unmounts — hence the fallback.)
+    const opener = document.activeElement as HTMLElement | null;
+
     // restore mute preference
     let pref = false;
     try {
@@ -289,6 +293,12 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
+      // Focus sitting on one of the dialog's own controls (buttons/links): its
+      // Space/Enter must trigger that control natively, not a flap/restart.
+      const onControl =
+        tag === 'BUTTON' ||
+        tag === 'A' ||
+        !!target?.closest('button, a, [role="button"]');
 
       // Trap Tab focus inside the dialog (background is also inert).
       if (e.key === 'Tab') {
@@ -333,6 +343,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
         e.key === 'w' ||
         e.key === 'W'
       ) {
+        if (onControl) return; // let the focused button/link activate natively
         e.preventDefault();
         if (pausedRef.current) {
           handleResume();
@@ -346,6 +357,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
         return;
       }
       if (e.key === 'Enter' && s.phase === 'dead' && !formActiveRef.current) {
+        if (onControl) return; // let the focused button/link activate natively
         e.preventDefault();
         handleRestart();
       }
@@ -388,6 +400,19 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       }
       audioRef.current?.dispose();
       audioRef.current = null;
+
+      // Return focus to the page so keyboard / screen-reader users aren't
+      // stranded on <body> when the game closes — the parrot trigger unmounts
+      // with the game, so fall back to the main landmark (WCAG 2.4.3).
+      let restore: HTMLElement | null = opener && opener.isConnected ? opener : null;
+      if (!restore) {
+        const main = document.getElementById('main-content');
+        if (main) {
+          if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+          restore = main;
+        }
+      }
+      restore?.focus({ preventScroll: true });
     };
   }, [handleInput, handleRestart, handleResume, pauseGame, requestClose]);
 

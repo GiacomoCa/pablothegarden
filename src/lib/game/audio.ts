@@ -258,13 +258,16 @@ export class GameAudio {
   }
 
   suspend(): void {
+    // Always stop the lookahead timer first — independent of context state — so
+    // it can never keep firing while we're suspended (resume() re-arms it). A
+    // pending async resume() can leave state !== 'running' momentarily, so
+    // gating the clear on 'running' (as before) could orphan the interval.
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
     if (this.ctx && this.ctx.state === 'running') {
       void this.ctx.suspend();
-      // Stop the lookahead timer too, so we don't burn wakeups while suspended.
-      if (this.timer) {
-        clearInterval(this.timer);
-        this.timer = null;
-      }
     }
   }
 

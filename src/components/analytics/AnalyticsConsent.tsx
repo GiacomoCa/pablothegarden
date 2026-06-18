@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import MetaPixel from './MetaPixel';
 
 // Measurement ID — overridable via NEXT_PUBLIC_GA_ID, defaults to the GA4
 // property. If empty, no banner is shown and no analytics load.
@@ -38,7 +39,12 @@ export default function AnalyticsConsent() {
 
   return (
     <>
-      {consent === 'granted' && <GoogleAnalytics gaId={GA_ID} />}
+      {consent === 'granted' && (
+        <>
+          <GoogleAnalytics gaId={GA_ID} />
+          <MetaPixel />
+        </>
+      )}
 
       {consent === null && (
         <div

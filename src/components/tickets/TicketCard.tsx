@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { TicketType } from '@/lib/types';
+import { trackInitiateCheckout } from '@/lib/fbpixel';
 
 interface TicketCardProps {
   ticket: TicketType;
@@ -129,6 +130,13 @@ export default function TicketCard({ ticket, locale, typeKey }: TicketCardProps)
             href={ticket.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackInitiateCheckout({
+                content_name: ticket.label[localeKey],
+                value: ticket.price,
+                currency: ticket.currency,
+              })
+            }
             aria-label={`${t('buy_now')} — ${ticket.label[localeKey]} (${tA11y('external_link_notice')})`}
             className="group relative block w-full overflow-hidden rounded-pill bg-candy-pink py-3 text-center font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover hover:scale-[1.02]"
           >

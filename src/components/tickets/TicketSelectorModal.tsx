@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 import type { TicketConfig, TicketType, Release } from '@/lib/types';
+import { trackInitiateCheckout } from '@/lib/fbpixel';
 
 interface TicketSelectorModalProps {
   isOpen: boolean;
@@ -59,6 +60,13 @@ function TicketButton({
       href={ticket.url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() =>
+        trackInitiateCheckout({
+          content_name: ticket.label[localeKey],
+          value: ticket.price,
+          currency: ticket.currency,
+        })
+      }
       className="flex items-center justify-between rounded-candy bg-candy-pink/5 px-5 py-4 transition-all duration-200 hover:bg-candy-pink/10 hover:shadow-candy"
     >
       <div>

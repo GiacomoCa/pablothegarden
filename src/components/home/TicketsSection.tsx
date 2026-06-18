@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { HomeTicket } from '@/lib/types';
+import { trackInitiateCheckout } from '@/lib/fbpixel';
 
 interface TicketsSectionProps {
   tickets: HomeTicket[];
@@ -91,6 +92,13 @@ function TicketCard({ ticket }: { ticket: HomeTicket }) {
             href={ticket.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackInitiateCheckout({
+                content_name: ticket.title[locale],
+                value: ticket.price ?? undefined,
+                currency: 'EUR',
+              })
+            }
             className="mt-4 inline-flex items-center justify-center rounded-pill bg-candy-pink px-6 py-3 font-semibold text-night-purple shadow-candy transition-all duration-300 hover:bg-candy-pink-dark hover:shadow-candy-hover"
           >
             {t('buy')} €{ticket.price}

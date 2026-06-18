@@ -339,5 +339,33 @@
     "subscribe": "Iscriviti",
     "success": "Iscrizione confermata! Grazie.",
     "error": "Errore nell'iscrizione. Riprova."
+  },
+  "game": {
+    "title": "La Corsa di Pablo",
+    "tagline": "Vola nel giardino, prendi le caramelle, segui il ritmo.",
+    "start": "Tocca per Volare!",
+    "flap_hint_desktop": "Premi Spazio / ↑ per volare",
+    "flap_hint_mobile": "Tocca lo schermo per volare",
+    "best": "Record",
+    "score": "Punti",
+    "candies": "Caramelle",
+    "new_best": "Nuovo Record!",
+    "game_over": "Game Over",
+    "restart": "Gioca Ancora",
+    "back": "Indietro",
+    "close": "Chiudi",
+    "mute": "Disattiva musica",
+    "unmute": "Attiva musica",
+    "paused": "In pausa",
+    "resume": "Riprendi",
+    "leaderboard_title": "Classifica",
+    "your_name": "Lascia il tuo nome",
+    "name_placeholder": "Il tuo nome",
+    "submit": "Salva Punteggio",
+    "skip": "Salta",
+    "empty_leaderboard": "Ancora nessun punteggio — sii il primo!",
+    "local_note": "I punteggi sono salvati su questo dispositivo.",
+    "open_aria": "Gioca al mini-gioco segreto di Pablo",
+    "hint": "Gioca con me!"
   }
 }

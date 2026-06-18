@@ -130,6 +130,21 @@ body {
   }
 }
 
+/* Floating easter-egg parrot bob */
+@keyframes parrot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(5deg);
+  }
+}
+
+.parrot-bob {
+  animation: parrot-bob 3s ease-in-out infinite;
+}
+
 /* ==========================================================================
    Blog prose styles — custom typography for markdown content
    ========================================================================== */

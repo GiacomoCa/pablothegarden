@@ -6,6 +6,12 @@ You are building the website for **Pablo The Garden**, an electronic music festi
 
 The site must be live ASAP (target: 3–4 weeks).
 
+## Local Environment & Build (IMPORTANT)
+
+- **Project location:** `C:\dev\pablothegarden-handoff` (Windows). It was **moved out of OneDrive** on 2026-06-18 — do **not** move it back under `C:\Users\…\OneDrive\…`. OneDrive's Files-On-Demand dehydrates the toolchain (the 142 MB Next SWC binary, the `.next` webpack cache) to cloud-only placeholders, which makes `next build` / `next dev` hang for minutes right after the `▲ Next.js` banner (near-zero CPU, no network connections from node).
+- **If a build ever hangs at the banner:** `rm -rf .next` and rebuild (a clean compile is ~10s). `tsc --noEmit` keeps working during such a hang because it never loads the native SWC binary.
+- Handy commands: `npm run dev` (dev server, binds `0.0.0.0`), `npx next build`, `npx next start -H 0.0.0.0` (serve the production build — fastest path for manual testing on PC + phone over the LAN).
+
 ## Key Files
 
 | File | Purpose |
@@ -16,7 +22,17 @@ The site must be live ASAP (target: 3–4 weeks).
 
 ## Repository State
 
-This is a **fresh, empty GitHub repository**. There is no existing code. You are starting from scratch.
+The site is already largely built (homepage + all sub-pages, i18n it/en, design system, tickets, lineup, gallery, blog, etc.). When resuming, **read the existing code under `src/` before adding features**. Current working branch: **`feat/parrot-easter-egg-game`**.
+
+### Easter egg — "La Corsa di Pablo" (Pablo's Garden Run)
+
+A hidden mini-game (Flappy-Bird × Chrome-Dino) reachable by clicking the floating **Pablo parrot** that drifts around the site. One action (Space / ↑ / tap), Web Audio chiptune + SFX (synthesized at runtime — no audio asset files, GDPR-safe), candy collectibles, neon "speaker-gate" obstacles, drop/strobe beats, and a localStorage top-10 leaderboard (device-local, since the site is a static export with no backend). Files:
+
+- `src/lib/game/` — `engine.ts` (pure sim/physics/collision), `render.ts` (canvas drawing), `audio.ts` (chiptune + SFX scheduler), `leaderboard.ts` (localStorage).
+- `src/components/easteregg/` — `ParrotEasterEgg` (wrapper, mounted in `src/app/[locale]/layout.tsx`), `FloatingParrot` (roaming teaser), `ParrotGame` (portal modal + rAF loop), `PabloSprite` (SVG), `Leaderboard`.
+- i18n: `game` namespace in `messages/{it,en}.json`. The `parrot-bob` keyframe lives in `src/app/globals.css`.
+
+**Status:** built green (`tsc --noEmit` + `next build` pass), adversarially reviewed (7 medium/low findings, all fixed), manually served and tested. **Not yet committed** — the diff is staged in the working tree on the branch above.
 
 ## Tech Stack
 

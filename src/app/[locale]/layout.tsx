@@ -8,6 +8,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingTicketCTAWrapper from '@/components/layout/FloatingTicketCTAWrapper';
 import AnalyticsConsent from '@/components/analytics/AnalyticsConsent';
+import ParrotEasterEgg from '@/components/easteregg/ParrotEasterEgg';
 import '@/app/globals.css';
 
 const fredoka = Fredoka({
@@ -58,6 +59,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Footer />
           <FloatingTicketCTAWrapper />
           <AnalyticsConsent />
+          <ParrotEasterEgg />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -36,3 +36,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local build/run logs
+build.log
+dev.log
+start.log
+
+# session / handoff artifacts (local only — never commit)
+.claude-memory/
+.claude-global-settings.reference.json
+HANDOFF.md

@@ -339,5 +339,33 @@
     "subscribe": "Subscribe",
     "success": "Subscription confirmed! Thank you.",
     "error": "Subscription error. Please try again."
+  },
+  "game": {
+    "title": "Pablo's Garden Run",
+    "tagline": "Fly through the garden, grab the candy, ride the beat.",
+    "start": "Tap to Fly!",
+    "flap_hint_desktop": "Press Space / ↑ to flap",
+    "flap_hint_mobile": "Tap the screen to flap",
+    "best": "Best",
+    "score": "Score",
+    "candies": "Candies",
+    "new_best": "New Best!",
+    "game_over": "Game Over",
+    "restart": "Play Again",
+    "back": "Back",
+    "close": "Close",
+    "mute": "Mute music",
+    "unmute": "Unmute music",
+    "paused": "Paused",
+    "resume": "Resume",
+    "leaderboard_title": "Leaderboard",
+    "your_name": "Leave your name",
+    "name_placeholder": "Your name",
+    "submit": "Save Score",
+    "skip": "Skip",
+    "empty_leaderboard": "No scores yet — be the first!",
+    "local_note": "Scores are saved on this device.",
+    "open_aria": "Play the secret Pablo mini-game",
+    "hint": "Play with me!"
   }
 }

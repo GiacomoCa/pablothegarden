@@ -34,6 +34,15 @@ export default function AnalyticsConsent() {
 
   const choose = (value: 'granted' | 'denied') => {
     localStorage.setItem(STORAGE_KEY, value);
+    // A global reject also revokes any previously-granted Google Maps embed
+    // consent, so the venue map returns to its gated (click-to-load) state.
+    if (value === 'denied') {
+      try {
+        localStorage.removeItem('pablo-maps-consent');
+      } catch {
+        /* ignore */
+      }
+    }
     setConsent(value);
   };
 

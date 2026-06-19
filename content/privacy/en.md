@@ -10,7 +10,7 @@ Contact email: **pablothegarden@gmail.com**
 
 - **Contact form data**: name, email address, optional company/organization, request type and the content of the message you send us via the Contact page.
 - **Browsing data**: technical data automatically collected by IT systems (e.g. IP address, browser and device type, date and time of the request) through the hosting provider's logs, necessary for the operation and security of the site.
-- **Cookies**: the site uses **technical cookies** necessary for functioning (always active) and, **only with your prior consent** given via the banner, **Google Analytics 4 analytics cookies** to measure visits in aggregate. Without consent, no analytics cookie is installed; you can change your choice by clearing the site's cookies. Fonts are hosted directly on our site, with no requests to external CDNs.
+- **Cookies**: the site uses **technical cookies** necessary for functioning (always active) and, **only with your prior consent** given via the banner, **Google Analytics 4 analytics cookies** to measure visits in aggregate. Without consent, no analytics cookie is installed; you can change your choice by clearing the site's cookies. Fonts are hosted directly on our site, with no requests to external CDNs. The **interactive venue map** (Google Maps) loads **only if you press the "Load the map" button**: until then no request or cookie is sent to Google. Your choice is stored on your device and is revoked by rejecting cookies in the banner.
 
 ## Purposes and legal basis
 
@@ -24,7 +24,8 @@ Data may be processed on our behalf, as Data Processors, by service providers su
 
 - **Vercel Inc.** — site hosting and delivery;
 - **Formspree, Inc.** — handling of contact form submissions;
-- **Google Ireland Ltd. / Google LLC** — statistical analysis of visits (Google Analytics 4), active only with prior consent.
+- **Google Ireland Ltd. / Google LLC** — statistical analysis of visits (Google Analytics 4), active only with prior consent;
+- **Google Ireland Ltd. / Google LLC** — display of the interactive venue map (Google Maps), loaded only with your explicit prior consent via the "Load the map" button.
 
 Data is not disseminated or sold to third parties for commercial purposes.
 

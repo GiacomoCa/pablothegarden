@@ -164,6 +164,20 @@
     "latest_posts": "Latest Posts",
     "view_profile": "View Profile"
   },
+  "directions": {
+    "eyebrow": "Where we are",
+    "title": "How to reach us",
+    "subtitle": "Pablo's garden, in the heart of Le Marche.",
+    "venue_name": "Pablo The Garden",
+    "address": "Via Cunicchio 45, 62010 Morrovalle (MC)",
+    "address_region": "Le Marche, Italy",
+    "body": "We're in Morrovalle (MC), in the Marche hinterland. Set Via Cunicchio 45 as your destination and follow the signs — see you in the garden. 🍬",
+    "open_maps": "Open in Google Maps",
+    "directions_cta": "Get directions",
+    "map_load": "Load the map",
+    "map_consent_note": "By loading the map you accept Google Maps cookies and terms.",
+    "map_title": "Map — Pablo The Garden, Morrovalle (MC)"
+  },
   "gallery": {
     "title": "Gallery",
     "subtitle": "The best moments from past editions",

@@ -15,6 +15,7 @@ import ExperienceCards from '@/components/home/ExperienceCards';
 import EditionTimeline from '@/components/home/EditionTimeline';
 import StatsCounter from '@/components/home/StatsCounter';
 import InstagramFeed from '@/components/home/InstagramFeed';
+import DirectionsSection from '@/components/home/DirectionsSection';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 
 type Props = {
@@ -123,6 +124,7 @@ export default async function HomePage({ params }: Props) {
           name: 'Pablo The Garden',
           address: {
             '@type': 'PostalAddress',
+            streetAddress: 'Via Cunicchio 45',
             addressLocality: 'Morrovalle',
             addressRegion: 'MC',
             postalCode: '62010',
@@ -183,6 +185,11 @@ export default async function HomePage({ params }: Props) {
       <ScrollReveal delay={0.1}>
         <StatsCounter stats={stats} />
       </ScrollReveal>
+      <div id="location">
+        <ScrollReveal delay={0.1}>
+          <DirectionsSection />
+        </ScrollReveal>
+      </div>
       <ScrollReveal delay={0.1}>
         <InstagramFeed />
       </ScrollReveal>

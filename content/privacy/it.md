@@ -10,7 +10,7 @@ Email di contatto: **pablothegarden@gmail.com**
 
 - **Dati del modulo di contatto**: nome, indirizzo email, eventuale azienda/organizzazione, tipo di richiesta e contenuto del messaggio che ci invii tramite la pagina Contatti.
 - **Dati di navigazione**: dati tecnici raccolti automaticamente dai sistemi informatici (ad esempio indirizzo IP, tipo di browser e dispositivo, data e ora della richiesta) tramite i log del fornitore di hosting, necessari al funzionamento e alla sicurezza del sito.
-- **Cookie**: il sito utilizza **cookie tecnici** necessari al funzionamento (sempre attivi) e, **solo previo tuo consenso** prestato tramite l'apposito banner, **cookie analitici di Google Analytics 4** per misurare in forma aggregata le visite. In assenza di consenso non viene installato alcun cookie analitico; puoi modificare la tua scelta cancellando i cookie del sito. I caratteri tipografici (font) sono ospitati direttamente sul nostro sito, senza richieste a CDN esterne.
+- **Cookie**: il sito utilizza **cookie tecnici** necessari al funzionamento (sempre attivi) e, **solo previo tuo consenso** prestato tramite l'apposito banner, **cookie analitici di Google Analytics 4** per misurare in forma aggregata le visite. In assenza di consenso non viene installato alcun cookie analitico; puoi modificare la tua scelta cancellando i cookie del sito. I caratteri tipografici (font) sono ospitati direttamente sul nostro sito, senza richieste a CDN esterne. La **mappa interattiva della sede** (Google Maps) viene caricata **solo se premi il pulsante "Carica la mappa"**: fino a quel momento non viene inviata alcuna richiesta né cookie a Google. La tua scelta viene memorizzata sul dispositivo e si annulla rifiutando i cookie dal banner.
 
 ## Finalità e base giuridica del trattamento
 
@@ -24,7 +24,8 @@ I dati possono essere trattati, per nostro conto e in qualità di Responsabili d
 
 - **Vercel Inc.** — hosting e distribuzione del sito;
 - **Formspree, Inc.** — gestione dell'invio dei messaggi dal modulo di contatto;
-- **Google Ireland Ltd. / Google LLC** — analisi statistica delle visite (Google Analytics 4), attiva solo previo consenso.
+- **Google Ireland Ltd. / Google LLC** — analisi statistica delle visite (Google Analytics 4), attiva solo previo consenso;
+- **Google Ireland Ltd. / Google LLC** — visualizzazione della mappa interattiva della sede (Google Maps), caricata solo previo tuo consenso esplicito tramite il pulsante "Carica la mappa".
 
 I dati non vengono diffusi né ceduti a terzi per finalità commerciali.
 

@@ -164,6 +164,20 @@
     "latest_posts": "Ultimi Post",
     "view_profile": "Vai al Profilo"
   },
+  "directions": {
+    "eyebrow": "Dove siamo",
+    "title": "Come raggiungerci",
+    "subtitle": "Il giardino di Pablo, nel cuore delle Marche.",
+    "venue_name": "Pablo The Garden",
+    "address": "Via Cunicchio 45, 62010 Morrovalle (MC)",
+    "address_region": "Marche, Italia",
+    "body": "Ci troviamo a Morrovalle (MC), nell'entroterra marchigiano. Imposta come destinazione Via Cunicchio 45 e segui le indicazioni: ti aspettiamo in giardino. 🍬",
+    "open_maps": "Apri in Google Maps",
+    "directions_cta": "Come arrivare",
+    "map_load": "Carica la mappa",
+    "map_consent_note": "Caricando la mappa accetti i cookie e i termini di Google Maps.",
+    "map_title": "Mappa — Pablo The Garden, Morrovalle (MC)"
+  },
   "gallery": {
     "title": "Galleria",
     "subtitle": "I momenti migliori delle edizioni passate",

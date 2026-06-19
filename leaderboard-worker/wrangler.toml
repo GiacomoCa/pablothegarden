@@ -22,7 +22,7 @@ database_id = "INCOLLA_QUI_IL_DATABASE_ID"
 # Evita "*.vercel.app" in produzione: autorizzerebbe QUALSIASI sito su vercel.app.
 # Per un'anteprima, aggiungi semmai il dominio ESATTO del tuo deploy.
 [vars]
-ALLOWED_ORIGINS = "http://localhost:3000,http://localhost:3001,https://pablothegarden.it,https://www.pablothegarden.it"
+ALLOWED_ORIGINS = "http://localhost:3000,http://localhost:3001,https://pablothegarden.com,https://www.pablothegarden.com"
 
 # I SEGRETI non vanno qui. Impostali con `wrangler secret put` (vedi README):
 #   - SIGNING_SECRET  (firma dei token di sessione + hashing IP per il rate-limit)

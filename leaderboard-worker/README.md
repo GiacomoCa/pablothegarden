@@ -71,11 +71,12 @@ In `wrangler.toml`, dentro `[vars] ALLOWED_ORIGINS`, metti le origini del sito
 (produzione + eventuali anteprime). Esempio già pre-compilato:
 
 ```
-http://localhost:3000,https://pablothegarden.it,https://www.pablothegarden.it,*.vercel.app
+http://localhost:3000,https://pablothegarden.com,https://www.pablothegarden.com
 ```
 
-Solo i browser su queste origini potranno leggere/scrivere. Aggiorna col dominio
-reale quando lo conosci.
+Solo i browser su queste origini potranno leggere/scrivere. Evita `*.vercel.app`
+in produzione (autorizzerebbe qualsiasi sito su vercel.app); per un'anteprima
+aggiungi semmai il dominio esatto del deploy.
 
 ### 5) Deploy
 

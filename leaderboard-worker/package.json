@@ -1,0 +1,18 @@
+{
+  "name": "pablo-leaderboard-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker + D1 backend for the 'La Corsa di Pablo' global leaderboard",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init:local": "wrangler d1 execute pablo-leaderboard --local --file=./schema.sql",
+    "db:init": "wrangler d1 execute pablo-leaderboard --remote --file=./schema.sql",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4",
+    "typescript": "^5.7.0",
+    "wrangler": "^3"
+  }
+}

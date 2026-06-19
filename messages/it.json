@@ -366,6 +366,11 @@
     "empty_leaderboard": "Ancora nessun punteggio — sii il primo!",
     "local_note": "I punteggi sono salvati su questo dispositivo.",
     "open_aria": "Gioca al mini-gioco segreto di Pablo",
-    "hint": "Gioca con me!"
+    "hint": "Gioca con me!",
+    "loading": "Caricamento classifica…",
+    "global_note": "Classifica globale di tutti i giocatori.",
+    "saving": "Salvataggio…",
+    "save_error": "Salvataggio non riuscito. Riprova.",
+    "public_name_note": "Il tuo nome sarà visibile pubblicamente nella classifica. Puoi chiederne la rimozione contattandoci."
   }
 }

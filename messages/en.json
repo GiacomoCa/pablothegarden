@@ -366,6 +366,11 @@
     "empty_leaderboard": "No scores yet — be the first!",
     "local_note": "Scores are saved on this device.",
     "open_aria": "Play the secret Pablo mini-game",
-    "hint": "Play with me!"
+    "hint": "Play with me!",
+    "loading": "Loading leaderboard…",
+    "global_note": "Global leaderboard across all players.",
+    "saving": "Saving…",
+    "save_error": "Couldn't save your score. Try again.",
+    "public_name_note": "Your name will be publicly visible on the leaderboard. You can ask us to remove it."
   }
 }

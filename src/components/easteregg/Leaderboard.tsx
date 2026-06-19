@@ -6,12 +6,25 @@ import type { ScoreEntry } from '@/lib/game/leaderboard';
 interface LeaderboardProps {
   entries: ScoreEntry[];
   highlightIndex?: number;
+  loading?: boolean;
 }
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 
-export default function Leaderboard({ entries, highlightIndex = -1 }: LeaderboardProps) {
+export default function Leaderboard({
+  entries,
+  highlightIndex = -1,
+  loading = false,
+}: LeaderboardProps) {
   const t = useTranslations('game');
+
+  if (loading && entries.length === 0) {
+    return (
+      <p className="py-6 text-center text-sm text-text-muted" role="status">
+        {t('loading')}
+      </p>
+    );
+  }
 
   if (entries.length === 0) {
     return (

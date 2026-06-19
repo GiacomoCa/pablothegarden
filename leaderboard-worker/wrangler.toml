@@ -1,0 +1,29 @@
+# Cloudflare Worker — classifica globale "La Corsa di Pablo".
+# Deploy SEPARATO dal sito Next.js/Vercel. Vedi README.md per i passi.
+
+name = "pablo-leaderboard"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+# --- D1 (SQLite) ------------------------------------------------------------
+# Crea il DB con residenza dati in UE (vedi README), poi incolla qui l'id che
+# il comando `wrangler d1 create` stampa.
+[[d1_databases]]
+binding = "DB"
+database_name = "pablo-leaderboard"
+database_id = "INCOLLA_QUI_IL_DATABASE_ID"
+
+# --- Variabili pubbliche (non segrete) --------------------------------------
+# Origini browser autorizzate a leggere/scrivere (CSV). Una voce puo' essere
+# un'origine esatta, "*" (qualsiasi), oppure "*.suffisso".
+# AGGIUNGI il dominio di produzione reale del sito quando lo conosci.
+# NB: l'header Origin e' impostato dal browser, quindi questo NON ferma un client
+# scriptato (curl) — la vera protezione e' il token di sessione + il rate-limit.
+# Evita "*.vercel.app" in produzione: autorizzerebbe QUALSIASI sito su vercel.app.
+# Per un'anteprima, aggiungi semmai il dominio ESATTO del tuo deploy.
+[vars]
+ALLOWED_ORIGINS = "http://localhost:3000,http://localhost:3001,https://pablothegarden.it,https://www.pablothegarden.it"
+
+# I SEGRETI non vanno qui. Impostali con `wrangler secret put` (vedi README):
+#   - SIGNING_SECRET  (firma dei token di sessione + hashing IP per il rate-limit)
+#   - ADMIN_TOKEN     (per cancellare voci dalla classifica via DELETE)

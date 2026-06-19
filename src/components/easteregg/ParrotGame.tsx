@@ -17,6 +17,9 @@ import {
   getBestScore,
   getLastName,
   getScores,
+  isGlobalLeaderboard,
+  MAX_NAME,
+  primeSession,
   qualifies,
   sanitizeName,
   type ScoreEntry,
@@ -54,6 +57,7 @@ function computeSize(): { w: number; h: number } {
 
 export default function ParrotGame({ onClose }: ParrotGameProps) {
   const t = useTranslations('game');
+  const globalBoard = isGlobalLeaderboard();
 
   // --- React state (drives the overlay UI) ---
   const [phase, setPhase] = useState<GameState['phase']>('ready');
@@ -66,6 +70,9 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
   const [muted, setMuted] = useState(false);
   const [paused, setPaused] = useState(false);
   const [size, setSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [boardLoading, setBoardLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   // --- refs (read by the rAF loop / stable handlers without re-render) ---
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -102,6 +109,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       flapInput(s);
       a.flap();
       lastRef.current = performance.now();
+      primeSession();
       setPhase('playing');
     } else {
       flapInput(s);
@@ -133,6 +141,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     pausedRef.current = false;
     setPaused(false);
     setResult(null);
+    setSubmitError(false);
     setHighlightIdx(-1);
     setView('none');
     setBest(getBestScore());
@@ -155,30 +164,49 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     }
   };
 
-  const openBoard = () => {
-    setBoard(getScores());
+  const openBoard = async () => {
     setHighlightIdx(-1);
     setView('board');
+    setBoardLoading(true);
+    try {
+      setBoard(await getScores());
+    } finally {
+      setBoardLoading(false);
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!result) return;
-    const updated = addScore(name, result.score);
-    const clean = sanitizeName(name) || 'Pablo';
-    const idx = updated.findIndex((en) => en.score === result.score && en.name === clean);
-    setBoard(updated);
-    setHighlightIdx(idx);
-    formActiveRef.current = false;
-    setBest(getBestScore());
-    setView('board');
+    if (!result || submitting) return;
+    setSubmitting(true);
+    setSubmitError(false);
+    try {
+      const updated = await addScore(name, result.score);
+      const clean = sanitizeName(name) || 'Pablo';
+      const idx = updated.findIndex((en) => en.score === result.score && en.name === clean);
+      setBoard(updated);
+      setHighlightIdx(idx);
+      formActiveRef.current = false;
+      setBest(getBestScore());
+      setView('board');
+    } catch {
+      // Keep the form up so the player can retry (personal best is already saved).
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const skipForm = () => {
+  const skipForm = async () => {
     formActiveRef.current = false;
-    setBoard(getScores());
     setHighlightIdx(-1);
     setView('board');
+    setBoardLoading(true);
+    try {
+      setBoard(await getScores());
+    } finally {
+      setBoardLoading(false);
+    }
   };
 
   // --- setup: loop, listeners, sizing (runs once) ---
@@ -197,6 +225,15 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     mutedRef.current = pref;
     setMuted(pref);
     setBest(getBestScore());
+
+    // Warm the board cache so the leaderboard opens instantly and `qualifies`
+    // checks against the real top-10 at game-over (global mode).
+    let boardAlive = true;
+    void getScores().then((b) => {
+      if (boardAlive) setBoard(b);
+    });
+    // Prime a session token now (global mode) so even a short run can submit.
+    primeSession();
 
     const applySize = () => {
       const sz = computeSize();
@@ -257,6 +294,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       setResult({ score: s.score, candies: s.candies, isBest });
       setName(getLastName());
       setBest(Math.max(prevBest, s.score));
+      setSubmitError(false);
       setView(q ? 'form' : 'gameover');
       setPhase('dead');
       restartLockRef.current = performance.now() + 650;
@@ -388,6 +426,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     rafRef.current = requestAnimationFrame(tick);
 
     return () => {
+      boardAlive = false;
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('resize', onResize);
@@ -564,7 +603,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
                   id="pablo-name"
                   type="text"
                   value={name}
-                  maxLength={12}
+                  maxLength={MAX_NAME}
                   autoComplete="off"
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t('name_placeholder')}
@@ -574,18 +613,28 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
                 <div className="mt-1 flex gap-2">
                   <button
                     type="submit"
-                    className="flex-1 rounded-pill bg-candy-pink px-4 py-2.5 font-display font-bold text-night-purple shadow-candy transition-transform hover:scale-105 active:scale-95"
+                    disabled={submitting}
+                    className="flex-1 rounded-pill bg-candy-pink px-4 py-2.5 font-display font-bold text-night-purple shadow-candy transition-transform hover:scale-105 active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
                   >
-                    {t('submit')}
+                    {submitting ? t('saving') : t('submit')}
                   </button>
                   <button
                     type="button"
                     onClick={skipForm}
-                    className="rounded-pill border border-white/30 px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:bg-white/10"
+                    disabled={submitting}
+                    className="rounded-pill border border-white/30 px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:bg-white/10 disabled:opacity-60"
                   >
                     {t('skip')}
                   </button>
                 </div>
+                {globalBoard && (
+                  <p className="text-[11px] text-text-muted">{t('public_name_note')}</p>
+                )}
+                {submitError && (
+                  <p className="text-[11px] font-semibold text-candy-pink" role="alert">
+                    {t('save_error')}
+                  </p>
+                )}
               </form>
             </div>
           )}
@@ -644,9 +693,11 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
                 🏆 {t('leaderboard_title')}
               </h2>
               <div className="mt-3 min-h-0 flex-1 overflow-y-auto pr-1">
-                <Leaderboard entries={board} highlightIndex={highlightIdx} />
+                <Leaderboard entries={board} highlightIndex={highlightIdx} loading={boardLoading} />
               </div>
-              <p className="mt-2 text-center text-[11px] text-text-muted">{t('local_note')}</p>
+              <p className="mt-2 text-center text-[11px] text-text-muted">
+                {globalBoard ? t('global_note') : t('local_note')}
+              </p>
               <div className="mt-3 flex gap-2">
                 {phase === 'dead' ? (
                   <button

@@ -11,7 +11,7 @@ compatibility_date = "2026-06-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "pablo-leaderboard"
-database_id = "INCOLLA_QUI_IL_DATABASE_ID"
+database_id = "9cf26509-dba9-4f1b-99b4-20692aa73143"
 
 # --- Variabili pubbliche (non segrete) --------------------------------------
 # Origini browser autorizzate a leggere/scrivere (CSV). Una voce puo' essere

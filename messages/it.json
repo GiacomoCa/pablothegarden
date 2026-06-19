@@ -382,7 +382,8 @@
     "open_aria": "Gioca al mini-gioco segreto di Pablo",
     "hint": "Gioca con me!",
     "loading": "Caricamento classifica…",
-    "global_note": "Classifica globale di tutti i giocatori.",
+    "global_note": "Classifica globale · il tuo record resta su questo dispositivo.",
+    "your_record": "Il tuo record",
     "saving": "Salvataggio…",
     "save_error": "Salvataggio non riuscito. Riprova.",
     "public_name_note": "Il tuo nome sarà visibile pubblicamente nella classifica. Puoi chiederne la rimozione contattandoci."

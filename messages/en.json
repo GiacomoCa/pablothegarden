@@ -382,7 +382,8 @@
     "open_aria": "Play the secret Pablo mini-game",
     "hint": "Play with me!",
     "loading": "Loading leaderboard…",
-    "global_note": "Global leaderboard across all players.",
+    "global_note": "Global leaderboard · your best stays on this device.",
+    "your_record": "Your best",
     "saving": "Saving…",
     "save_error": "Couldn't save your score. Try again.",
     "public_name_note": "Your name will be publicly visible on the leaderboard. You can ask us to remove it."

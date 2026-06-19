@@ -693,7 +693,13 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
                 🏆 {t('leaderboard_title')}
               </h2>
               <div className="mt-3 min-h-0 flex-1 overflow-y-auto pr-1">
-                <Leaderboard entries={board} highlightIndex={highlightIdx} loading={boardLoading} />
+                <Leaderboard
+                  entries={board}
+                  highlightIndex={highlightIdx}
+                  loading={boardLoading}
+                  personalBest={best}
+                  personalName={getLastName() || undefined}
+                />
               </div>
               <p className="mt-2 text-center text-[11px] text-text-muted">
                 {globalBoard ? t('global_note') : t('local_note')}

@@ -7,6 +7,10 @@ interface LeaderboardProps {
   entries: ScoreEntry[];
   highlightIndex?: number;
   loading?: boolean;
+  /** The player's all-time best (device-local). Always shown, highlighted. */
+  personalBest?: number;
+  /** Name to show alongside the personal best, if known. */
+  personalName?: string;
 }
 
 const MEDALS = ['🥇', '🥈', '🥉'];
@@ -15,44 +19,76 @@ export default function Leaderboard({
   entries,
   highlightIndex = -1,
   loading = false,
+  personalBest = 0,
+  personalName,
 }: LeaderboardProps) {
   const t = useTranslations('game');
 
+  // The player's personal best — pinned and highlighted whether or not it sits
+  // in the global top 10, so they always see their score.
+  const personalRow =
+    personalBest > 0 ? (
+      <div
+        className="mt-2 flex items-center gap-3 rounded-pill bg-candy-pink/15 px-3 py-2 text-sm ring-1 ring-candy-pink/40"
+        aria-label={`${t('your_record')}: ${personalBest}`}
+      >
+        <span className="w-6 shrink-0 text-center" aria-hidden="true">
+          ⭐
+        </span>
+        <span className="min-w-0 flex-1 truncate font-semibold text-candy-pink">
+          {t('your_record')}
+          {personalName ? ` · ${personalName}` : ''}
+        </span>
+        <span className="shrink-0 font-display font-bold tabular-nums text-candy-pink">
+          {personalBest}
+        </span>
+      </div>
+    ) : null;
+
   if (loading && entries.length === 0) {
     return (
-      <p className="py-6 text-center text-sm text-text-muted" role="status">
-        {t('loading')}
-      </p>
+      <div>
+        <p className="py-6 text-center text-sm text-text-muted" role="status">
+          {t('loading')}
+        </p>
+        {personalRow}
+      </div>
     );
   }
 
   if (entries.length === 0) {
     return (
-      <p className="py-6 text-center text-sm text-text-muted">{t('empty_leaderboard')}</p>
+      <div>
+        <p className="py-6 text-center text-sm text-text-muted">{t('empty_leaderboard')}</p>
+        {personalRow}
+      </div>
     );
   }
 
   return (
-    <ol className="flex flex-col gap-1.5" aria-label={t('leaderboard_title')}>
-      {entries.map((e, i) => {
-        const highlighted = i === highlightIndex;
-        return (
-          <li
-            key={`${e.name}-${e.score}-${i}`}
-            className={`flex items-center gap-3 rounded-pill px-3 py-2 text-sm transition-colors ${
-              highlighted
-                ? 'bg-candy-pink text-night-purple font-bold shadow-candy'
-                : 'bg-white/5 text-text-primary'
-            }`}
-          >
-            <span className="w-6 shrink-0 text-center font-display">
-              {MEDALS[i] ?? i + 1}
-            </span>
-            <span className="min-w-0 flex-1 truncate font-medium">{e.name}</span>
-            <span className="shrink-0 font-display tabular-nums">{e.score}</span>
-          </li>
-        );
-      })}
-    </ol>
+    <div>
+      <ol className="flex flex-col gap-1.5" aria-label={t('leaderboard_title')}>
+        {entries.map((e, i) => {
+          const highlighted = i === highlightIndex;
+          return (
+            <li
+              key={`${e.name}-${e.score}-${i}`}
+              className={`flex items-center gap-3 rounded-pill px-3 py-2 text-sm transition-colors ${
+                highlighted
+                  ? 'bg-candy-pink text-night-purple font-bold shadow-candy'
+                  : 'bg-white/5 text-text-primary'
+              }`}
+            >
+              <span className="w-6 shrink-0 text-center font-display">
+                {MEDALS[i] ?? i + 1}
+              </span>
+              <span className="min-w-0 flex-1 truncate font-medium">{e.name}</span>
+              <span className="shrink-0 font-display tabular-nums">{e.score}</span>
+            </li>
+          );
+        })}
+      </ol>
+      {personalRow}
+    </div>
   );
 }

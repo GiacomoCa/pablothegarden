@@ -202,7 +202,12 @@ async function handlePost(req: Request, env: Env, cors: Record<string, string>):
   } catch {
     return json({ error: 'bad_json' }, 400, cors);
   }
-  const b = (body ?? {}) as { name?: unknown; score?: unknown; token?: unknown };
+  const b = (body ?? {}) as {
+    name?: unknown;
+    score?: unknown;
+    token?: unknown;
+    device?: unknown;
+  };
 
   const score = b.score;
   if (typeof score !== 'number' || !Number.isInteger(score) || score <= 0 || score > SCORE_CAP) {
@@ -223,9 +228,26 @@ async function handlePost(req: Request, env: Env, cors: Record<string, string>):
   if (await rateLimited(env, ipHash, now)) return json({ error: 'rate_limited' }, 429, cors);
 
   const name = sanitizeName(b.name) || 'Pablo';
-  await env.DB.prepare('INSERT INTO scores (name, score, created_at) VALUES (?, ?, ?)')
-    .bind(name, score, now)
-    .run();
+  const device =
+    typeof b.device === 'string' && b.device.length > 0 && b.device.length <= 64 ? b.device : null;
+
+  if (device) {
+    // One row per device: overwrite the stored row only when this score beats it,
+    // so every device keeps just its highest score.
+    await env.DB.prepare(
+      'INSERT INTO scores (name, score, created_at, device) VALUES (?, ?, ?, ?) ' +
+        'ON CONFLICT(device) DO UPDATE SET ' +
+        'name = excluded.name, score = excluded.score, created_at = excluded.created_at ' +
+        'WHERE excluded.score > scores.score'
+    )
+      .bind(name, score, now, device)
+      .run();
+  } else {
+    await env.DB.prepare('INSERT INTO scores (name, score, created_at) VALUES (?, ?, ?)')
+      .bind(name, score, now)
+      .run();
+  }
+
   // Keep only the best KEEP_N to bound storage.
   await env.DB.prepare(
     'DELETE FROM scores WHERE id NOT IN ' +

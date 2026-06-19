@@ -18,9 +18,13 @@ rompere nulla.
 | `name` (nickname, max 12 char, ri-sanificato lato server) | email / telefono |
 | `score` (intero) | IP grezzo (per il rate-limit si usa un **hash** effimero) |
 | `created_at` (timestamp) | user-agent, cookie, tracciamento |
+| `device` (id casuale del browser, pseudonimo) | nome reale, account |
 
-Data minimization by design: l'unico dato personale potenziale è il nickname,
-che l'utente sceglie e che viene mostrato pubblicamente in classifica.
+**Una sola riga per `device`** (il suo punteggio più alto): un nuovo submit più
+alto sostituisce il precedente, uno più basso viene ignorato. Data minimization by
+design — l'unico dato personale potenziale è il nickname, scelto dall'utente e
+mostrato pubblicamente; il `device` è un id casuale generato sul browser, usato
+solo per deduplicare i punteggi dello stesso dispositivo.
 
 ---
 

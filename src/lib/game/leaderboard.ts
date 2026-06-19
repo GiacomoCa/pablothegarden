@@ -4,16 +4,18 @@
 // Two modes, picked automatically from the build-time env:
 //
 //   * GLOBAL  — when NEXT_PUBLIC_LEADERBOARD_URL points at the Cloudflare Worker
-//     (see leaderboard-worker/). Scores are shared and permanent across devices.
-//     localStorage is kept as a read cache so the board renders instantly and
-//     survives the backend being briefly unreachable.
+//     (see leaderboard-worker/). Scores are shared and permanent across devices,
+//     with ONE row per device (the device's highest score). localStorage is kept
+//     as a read cache so the board renders instantly and survives the backend
+//     being briefly unreachable.
 //
 //   * LOCAL   — when the env is unset (e.g. before the Worker is deployed). The
-//     board is a per-device top-10 in localStorage, exactly as before. This keeps
-//     the game fully working at all times.
+//     board is a per-device top-10 in localStorage. This keeps the game fully
+//     working at all times.
 //
-// The personal best ("Record") and last-used name are ALWAYS local + synchronous
-// (instant UI, offline-safe). Only the shared top-10 goes over the network.
+// The personal best ("Record"), last-used name and device id are ALWAYS local +
+// synchronous (instant UI, offline-safe). Only the shared top-10 goes over the
+// network.
 // =============================================================================
 
 export interface ScoreEntry {
@@ -29,11 +31,10 @@ const GLOBAL = BASE.length > 0;
 const CACHE_KEY = 'pablo-parrot-leaderboard-v1'; // local board / global cache
 const NAME_KEY = 'pablo-parrot-last-name';
 const BEST_KEY = 'pablo-parrot-best';
+const DEVICE_KEY = 'pablo-parrot-device';
 const MAX_ENTRIES = 10;
 export const MAX_NAME = 12;
 
-/** Last board we know about — read synchronously by `qualifies()`. */
-let lastBoard: ScoreEntry[] = [];
 /** Server-signed token for the current run (GLOBAL mode); null until primed. */
 let sessionToken: string | null = null;
 /** In-flight /session request, so a submit can await a not-yet-arrived token. */
@@ -89,7 +90,7 @@ function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-// -- personal best + name (always local, sync) --------------------------------
+// -- personal best + identity (always local, sync) ----------------------------
 
 export function sanitizeName(raw: string): string {
   // Drop control characters, collapse runs of whitespace, trim, cap length.
@@ -144,6 +145,28 @@ function saveLastName(name: string): void {
   }
 }
 
+/**
+ * A stable, random per-device id (localStorage). Lets the global board keep a
+ * single row per device — its highest score — instead of one row per submission.
+ * Pseudonymous: a random id, sent only to our own leaderboard with the score.
+ */
+function getDeviceId(): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    let id = window.localStorage.getItem(DEVICE_KEY);
+    if (!id) {
+      id =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : `d-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+      window.localStorage.setItem(DEVICE_KEY, id);
+    }
+    return id;
+  } catch {
+    return '';
+  }
+}
+
 // -- public API ---------------------------------------------------------------
 
 export function isGlobalLeaderboard(): boolean {
@@ -151,13 +174,12 @@ export function isGlobalLeaderboard(): boolean {
 }
 
 /**
- * Would this score make it onto the (current) top-10? Checked synchronously
- * against the last board we fetched/cached, so it's instant at game-over.
+ * "Keep your highest" model: only prompt to save when the score beats the
+ * player's own best, since the global board keeps a single row per device (its
+ * highest score) — submitting anything lower would change nothing.
  */
 export function qualifies(score: number): boolean {
-  if (score <= 0) return false;
-  const board = lastBoard.length > 0 ? lastBoard : readCache();
-  return board.length < MAX_ENTRIES || score > board[board.length - 1].score;
+  return score > 0 && score > getBestScore();
 }
 
 /**
@@ -191,27 +213,23 @@ export async function getScores(): Promise<ScoreEntry[]> {
       if (r.ok) {
         const data: unknown = await r.json();
         const board = normalize((data as { scores?: unknown })?.scores);
-        lastBoard = board;
         writeCache(board);
         return board;
       }
     } catch {
       /* fall through to cache */
     }
-    const cached = readCache();
-    lastBoard = cached;
-    return cached;
+    return readCache();
   }
-  const local = readCache();
-  lastBoard = local;
-  return local;
+  return readCache();
 }
 
 /**
  * Submit a score and return the updated top-10.
  *
  * GLOBAL mode throws on a failed submit (network error or rejection) so the UI
- * can show a retry; the personal best is still recorded locally first. LOCAL
+ * can show a retry; the personal best is still recorded locally first. The
+ * server keeps only this device's highest score (one row per device). LOCAL
  * mode never throws — it just updates the device board.
  */
 export async function addScore(name: string, score: number): Promise<ScoreEntry[]> {
@@ -232,13 +250,12 @@ export async function addScore(name: string, score: number): Promise<ScoreEntry[
     const r = await fetch(`${BASE}/scores`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ name: clean, score, token: sessionToken }),
+      body: JSON.stringify({ name: clean, score, token: sessionToken, device: getDeviceId() }),
     });
     if (!r.ok) throw new Error(`submit_failed_${r.status}`);
     const data: unknown = await r.json();
     const board = normalize((data as { scores?: unknown })?.scores);
     sessionToken = null; // consume: the next scored run primes a fresh token
-    lastBoard = board;
     writeCache(board);
     return board;
   }
@@ -248,6 +265,5 @@ export async function addScore(name: string, score: number): Promise<ScoreEntry[
   entries.push({ name: clean, score, date: todayISO() });
   const board = sortAndTrim(entries);
   writeCache(board);
-  lastBoard = board;
   return board;
 }

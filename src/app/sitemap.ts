@@ -6,7 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ['it', 'en'] as const;
   const staticPages = [
     '',
-    '/lineup',
     '/tickets',
     '/gallery',
     '/blog',
@@ -28,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/${locale}${page}`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
-      priority: page === '' ? 1 : page === '/lineup' || page === '/tickets' ? 0.9 : 0.8,
+      priority: page === '' ? 1 : page === '/tickets' ? 0.9 : 0.8,
       alternates: { languages },
     }));
   });

@@ -3,38 +3,6 @@
 // =============================================================================
 
 /**
- * Artist in the lineup
- */
-export interface Artist {
-  name: string;
-  slug: string;
-  day: 1 | 2;
-  time: string;
-  genre: string;
-  photo: string;
-  bio: string;
-  revealed: boolean;
-  revealDate: string;
-  order: number;
-  social: {
-    instagram: string;
-    spotify: string;
-    soundcloud: string;
-  };
-}
-
-/**
- * Lineup reveal phase configuration
- */
-export interface LineupConfig {
-  phase: 'coming_soon' | 'revealing' | 'complete';
-  totalSlots: number;
-  newBadgeDays: number;
-  comingSoonMessage: { it: string; en: string };
-  mysteryCardMessage: { it: string; en: string };
-}
-
-/**
  * A single ticket type (e.g. Full Pass, Day 1, Day 2)
  */
 export interface TicketType {

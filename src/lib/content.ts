@@ -2,8 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import type {
-  Artist,
-  LineupConfig,
   TicketConfig,
   Sponsor,
   BlogPost,
@@ -61,65 +59,6 @@ function listFiles(dirPath: string, extension: string): string[] {
   } catch {
     return [];
   }
-}
-
-// =============================================================================
-// Lineup
-// =============================================================================
-
-/**
- * Read the lineup reveal-phase configuration.
- */
-export function getLineupConfig(): LineupConfig {
-  const filePath = path.join(contentDir, 'lineup', 'config.json');
-  const data = readJsonFile<LineupConfig>(filePath);
-
-  if (!data) {
-    return {
-      phase: 'coming_soon',
-      totalSlots: 0,
-      newBadgeDays: 7,
-      comingSoonMessage: { it: '', en: '' },
-      mysteryCardMessage: { it: '', en: '' },
-    };
-  }
-
-  return data;
-}
-
-/**
- * Read all artist markdown files from `content/lineup/`.
- * Each `.md` file (except `config.json`) is parsed via gray-matter.
- * Artists are returned sorted by `order`.
- */
-export function getLineup(): Artist[] {
-  const lineupDir = path.join(contentDir, 'lineup');
-  const files = listFiles(lineupDir, '.md');
-
-  const artists: Artist[] = files.map((filePath) => {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-
-    return {
-      name: (data.name as string) ?? '',
-      slug: (data.slug as string) ?? path.basename(filePath, '.md'),
-      day: (data.day as 1 | 2) ?? 1,
-      time: (data.time as string) ?? '',
-      genre: (data.genre as string) ?? '',
-      photo: (data.photo as string) ?? '',
-      bio: content.trim() || ((data.bio as string) ?? ''),
-      revealed: (data.revealed as boolean) ?? false,
-      revealDate: (data.revealDate as string) ?? '',
-      order: (data.order as number) ?? 0,
-      social: {
-        instagram: (data.social?.instagram as string) ?? '',
-        spotify: (data.social?.spotify as string) ?? '',
-        soundcloud: (data.social?.soundcloud as string) ?? '',
-      },
-    };
-  });
-
-  return artists.sort((a, b) => a.order - b.order);
 }
 
 // =============================================================================

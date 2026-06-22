@@ -148,25 +148,37 @@ function saveLastName(name: string): void {
   }
 }
 
+function newDeviceId(): string {
+  return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+    ? crypto.randomUUID()
+    : `d-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+/** Session fallback id, used only when localStorage is unavailable (see below). */
+let memDeviceId: string | null = null;
+
 /**
  * A stable, random per-device id (localStorage). Lets the global board keep a
  * single row per device — its highest score — instead of one row per submission.
  * Pseudonymous: a random id, sent only to our own leaderboard with the score.
+ *
+ * When localStorage is blocked (e.g. private browsing), we cannot persist an id
+ * across reloads, but we keep a stable in-memory id for the current page session
+ * so repeated runs in that session still dedupe to ONE row server-side instead
+ * of stacking a fresh anonymous (NULL-device) row per submission.
  */
 function getDeviceId(): string {
   if (typeof window === 'undefined') return '';
   try {
     let id = window.localStorage.getItem(DEVICE_KEY);
     if (!id) {
-      id =
-        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-          ? crypto.randomUUID()
-          : `d-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+      id = newDeviceId();
       window.localStorage.setItem(DEVICE_KEY, id);
     }
     return id;
   } catch {
-    return '';
+    if (!memDeviceId) memDeviceId = newDeviceId();
+    return memDeviceId;
   }
 }
 

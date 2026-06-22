@@ -111,7 +111,10 @@ export function getBestScore(): number {
       const n = Number(raw);
       return Number.isFinite(n) ? n : 0;
     }
-    // Migrate from any pre-existing local board (back-compat).
+    // Migrate from a pre-existing LOCAL board only (back-compat). In GLOBAL mode
+    // CACHE_KEY is the shared world board, NOT this device's scores, so it must
+    // not seed the personal best.
+    if (GLOBAL) return 0;
     return readCache().reduce((max, e) => Math.max(max, e.score), 0);
   } catch {
     return 0;

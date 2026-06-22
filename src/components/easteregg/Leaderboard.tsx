@@ -24,14 +24,20 @@ export default function Leaderboard({
 }: LeaderboardProps) {
   const t = useTranslations('game');
 
-  // The player's personal best — pinned and highlighted whether or not it sits
-  // in the global top 10, so they always see their score.
+  // The player's personal best — pinned so they always see their score, even
+  // when it is outside the global top 10. Hidden when that same score is already
+  // shown in the list (the board keeps one row per device, so an in-list
+  // personal best would otherwise be displayed twice). No aria-label: the
+  // visible text is the accessible name (the ⭐ is decorative), exactly like the
+  // ranked rows below.
+  const personalInList =
+    personalBest > 0 &&
+    entries.some(
+      (e) => e.score === personalBest && (personalName ? e.name === personalName : true)
+    );
   const personalRow =
-    personalBest > 0 ? (
-      <div
-        className="mt-2 flex items-center gap-3 rounded-pill bg-candy-pink/15 px-3 py-2 text-sm ring-1 ring-candy-pink/40"
-        aria-label={`${t('your_record')}: ${personalBest}`}
-      >
+    personalBest > 0 && !personalInList ? (
+      <div className="mt-2 flex items-center gap-3 rounded-pill bg-candy-pink/15 px-3 py-2 text-sm ring-1 ring-candy-pink/40">
         <span className="w-6 shrink-0 text-center" aria-hidden="true">
           ⭐
         </span>

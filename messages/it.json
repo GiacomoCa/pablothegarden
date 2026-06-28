@@ -363,6 +363,7 @@
     "your_record": "Il tuo record",
     "saving": "Salvataggio…",
     "save_error": "Salvataggio non riuscito. Riprova.",
-    "public_name_note": "Il tuo nome sarà visibile pubblicamente nella classifica. Puoi chiederne la rimozione contattandoci."
+    "public_name_note": "Il tuo nome sarà visibile pubblicamente nella classifica. Puoi chiederne la rimozione contattandoci.",
+    "showcase_exit_hint": "Premi Esc per uscire"
   }
 }

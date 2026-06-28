@@ -14,6 +14,8 @@
 // it to fit the device. Difficulty is therefore identical on every screen.
 // =============================================================================
 
+import { stepShowcase } from './showcase';
+
 /** Tunable game constants (logical pixels, seconds). */
 export const GAME = {
   WIDTH: 480,
@@ -108,6 +110,30 @@ export interface GameEvents {
   dead: boolean;
 }
 
+/** Normal playable game vs. the hands-off cinematic "showcase" (typed `pablo`). */
+export type GameMode = 'normal' | 'showcase';
+
+/** Stages of the showcase run (see `showcase.ts`). */
+export type ShowStage = 'fly' | 'climax' | 'fade' | 'done';
+
+/** Rainbow portal the parrot flies into at the end of the showcase. */
+export interface Portal {
+  /** Screen-space x of the centre (scrolls in from the right). */
+  x: number;
+  /** Screen-space y of the centre. */
+  y: number;
+  /** Base radius (logical px) before any climax growth. */
+  r: number;
+  /** Growth multiplier — 1 on arrival, balloons through climax + fade. */
+  grow: number;
+  /** Fade-in / overall opacity in [0,1]. */
+  alpha: number;
+  /** Rotating base hue driving the rainbow sweep. */
+  hue: number;
+  /** White flash burst in [0,1] at the moment the parrot enters. */
+  flash: number;
+}
+
 export interface GameState {
   phase: Phase;
   t: number; // elapsed seconds of active play
@@ -135,6 +161,24 @@ export interface GameState {
   /** Idle bob phase for the ready screen. */
   idle: number;
   ev: GameEvents;
+
+  // -- showcase mode (cinematic autoplay; see `showcase.ts`) ------------------
+  /** Which mode the simulation is running in. */
+  mode: GameMode;
+  /** Logical world width — 480 in normal play, ~2560 (32:9) in the showcase. */
+  worldW: number;
+  /** Logical world height — always 720 today (kept in state for the renderer). */
+  worldH: number;
+  /** Parrot's fixed screen-x anchor (132 normal; further left in the showcase). */
+  parrotX: number;
+  /** Elapsed showcase seconds. */
+  showT: number;
+  /** Current showcase stage. */
+  showStage: ShowStage;
+  /** Full-screen fade-to-black in [0,1] (showcase finale). */
+  fade: number;
+  /** The end portal, or null outside the showcase. */
+  portal: Portal | null;
 }
 
 function emptyEvents(): GameEvents {
@@ -164,6 +208,14 @@ export function createGame(): GameState {
     nextDrop: GAME.DROP_EVERY,
     idle: 0,
     ev: emptyEvents(),
+    mode: 'normal',
+    worldW: GAME.WIDTH,
+    worldH: GAME.HEIGHT,
+    parrotX: GAME.PARROT_X,
+    showT: 0,
+    showStage: 'fly',
+    fade: 0,
+    portal: null,
   };
   return s;
 }
@@ -214,7 +266,7 @@ function pushParticle(s: GameState, p: Particle): void {
 
 const CANDY_COLORS = ['#FFCDFF', '#FFB347', '#87CEEB', '#98FB98', '#DDA0DD', '#5CE1E6'];
 
-function burst(
+export function burst(
   s: GameState,
   x: number,
   y: number,
@@ -425,6 +477,9 @@ export function stepGame(s: GameState, dt: number): GameEvents {
   s.shake = Math.max(0, s.shake - dt * 40);
   s.flapAnim = Math.max(0, s.flapAnim - dt);
   updateParticles(s, dt);
+
+  // Cinematic autoplay takes a completely separate path (no gravity/collision).
+  if (s.mode === 'showcase') return stepShowcase(s, dt);
 
   if (s.phase === 'ready') {
     s.idle += dt;

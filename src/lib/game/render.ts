@@ -2,16 +2,17 @@
 // Pablo's Garden Run — canvas renderer
 // -----------------------------------------------------------------------------
 // Draws the game state produced by `engine.ts` into a 2D context whose
-// transform has already been set so that (0,0)–(GAME.WIDTH,GAME.HEIGHT) maps to
-// the full canvas (the React layer handles DPR + scale). Pure drawing: no input,
-// no simulation. Theme = candy synthwave (electronic festival meets a garden).
+// transform has already been set so that (0,0)–(worldW,worldH) maps to the full
+// canvas (the React layer handles DPR + scale). Pure drawing: no input, no
+// simulation. Theme = candy synthwave (electronic festival meets a garden).
+//
+// World dimensions come from the state (`worldW`/`worldH`/`parrotX`) so the same
+// code renders both the normal 480×720 portrait game and the cinematic 32:9
+// "showcase" (see `showcase.ts`). In normal play these equal the GAME constants,
+// so output is byte-for-byte identical to before.
 // =============================================================================
 
-import { GAME, type GameState, type Gate, type Candy, type Particle } from './engine';
-
-const W = GAME.WIDTH;
-const H = GAME.HEIGHT;
-const FLOOR = GAME.HEIGHT - GAME.GROUND_H;
+import { GAME, type GameState, type Gate, type Candy } from './engine';
 
 const COLORS = {
   skyTop: '#150526',
@@ -29,7 +30,7 @@ const COLORS = {
 
 const CANDY_GLYPHS = ['🍬', '🍭', '🧁', '🍫'];
 
-// -- deterministic star field (generated once, client-side) ------------------
+// -- deterministic star field (generated once per world width, client-side) ---
 
 interface Star {
   x: number;
@@ -37,7 +38,12 @@ interface Star {
   r: number;
   tw: number;
 }
-const STARS: Star[] = (() => {
+
+const starCache = new Map<number, Star[]>();
+
+function getStars(w: number, floorY: number): Star[] {
+  const cached = starCache.get(w);
+  if (cached) return cached;
   // Simple LCG so the field is stable across frames without per-frame random.
   let seed = 1337;
   const rng = () => {
@@ -45,34 +51,38 @@ const STARS: Star[] = (() => {
     return seed / 4294967296;
   };
   const out: Star[] = [];
-  for (let i = 0; i < 64; i++) {
+  const count = Math.max(64, Math.round((w / 480) * 64));
+  for (let i = 0; i < count; i++) {
     out.push({
-      x: rng() * W,
-      y: rng() * (FLOOR - 60),
+      x: rng() * w,
+      y: rng() * (floorY - 60),
       r: 0.6 + rng() * 1.8,
       tw: rng() * Math.PI * 2,
     });
   }
+  starCache.set(w, out);
   return out;
-})();
+}
 
 // -- cached invariant gradients ----------------------------------------------
 // These gradients use fixed logical coordinates + fixed colour stops, so they
 // never change frame-to-frame. CanvasGradient coords are resolved against the
 // CTM at *paint* time, not creation time, so a single cached object renders
-// identically under the per-frame screen-shake / parrot transforms. Rebuilt
-// only if the canvas (and thus its context) is recreated. Avoids ~5
-// allocations/frame and the matching GC churn on mobile.
+// identically under the per-frame screen-shake / parrot transforms. Rebuilt only
+// if the canvas context or the world width changes. Avoids ~5 allocations/frame
+// and the matching GC churn on mobile.
 let gradCtx: CanvasRenderingContext2D | null = null;
+let gradW = -1;
 let skyGrad: CanvasGradient | null = null;
 let groundGrad: CanvasGradient | null = null;
 let edgeGrad: CanvasGradient | null = null;
 let parrotBodyGrad: CanvasGradient | null = null;
 let parrotWingGrad: CanvasGradient | null = null;
 
-function ensureGradients(ctx: CanvasRenderingContext2D): void {
-  if (gradCtx === ctx && skyGrad) return;
+function ensureGradients(ctx: CanvasRenderingContext2D, W: number, H: number, FLOOR: number): void {
+  if (gradCtx === ctx && gradW === W && skyGrad) return;
   gradCtx = ctx;
+  gradW = W;
 
   skyGrad = ctx.createLinearGradient(0, 0, 0, H);
   skyGrad.addColorStop(0, COLORS.skyTop);
@@ -134,12 +144,16 @@ function star(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: number, 
 // -- background --------------------------------------------------------------
 
 function drawBackground(ctx: CanvasRenderingContext2D, s: GameState): void {
+  const W = s.worldW;
+  const H = s.worldH;
+  const FLOOR = H - GAME.GROUND_H;
+
   ctx.fillStyle = skyGrad!;
   ctx.fillRect(0, 0, W, H);
 
   // Stars
   const pulse = 0.5 + 0.5 * Math.sin(s.beat * Math.PI * 2);
-  for (const st of STARS) {
+  for (const st of getStars(W, FLOOR)) {
     const tw = 0.45 + 0.55 * Math.abs(Math.sin(st.tw + s.beat * Math.PI * 2));
     ctx.globalAlpha = tw;
     ctx.fillStyle = '#fff';
@@ -180,7 +194,8 @@ function drawBackground(ctx: CanvasRenderingContext2D, s: GameState): void {
 
 // Parallax garden silhouettes (palms + candy bushes) along the horizon.
 function drawSilhouettes(ctx: CanvasRenderingContext2D, s: GameState): void {
-  const baseY = FLOOR;
+  const W = s.worldW;
+  const baseY = s.worldH - GAME.GROUND_H;
   // Far layer
   ctx.fillStyle = 'rgba(20,5,38,0.85)';
   const off1 = (s.distance * 0.18) % 220;
@@ -229,6 +244,10 @@ function palm(ctx: CanvasRenderingContext2D, x: number, baseY: number, scale: nu
 // -- ground: neon grid + equalizer -------------------------------------------
 
 function drawGround(ctx: CanvasRenderingContext2D, s: GameState): void {
+  const W = s.worldW;
+  const H = s.worldH;
+  const FLOOR = H - GAME.GROUND_H;
+
   // base strip
   ctx.fillStyle = groundGrad!;
   ctx.fillRect(0, FLOOR, W, GAME.GROUND_H);
@@ -241,7 +260,7 @@ function drawGround(ctx: CanvasRenderingContext2D, s: GameState): void {
   ctx.strokeStyle = 'rgba(92,225,230,0.35)';
   ctx.lineWidth = 1.5;
   const vanishX = W / 2;
-  // vertical converging lines
+  // vertical converging lines (central perspective fan)
   for (let i = -6; i <= 6; i++) {
     ctx.beginPath();
     ctx.moveTo(vanishX + i * 18, FLOOR);
@@ -262,8 +281,9 @@ function drawGround(ctx: CanvasRenderingContext2D, s: GameState): void {
   ctx.globalAlpha = 1;
   ctx.restore();
 
-  // equalizer bars sitting on the horizon
-  const bars = 18;
+  // equalizer bars sitting on the horizon (density scales with width;
+  // resolves to exactly 18 bars at the normal 480-wide world)
+  const bars = Math.max(18, Math.round((W * 18) / 480));
   const bw = W / bars;
   for (let i = 0; i < bars; i++) {
     const phase = s.beat * Math.PI * 2 + i * 0.7;
@@ -289,6 +309,7 @@ function drawGround(ctx: CanvasRenderingContext2D, s: GameState): void {
 // -- gates (neon speaker stacks) ---------------------------------------------
 
 function drawGate(ctx: CanvasRenderingContext2D, g: Gate, s: GameState): void {
+  const FLOOR = s.worldH - GAME.GROUND_H;
   const topH = g.gapY;
   const botY = g.gapY + g.gap;
   const botH = FLOOR - botY;
@@ -428,7 +449,7 @@ function drawParticles(ctx: CanvasRenderingContext2D, s: GameState): void {
 function drawParrot(ctx: CanvasRenderingContext2D, s: GameState): void {
   const flap = s.flapAnim / 0.18; // 1 just after a flap → 0
   ctx.save();
-  ctx.translate(GAME.PARROT_X, s.parrotY);
+  ctx.translate(s.parrotX, s.parrotY);
   ctx.rotate(s.rot);
 
   // motion glow
@@ -574,10 +595,63 @@ function drawHeadphones(ctx: CanvasRenderingContext2D, s: GameState): void {
   }
 }
 
+// -- rainbow portal (showcase finale) ----------------------------------------
+
+function drawPortal(ctx: CanvasRenderingContext2D, s: GameState): void {
+  const p = s.portal;
+  if (!p || p.alpha <= 0.01) return;
+  const r = p.r * p.grow;
+  ctx.save();
+
+  // rotating rainbow rim
+  ctx.globalAlpha = p.alpha;
+  ctx.shadowColor = `hsl(${p.hue % 360}, 100%, 65%)`;
+  ctx.shadowBlur = 40;
+  const segs = 24;
+  const base = (p.hue * Math.PI) / 180;
+  ctx.lineWidth = Math.max(6, r * 0.16);
+  for (let i = 0; i < segs; i++) {
+    const a0 = (i / segs) * Math.PI * 2 + base;
+    const a1 = ((i + 1) / segs) * Math.PI * 2 + base;
+    ctx.strokeStyle = `hsl(${(p.hue + (i / segs) * 360) % 360}, 100%, 62%)`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, a0, a1 + 0.03);
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+
+  // bright swirling core
+  const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+  g.addColorStop(0, `hsla(${(p.hue + 180) % 360}, 100%, 92%, ${p.alpha})`);
+  g.addColorStop(0.45, `hsla(${p.hue % 360}, 100%, 70%, ${0.55 * p.alpha})`);
+  g.addColorStop(1, `hsla(${(p.hue + 60) % 360}, 100%, 50%, 0)`);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  // white entry flash
+  if (p.flash > 0.01) {
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = p.flash;
+    const fg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 1.25);
+    fg.addColorStop(0, 'rgba(255,255,255,0.9)');
+    fg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = fg;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r * 1.25, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
 // -- drop strobe overlay -----------------------------------------------------
 
 function drawFlash(ctx: CanvasRenderingContext2D, s: GameState): void {
   if (s.flash <= 0.01) return;
+  const W = s.worldW;
+  const H = s.worldH;
   ctx.save();
   ctx.globalCompositeOperation = 'lighter';
   ctx.globalAlpha = s.flash * 0.35;
@@ -597,6 +671,17 @@ function drawFlash(ctx: CanvasRenderingContext2D, s: GameState): void {
   ctx.restore();
 }
 
+// -- fade-to-black (showcase finale) -----------------------------------------
+
+function drawFadeToBlack(ctx: CanvasRenderingContext2D, s: GameState): void {
+  if (s.fade <= 0.001) return;
+  ctx.save();
+  ctx.globalAlpha = Math.min(1, s.fade);
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, s.worldW, s.worldH);
+  ctx.restore();
+}
+
 // -- public entry ------------------------------------------------------------
 
 /**
@@ -604,7 +689,7 @@ function drawFlash(ctx: CanvasRenderingContext2D, s: GameState): void {
  * coordinates to the canvas. Applies its own screen-shake offset.
  */
 export function renderGame(ctx: CanvasRenderingContext2D, s: GameState): void {
-  ensureGradients(ctx);
+  ensureGradients(ctx, s.worldW, s.worldH, s.worldH - GAME.GROUND_H);
   ctx.save();
   if (s.shake > 0.2) {
     const sh = s.shake;
@@ -620,10 +705,13 @@ export function renderGame(ctx: CanvasRenderingContext2D, s: GameState): void {
   for (const g of s.gates) drawGate(ctx, g, s);
   for (const c of s.candyItems) drawCandy(ctx, c, s);
 
+  if (s.portal) drawPortal(ctx, s);
+
   // particles behind + parrot on top
   drawParticles(ctx, s);
   drawParrot(ctx, s);
 
   drawFlash(ctx, s);
+  drawFadeToBlack(ctx, s);
   ctx.restore();
 }

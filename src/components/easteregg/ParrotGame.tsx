@@ -11,6 +11,7 @@ import {
   type GameState,
 } from '@/lib/game/engine';
 import { renderGame } from '@/lib/game/render';
+import { startShowcase } from '@/lib/game/showcase';
 import { GameAudio } from '@/lib/game/audio';
 import {
   addScore,
@@ -26,6 +27,7 @@ import {
 } from '@/lib/game/leaderboard';
 import PabloSprite from './PabloSprite';
 import Leaderboard from './Leaderboard';
+import ShowcaseEndCard from './ShowcaseEndCard';
 
 interface ParrotGameProps {
   onClose: () => void;
@@ -41,9 +43,19 @@ type View = 'none' | 'form' | 'gameover' | 'board';
 
 const MUTE_KEY = 'pablo-parrot-muted';
 
-function computeSize(): { w: number; h: number } {
+function computeSize(mode: GameState['mode']): { w: number; h: number } {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
+  if (mode === 'showcase') {
+    // Full-width ultrawide 32:9 band, letterboxed top/bottom.
+    let w = vw;
+    let h = (w * 9) / 32;
+    if (h > vh) {
+      h = vh;
+      w = (h * 32) / 9;
+    }
+    return { w: Math.round(w), h: Math.round(h) };
+  }
   const availW = Math.min(vw * 0.96, 460);
   const availH = vh * 0.93;
   let w = availW;
@@ -73,6 +85,8 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
   const [boardLoading, setBoardLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  const [mode, setMode] = useState<GameState['mode']>('normal');
+  const [showEndCard, setShowEndCard] = useState(false);
 
   // --- refs (read by the rAF loop / stable handlers without re-render) ---
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -89,6 +103,10 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
   const mutedRef = useRef(false);
   const pausedRef = useRef(false);
   const sizeRef = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
+  const modeRef = useRef<GameState['mode']>('normal');
+  const prevStageRef = useRef<GameState['showStage']>('fly');
+  const seqRef = useRef('');
+  const seqTimeRef = useRef(0);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
@@ -101,6 +119,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
   const handleInput = useCallback(() => {
     const s = stateRef.current;
     if (!s || s.phase === 'dead') return;
+    if (s.mode === 'showcase') return; // the cinematic is hands-off
     if (!audioRef.current) audioRef.current = new GameAudio();
     const a = audioRef.current;
     a.setMuted(mutedRef.current);
@@ -148,6 +167,26 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     if (scoreElRef.current) scoreElRef.current.textContent = '0';
     lastRef.current = performance.now();
     setPhase('ready');
+  }, []);
+
+  const enterShowcase = useCallback(() => {
+    const s = stateRef.current;
+    if (!s) return;
+    startShowcase(s);
+    modeRef.current = 'showcase';
+    prevStageRef.current = 'fly';
+    setMode('showcase');
+    setShowEndCard(false);
+    setView('none');
+    setPaused(false);
+    pausedRef.current = false;
+    const sz = computeSize('showcase');
+    sizeRef.current = sz;
+    setSize(sz);
+    if (!audioRef.current) audioRef.current = new GameAudio();
+    audioRef.current.setMuted(mutedRef.current);
+    audioRef.current.start();
+    lastRef.current = performance.now();
   }, []);
 
   // --- non-stable handlers (used only in JSX; latest closure each render) ---
@@ -236,7 +275,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     primeSession();
 
     const applySize = () => {
-      const sz = computeSize();
+      const sz = computeSize(modeRef.current);
       sizeRef.current = sz;
       setSize(sz);
     };
@@ -274,7 +313,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       }
       const ctx = cv.getContext('2d');
       if (!ctx) return;
-      const scale = (w / 480) * dpr;
+      const scale = (w / s.worldW) * dpr;
       ctx.setTransform(scale, 0, 0, scale, 0, 0);
       renderGame(ctx, s);
     };
@@ -323,8 +362,18 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
         if (ev.drop) a.drop();
         if (ev.dead) a.hit();
       }
-      if (scoreElRef.current) scoreElRef.current.textContent = String(s.score);
-      if (prev !== 'dead' && s.phase === 'dead') onDeath();
+      if (s.mode === 'showcase') {
+        // Hands-off cinematic: no scoring/leaderboard; reveal the brand card
+        // once the portal has fully faded to black.
+        if (prevStageRef.current !== 'done' && s.showStage === 'done') {
+          a?.stop();
+          setShowEndCard(true);
+        }
+        prevStageRef.current = s.showStage;
+      } else {
+        if (scoreElRef.current) scoreElRef.current.textContent = String(s.score);
+        if (prev !== 'dead' && s.phase === 'dead') onDeath();
+      }
       draw();
     };
 
@@ -368,6 +417,26 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       }
       const s = stateRef.current;
       if (!s) return;
+
+      // Secret: type "pablo" quickly on the start screen to launch the
+      // hands-off cinematic showcase (desktop / landscape only).
+      if (modeRef.current === 'normal' && s.phase === 'ready' && /^[a-z]$/i.test(e.key)) {
+        const now = performance.now();
+        if (now - seqTimeRef.current > 1200) seqRef.current = '';
+        seqTimeRef.current = now;
+        seqRef.current = (seqRef.current + e.key.toLowerCase()).slice(-5);
+        if (
+          seqRef.current === 'pablo' &&
+          window.innerWidth > window.innerHeight &&
+          window.innerWidth >= 820
+        ) {
+          e.preventDefault();
+          seqRef.current = '';
+          enterShowcase();
+          return;
+        }
+      }
+
       if (e.key === 'Escape') {
         e.preventDefault();
         if (s.phase === 'playing' && !pausedRef.current) pauseGame();
@@ -453,7 +522,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       }
       restore?.focus({ preventScroll: true });
     };
-  }, [handleInput, handleRestart, handleResume, pauseGame, requestClose]);
+  }, [handleInput, handleRestart, handleResume, pauseGame, requestClose, enterShowcase]);
 
   const onField = (e: React.PointerEvent) => {
     e.preventDefault();
@@ -463,19 +532,22 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
   if (typeof document === 'undefined') return null;
 
-  const showField = (phase === 'ready' || phase === 'playing') && !paused && view === 'none';
+  const showField =
+    mode === 'normal' && (phase === 'ready' || phase === 'playing') && !paused && view === 'none';
 
   const content = (
     <div
       ref={dialogRef}
       tabIndex={-1}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-night-purple/95 p-2 outline-none"
+      className={`fixed inset-0 z-[100] flex items-center justify-center outline-none ${
+        mode === 'showcase' ? 'bg-black' : 'bg-night-purple/95 p-2'
+      }`}
       style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
       role="dialog"
       aria-modal="true"
       aria-label={t('title')}
     >
-      {size.w > 0 && (
+      {mode === 'normal' && size.w > 0 && (
         <div
           className="relative overflow-hidden rounded-[1.75rem] shadow-2xl ring-2 ring-candy-pink/40"
           style={{ width: size.w, height: size.h }}
@@ -734,6 +806,24 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
           )}
         </div>
       )}
+
+      {/* Cinematic showcase — full-width 32:9 band, no HUD, hands-off */}
+      {mode === 'showcase' && size.w > 0 && (
+        <div className="relative" style={{ width: size.w, height: size.h }}>
+          <canvas
+            ref={canvasRef}
+            className="block h-full w-full select-none"
+            style={{ touchAction: 'none' }}
+          />
+          {!showEndCard && (
+            <p className="pointer-events-none absolute bottom-3 right-4 text-[11px] font-medium uppercase tracking-widest text-white/30">
+              Esc
+            </p>
+          )}
+        </div>
+      )}
+
+      {mode === 'showcase' && showEndCard && <ShowcaseEndCard onDismiss={requestClose} />}
     </div>
   );
 

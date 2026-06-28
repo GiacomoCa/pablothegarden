@@ -179,6 +179,8 @@ export interface GameState {
   fade: number;
   /** The end portal, or null outside the showcase. */
   portal: Portal | null;
+  /** Recent parrot positions (screen space) for the Nyan-style rainbow trail. */
+  trail: { x: number; y: number }[];
 }
 
 function emptyEvents(): GameEvents {
@@ -216,6 +218,7 @@ export function createGame(): GameState {
     showStage: 'fly',
     fade: 0,
     portal: null,
+    trail: [],
   };
   return s;
 }

@@ -363,13 +363,15 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
         if (ev.dead) a.hit();
       }
       if (s.mode === 'showcase') {
-        // Hands-off cinematic: no scoring/leaderboard; reveal the brand card
-        // once the portal has fully faded to black.
-        if (prevStageRef.current !== 'done' && s.showStage === 'done') {
-          a?.stop();
-          setShowEndCard(true);
-        }
-        prevStageRef.current = s.showStage;
+        // Hands-off cinematic: no scoring/leaderboard. Reveal the brand the
+        // moment Pablo enters the portal so it fades in *together with* the
+        // expansion; the music keeps playing under the end card.
+        const stage = s.showStage;
+        const before = prevStageRef.current;
+        const isFinale = stage === 'climax' || stage === 'fade' || stage === 'done';
+        const wasFinale = before === 'climax' || before === 'fade' || before === 'done';
+        if (isFinale && !wasFinale) setShowEndCard(true);
+        prevStageRef.current = stage;
       } else {
         if (scoreElRef.current) scoreElRef.current.textContent = String(s.score);
         if (prev !== 'dead' && s.phase === 'dead') onDeath();

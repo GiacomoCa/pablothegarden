@@ -595,6 +595,46 @@ function drawHeadphones(ctx: CanvasRenderingContext2D, s: GameState): void {
   }
 }
 
+// -- Nyan-style rainbow trail (showcase) -------------------------------------
+
+const NYAN_COLORS = ['#FF1744', '#FF9100', '#FFEA00', '#00E676', '#2979FF', '#AA00FF'];
+
+function drawTrail(ctx: CanvasRenderingContext2D, s: GameState): void {
+  const tr = s.trail;
+  if (tr.length < 2) return;
+  const stripe = 5;
+  const n = NYAN_COLORS.length;
+  ctx.save();
+  ctx.lineCap = 'butt';
+  ctx.lineJoin = 'round';
+  ctx.shadowBlur = 8;
+  for (let c = 0; c < n; c++) {
+    const off = (c - (n - 1) / 2) * stripe;
+    ctx.strokeStyle = NYAN_COLORS[c];
+    ctx.shadowColor = NYAN_COLORS[c];
+    ctx.lineWidth = stripe + 0.6;
+    ctx.beginPath();
+    for (let i = 0; i < tr.length; i++) {
+      const t = tr[i];
+      if (i === 0) ctx.moveTo(t.x, t.y + off);
+      else ctx.lineTo(t.x, t.y + off);
+    }
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+  // twinkling sparkles like Nyan Cat
+  ctx.fillStyle = '#fff';
+  for (let i = 2; i < tr.length - 1; i += 9) {
+    const t = tr[i];
+    ctx.globalAlpha = 0.5 + 0.5 * Math.sin(s.beat * Math.PI * 2 + i);
+    ctx.beginPath();
+    ctx.arc(t.x, t.y + ((i % 3) - 1) * 10, 1.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
 // -- rainbow portal (showcase finale) ----------------------------------------
 
 function drawPortal(ctx: CanvasRenderingContext2D, s: GameState): void {
@@ -630,6 +670,20 @@ function drawPortal(ctx: CanvasRenderingContext2D, s: GameState): void {
   ctx.beginPath();
   ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
   ctx.fill();
+
+  // big candy centrepiece (scales with the portal)
+  const cand = Math.min(r * 1.05, s.worldH * 1.25);
+  ctx.globalAlpha = p.alpha;
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(Math.sin((p.hue * Math.PI) / 180) * 0.15);
+  ctx.shadowColor = '#fff';
+  ctx.shadowBlur = 16;
+  ctx.font = `${cand}px serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('🍬', 0, 0);
+  ctx.restore();
 
   // white entry flash
   if (p.flash > 0.01) {
@@ -705,6 +759,7 @@ export function renderGame(ctx: CanvasRenderingContext2D, s: GameState): void {
   for (const g of s.gates) drawGate(ctx, g, s);
   for (const c of s.candyItems) drawCandy(ctx, c, s);
 
+  if (s.trail.length > 1) drawTrail(ctx, s);
   if (s.portal) drawPortal(ctx, s);
 
   // particles behind + parrot on top

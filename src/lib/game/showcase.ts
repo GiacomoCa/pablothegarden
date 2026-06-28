@@ -21,14 +21,14 @@ const ASPECT = 32 / 9;
 const SHOW = {
   PARROT_FRAC: 0.16, // parrot anchor as a fraction of the wide world width
   SPEED: 290, // world scroll speed (px/s)
-  GAP: 232, // gate opening — purely visual here (no collision)
+  GAP: 210, // base gate opening — scaled per-gate (purely visual, no collision)
   SPACING: 372, // world px between consecutive gates
   LEAD: 560, // world px of clear runway before the first gate
   N_GATES: 10,
   RUNWAY: 700, // world px after the last gate before the portal sits at centre
   APPROACH_RATE: 4.5, // parrot fly-to-centre easing (1/s)
-  BAND_TOP: 96, // top of the parrot's vertical travel band
-  BAND_BOTTOM_INSET: 80, // gap kept above the ground for the travel band
+  BAND_TOP: 70, // top of the parrot's vertical travel band
+  BAND_BOTTOM_INSET: 60, // gap kept above the ground for the travel band
   PORTAL_R: 90, // portal base radius
   GROW_RATE: 2.4, // portal growth/s during the climax
   GROW_TO: 2.4, // climax grows the portal to this multiple, then fades
@@ -37,8 +37,12 @@ const SHOW = {
   PORTAL_FLASH_DECAY: 1.6, // white-flash decay/s after entry
 } as const;
 
-// Hand-tuned vertical weave for the gate gap-centres (0 = high, 1 = low).
-const WEAVE = [0.5, 0.18, 0.78, 0.32, 0.86, 0.22, 0.62, 0.14, 0.72, 0.44];
+// Hand-tuned, deliberately irregular vertical weave for the gap-centres
+// (0 = high in the band, 1 = low) — varied step sizes, not a tidy zigzag.
+const WEAVE = [0.5, 0.1, 0.7, 0.25, 0.92, 0.4, 0.15, 0.8, 0.32, 0.6];
+
+// Per-gate opening multiplier on the base gap → obstacles vary in height too.
+const GAP_SCALE = [1.0, 0.78, 1.2, 0.7, 1.05, 0.85, 1.25, 0.72, 1.1, 0.9];
 
 interface PathPoint {
   /** Scroll distance at which the parrot should be at `y`. */
@@ -58,6 +62,15 @@ interface RunPlan {
 // The active run's immutable plan. The game is a singleton modal, so a single
 // module-level cache is sufficient (re-created on every `startShowcase`).
 let run: RunPlan | null = null;
+
+const TRAIL_MAX = 120; // max points kept for the rainbow trail
+
+/** Append the parrot's current position to the trail (scrolling the rest). */
+function pushTrail(s: GameState, scrollDx: number): void {
+  if (scrollDx) for (const t of s.trail) t.x -= scrollDx;
+  s.trail.push({ x: s.parrotX, y: s.parrotY });
+  while (s.trail.length > TRAIL_MAX) s.trail.shift();
+}
 
 /** Uniform Catmull-Rom interpolation of the path's y at scroll distance `d`. */
 function pathY(points: PathPoint[], d: number): number {
@@ -92,8 +105,6 @@ export function startShowcase(s: GameState): void {
   const floor = H - GAME.GROUND_H;
   const parrotX = Math.round(W * SHOW.PARROT_FRAC);
 
-  const bandTop = SHOW.BAND_TOP + SHOW.GAP / 2;
-  const bandBot = floor - SHOW.BAND_BOTTOM_INSET - SHOW.GAP / 2;
   const centerX = W / 2;
   const portalY = H * 0.44;
 
@@ -103,11 +114,16 @@ export function startShowcase(s: GameState): void {
 
   for (let i = 0; i < SHOW.N_GATES; i++) {
     const worldX = parrotX + SHOW.LEAD + i * SHOW.SPACING;
-    const center = bandTop + WEAVE[i % WEAVE.length] * (bandBot - bandTop);
+    // Per-gate gap → the centre can roam a wider band, varying both Pablo's
+    // path and the pillar heights from gate to gate.
+    const gap = Math.round(SHOW.GAP * GAP_SCALE[i % GAP_SCALE.length]);
+    const cMin = SHOW.BAND_TOP + gap / 2;
+    const cMax = floor - SHOW.BAND_BOTTOM_INSET - gap / 2;
+    const center = cMin + WEAVE[i % WEAVE.length] * (cMax - cMin);
     gates.push({
       x: worldX,
-      gapY: center - SHOW.GAP / 2,
-      gap: SHOW.GAP,
+      gapY: center - gap / 2,
+      gap,
       passed: true, // never scored in the showcase
       hue: (i * 40) % 360,
     });
@@ -133,6 +149,7 @@ export function startShowcase(s: GameState): void {
   s.gates = gates;
   s.candyItems = candies;
   s.particles = [];
+  s.trail = [];
   s.distance = 0;
   s.score = 0;
   s.candies = 0;
@@ -176,7 +193,7 @@ export function stepShowcase(s: GameState, dt: number): GameEvents {
     const d = s.distance;
 
     // Smooth eased flight through the gap-centres; tilt from the path slope.
-    s.parrotY = pathY(run.path, d);
+    s.parrotY = Math.max(30, Math.min(s.worldH - 30, pathY(run.path, d)));
     const eps = 6;
     const slope = (pathY(run.path, d + eps) - pathY(run.path, d - eps)) / (2 * eps);
     const targetRot = Math.max(-0.5, Math.min(0.7, Math.atan((slope * SHOW.SPEED) / 360)));
@@ -196,6 +213,7 @@ export function stepShowcase(s: GameState, dt: number): GameEvents {
         burst(s, c.x, c.y, 7, 0, 220);
       }
     }
+    pushTrail(s, dx);
 
     // Portal slides in from the right toward screen centre; hue rotates.
     p.x = run.centerX + (run.dStop - s.distance);
@@ -219,6 +237,7 @@ export function stepShowcase(s: GameState, dt: number): GameEvents {
     s.parrotY += (run.portalY - s.parrotY) * k;
     s.rot += (0 - s.rot) * k;
     p.hue = (p.hue + dt * 80) % 360;
+    pushTrail(s, 0);
     if (Math.abs(s.parrotX - run.centerX) < 4 && Math.abs(s.parrotY - run.portalY) < 4) {
       s.parrotX = run.centerX;
       s.parrotY = run.portalY;

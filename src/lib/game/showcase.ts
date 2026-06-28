@@ -25,7 +25,8 @@ const SHOW = {
   SPACING: 372, // world px between consecutive gates
   LEAD: 560, // world px of clear runway before the first gate
   N_GATES: 10,
-  PORTAL_GAP: 600, // world px from the last gate to the portal
+  RUNWAY: 700, // world px after the last gate before the portal sits at centre
+  APPROACH_RATE: 4.5, // parrot fly-to-centre easing (1/s)
   BAND_TOP: 96, // top of the parrot's vertical travel band
   BAND_BOTTOM_INSET: 80, // gap kept above the ground for the travel band
   PORTAL_R: 90, // portal base radius
@@ -47,7 +48,11 @@ interface PathPoint {
 
 interface RunPlan {
   path: PathPoint[];
-  dPortal: number;
+  /** Scroll distance at which the world halts and the portal sits at centre. */
+  dStop: number;
+  /** Screen-x the portal rests at (and Pablo flies to) — the world centre. */
+  centerX: number;
+  portalY: number;
 }
 
 // The active run's immutable plan. The game is a singleton modal, so a single
@@ -89,6 +94,8 @@ export function startShowcase(s: GameState): void {
 
   const bandTop = SHOW.BAND_TOP + SHOW.GAP / 2;
   const bandBot = floor - SHOW.BAND_BOTTOM_INSET - SHOW.GAP / 2;
+  const centerX = W / 2;
+  const portalY = H * 0.44;
 
   const gates: Gate[] = [];
   const candies: Candy[] = [];
@@ -115,10 +122,9 @@ export function startShowcase(s: GameState): void {
     path.push({ d: SHOW.LEAD + i * SHOW.SPACING, y: center });
   }
 
-  const dPortal = SHOW.LEAD + (SHOW.N_GATES - 1) * SHOW.SPACING + SHOW.PORTAL_GAP;
-  const portalY = H * 0.44;
-  path.push({ d: dPortal, y: portalY });
-  run = { path, dPortal };
+  // Scroll until the last gate has cleared and the portal can rest at centre.
+  const dStop = SHOW.LEAD + (SHOW.N_GATES - 1) * SHOW.SPACING + SHOW.RUNWAY;
+  run = { path, dStop, centerX, portalY };
 
   s.mode = 'showcase';
   s.worldW = W;
@@ -140,7 +146,7 @@ export function startShowcase(s: GameState): void {
   s.rot = 0;
   s.flapAnim = 0.12;
   s.portal = {
-    x: parrotX + dPortal, // far off the right edge to begin with
+    x: centerX + dStop, // far off the right edge; slides in toward centre
     y: portalY,
     r: SHOW.PORTAL_R,
     grow: 1,
@@ -191,21 +197,36 @@ export function stepShowcase(s: GameState, dt: number): GameEvents {
       }
     }
 
-    // Portal scrolls in from the right, rainbow hue rotating, fading in on entry.
-    p.x = s.parrotX + (run.dPortal - s.distance);
+    // Portal slides in from the right toward screen centre; hue rotates.
+    p.x = run.centerX + (run.dStop - s.distance);
     p.hue = (p.hue + dt * 70) % 360;
     p.alpha = Math.max(0, Math.min(1, (W + p.r - p.x) / 360));
 
-    // Arrival → climax: beat drop, strobe, big burst, portal starts to bloom.
-    if (s.distance >= run.dPortal) {
-      s.distance = run.dPortal;
-      p.x = s.parrotX;
-      s.parrotY = pathY(run.path, run.dPortal);
+    // The screen stops with the portal locked at centre → Pablo flies to it.
+    if (s.distance >= run.dStop) {
+      s.distance = run.dStop;
+      p.x = run.centerX;
+      p.alpha = 1;
+      s.showStage = 'approach';
+    }
+    return s.ev;
+  }
+
+  if (s.showStage === 'approach') {
+    // World frozen; Pablo glides across to meet the centred portal.
+    const k = Math.min(1, dt * SHOW.APPROACH_RATE);
+    s.parrotX += (run.centerX - s.parrotX) * k;
+    s.parrotY += (run.portalY - s.parrotY) * k;
+    s.rot += (0 - s.rot) * k;
+    p.hue = (p.hue + dt * 80) % 360;
+    if (Math.abs(s.parrotX - run.centerX) < 4 && Math.abs(s.parrotY - run.portalY) < 4) {
+      s.parrotX = run.centerX;
+      s.parrotY = run.portalY;
       s.showStage = 'climax';
       s.flash = 1; // reuse the existing drop-strobe overlay
       p.flash = 1;
       s.ev.drop = true; // tick → audio.drop()
-      burst(s, s.parrotX, s.parrotY, 26, 2, 340);
+      burst(s, run.centerX, run.portalY, 26, 2, 340);
     }
     return s.ev;
   }
@@ -214,7 +235,6 @@ export function stepShowcase(s: GameState, dt: number): GameEvents {
     p.hue = (p.hue + dt * 140) % 360;
     p.flash = Math.max(0, p.flash - dt * SHOW.PORTAL_FLASH_DECAY);
     p.grow += dt * SHOW.GROW_RATE;
-    s.parrotY += (p.y - s.parrotY) * Math.min(1, dt * 8); // pulled into the portal
     if (p.grow >= SHOW.GROW_TO) s.showStage = 'fade';
     return s.ev;
   }

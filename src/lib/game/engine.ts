@@ -114,7 +114,7 @@ export interface GameEvents {
 export type GameMode = 'normal' | 'showcase';
 
 /** Stages of the showcase run (see `showcase.ts`). */
-export type ShowStage = 'fly' | 'climax' | 'fade' | 'done';
+export type ShowStage = 'fly' | 'approach' | 'climax' | 'fade' | 'done';
 
 /** Rainbow portal the parrot flies into at the end of the showcase. */
 export interface Portal {

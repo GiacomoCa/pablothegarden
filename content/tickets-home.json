@@ -50,8 +50,8 @@
   {
     "id": "day1",
     "title": {
-      "it": "Biglietto Venerdì 15",
-      "en": "Friday 15 Ticket"
+      "it": "Biglietto Sabato 15",
+      "en": "Saturday 15 Ticket"
     },
     "release": {
       "it": "Giorno Singolo",
@@ -66,8 +66,8 @@
   {
     "id": "day2",
     "title": {
-      "it": "Biglietto Sabato 16",
-      "en": "Saturday 16 Ticket"
+      "it": "Biglietto Domenica 16",
+      "en": "Sunday 16 Ticket"
     },
     "release": {
       "it": "Giorno Singolo",

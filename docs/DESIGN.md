@@ -200,7 +200,7 @@ A global config file `/content/lineup/config.json` controls the overall phase:
 
 #### 3.2.3 Full Lineup Layout (Phase 3)
 
-- Day tabs/filter: "Venerdì 15 Agosto" / "Sabato 16 Agosto" / "Tutti"
+- Day tabs/filter: "Sabato 15 Agosto" / "Domenica 16 Agosto" / "Tutti"
 - Artist cards in a responsive grid (3 cols desktop, 2 tablet, 1 mobile)
 
 **Each Artist Card contains:**
@@ -237,8 +237,8 @@ Each release offers **3 ticket types:**
 | Ticket Type | Description |
 |---|---|
 | **Full Pass (2 Days)** | Entry for both August 15 + 16, includes drink card for both nights |
-| **Day 1 — Venerdì 15 Agosto** | Single-day entry for Friday, includes drink card |
-| **Day 2 — Sabato 16 Agosto** | Single-day entry for Saturday, includes drink card |
+| **Day 1 — Sabato 15 Agosto** | Single-day entry for Saturday, includes drink card |
+| **Day 2 — Domenica 16 Agosto** | Single-day entry for Sunday, includes drink card |
 
 This gives a total of **9 ticket SKUs** (3 releases × 3 types). Each SKU has its own status and Clappit URL.
 
@@ -265,14 +265,14 @@ This gives a total of **9 ticket SKUs** (3 releases × 3 types). Each SKU has it
    - Status badge: Available / Sold Out / Coming Soon
 
    **Day 1 Card:**
-   - "Venerdì 15 Agosto" / "Friday August 15"
+   - "Sabato 15 Agosto" / "Saturday August 15"
    - Price
    - Includes: entry + drink card
    - CTA button → Clappit URL
    - Status badge
 
    **Day 2 Card:**
-   - "Sabato 16 Agosto" / "Saturday August 16"
+   - "Domenica 16 Agosto" / "Sunday August 16"
    - Price
    - Includes: entry + drink card
    - CTA button → Clappit URL
@@ -331,14 +331,14 @@ The **sticky "Get Tickets" button** (visible on all pages) should be smart:
           "url": "https://www.clappit.com/biglietti/pablo-earlybird-fullpass"
         },
         "day1": {
-          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "label": { "it": "Sabato 15 Agosto", "en": "Saturday August 15" },
           "price": 15,
           "currency": "EUR",
           "status": "sold_out",
           "url": "https://www.clappit.com/biglietti/pablo-earlybird-day1"
         },
         "day2": {
-          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "label": { "it": "Domenica 16 Agosto", "en": "Sunday August 16" },
           "price": 15,
           "currency": "EUR",
           "status": "sold_out",
@@ -359,14 +359,14 @@ The **sticky "Get Tickets" button** (visible on all pages) should be smart:
           "url": "https://www.clappit.com/biglietti/pablo-promo-fullpass"
         },
         "day1": {
-          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "label": { "it": "Sabato 15 Agosto", "en": "Saturday August 15" },
           "price": 18,
           "currency": "EUR",
           "status": "available",
           "url": "https://www.clappit.com/biglietti/pablo-promo-day1"
         },
         "day2": {
-          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "label": { "it": "Domenica 16 Agosto", "en": "Sunday August 16" },
           "price": 18,
           "currency": "EUR",
           "status": "available",
@@ -387,14 +387,14 @@ The **sticky "Get Tickets" button** (visible on all pages) should be smart:
           "url": "https://www.clappit.com/biglietti/pablo-regular-fullpass"
         },
         "day1": {
-          "label": { "it": "Venerdì 15 Agosto", "en": "Friday August 15" },
+          "label": { "it": "Sabato 15 Agosto", "en": "Saturday August 15" },
           "price": 22,
           "currency": "EUR",
           "status": "coming_soon",
           "url": "https://www.clappit.com/biglietti/pablo-regular-day1"
         },
         "day2": {
-          "label": { "it": "Sabato 16 Agosto", "en": "Saturday August 16" },
+          "label": { "it": "Domenica 16 Agosto", "en": "Sunday August 16" },
           "price": 22,
           "currency": "EUR",
           "status": "coming_soon",

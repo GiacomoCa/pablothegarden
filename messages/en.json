@@ -68,8 +68,8 @@
   "lineup_home": {
     "title": "Lineup",
     "subtitle": "Two days of music in the garden",
-    "day1": "Friday, August 15",
-    "day2": "Saturday, August 16",
+    "day1": "Saturday, August 15",
+    "day2": "Sunday, August 16",
     "coming_soon": "Coming Soon"
   },
   "tickets_home": {
@@ -149,6 +149,8 @@
     "address": "Via Cunicchio 45, 62010 Morrovalle (MC)",
     "address_region": "Le Marche, Italy",
     "body": "We're in Morrovalle (MC), in the Marche hinterland. Set Via Cunicchio 45 as your destination and follow the signs — see you in the garden. 🍬",
+    "parking_title": "Free parking",
+    "parking_body": "You can park for free right next to the event, in the property immediately after the Villa. 🅿️",
     "open_maps": "Open in Google Maps",
     "directions_cta": "Get directions",
     "map_load": "Load the map",

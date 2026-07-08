@@ -67,7 +67,7 @@ content/
 ---
 name: "Artist Name"
 slug: "artist-name"
-day: 1  # 1 = Friday Aug 15, 2 = Saturday Aug 16
+day: 1  # 1 = Saturday Aug 15, 2 = Sunday Aug 16
 time: "22:00 - 23:30"
 genre: "Techno"
 photo: "/images/lineup/artist-name.jpg"

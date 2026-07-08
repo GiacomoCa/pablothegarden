@@ -32,9 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: locale === 'it' ? 'it_IT' : 'en_US',
     },
     alternates: {
+      canonical: `/${locale}/blog`,
       languages: {
         it: '/it/blog',
         en: '/en/blog',
+        'x-default': '/it/blog',
       },
     },
   };

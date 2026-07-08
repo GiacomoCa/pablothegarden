@@ -48,9 +48,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ['Pablo The Garden'],
     },
     alternates: {
+      canonical: `/${locale}/blog/${slug}`,
       languages: {
         it: `/it/blog/${slug}`,
         en: `/en/blog/${slug}`,
+        'x-default': `/it/blog/${slug}`,
       },
     },
   };

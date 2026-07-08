@@ -68,8 +68,8 @@
   "lineup_home": {
     "title": "Lineup",
     "subtitle": "Due giorni di musica nel giardino",
-    "day1": "Venerdì 15 Agosto",
-    "day2": "Sabato 16 Agosto",
+    "day1": "Sabato 15 Agosto",
+    "day2": "Domenica 16 Agosto",
     "coming_soon": "Prossimamente"
   },
   "tickets_home": {
@@ -149,6 +149,8 @@
     "address": "Via Cunicchio 45, 62010 Morrovalle (MC)",
     "address_region": "Marche, Italia",
     "body": "Ci troviamo a Morrovalle (MC), nell'entroterra marchigiano. Imposta come destinazione Via Cunicchio 45 e segui le indicazioni: ti aspettiamo in giardino. 🍬",
+    "parking_title": "Parcheggio gratuito",
+    "parking_body": "Puoi parcheggiare gratis proprio accanto all'evento, nella proprietà subito dopo la Villa. 🅿️",
     "open_maps": "Apri in Google Maps",
     "directions_cta": "Come arrivare",
     "map_load": "Carica la mappa",

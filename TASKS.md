@@ -159,7 +159,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Phase behaviors:**
   - `coming_soon`: Full-width teaser graphic, grid of mystery cards (candy-wrapped silhouette with shimmer animation), "Lineup in Arrivo" heading, Instagram CTA
   - `revealing`: Mix of revealed ArtistCards + MysteryCards. Revealed cards show photo, name, genre. Recently revealed artists (within `newBadgeDays`) get animated "NEW" / "Appena Annunciato" badge. Mystery cards show "Chi sarà?" with pulse animation.
-  - `complete`: Standard grid with day filter tabs (Venerdì 15 / Sabato 16 / Tutti). Artist cards expandable to show bio + social links.
+  - `complete`: Standard grid with day filter tabs (Sabato 15 / Domenica 16 / Tutti). Artist cards expandable to show bio + social links.
 - **MysteryCard design:** Candy-wrapper shape o rounded card con "?" icon, sprinkle texture, subtle shimmer CSS animation.
 - **ArtistCard design:** Square photo, name overlay, genre tag pill, time slot. On click: expand inline o modal with bio + social links (Instagram, Spotify, Soundcloud).
 - **Acceptance criteria:**
@@ -176,7 +176,7 @@ Builds all individual page components. Depends on `foundation` completing F1–F
 - **Components:** `ReleaseBanner.tsx`, `ReleaseSection.tsx`, `TicketCard.tsx`, `ReleaseComparison.tsx`, `TicketSelectorModal.tsx`, `FAQ.tsx`
 - **Sections:**
   1. **Release Banner** — Current active release badge + progress bar: `Early Bird (Sold Out) → Promo (Active) → Regular (Coming Soon)`
-  2. **Active Release Cards** — 3 cards: Full Pass / Day 1 (Fri 15) / Day 2 (Sat 16). Visual states: Available (vibrant + pulse CTA), Sold Out (greyed + stamp), Coming Soon (blurred price + teaser).
+  2. **Active Release Cards** — 3 cards: Full Pass / Day 1 (Sat 15) / Day 2 (Sun 16). Visual states: Available (vibrant + pulse CTA), Sold Out (greyed + stamp), Coming Soon (blurred price + teaser).
   3. **Release Comparison Table** — Matrix con prezzi barrati sulle release esaurite (FOMO effect).
   4. **Practical Info** — Drink card explanation, age restrictions, wristband info.
   5. **FAQ Accordion** — Expandable Q&A items.

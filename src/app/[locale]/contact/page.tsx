@@ -33,9 +33,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: locale === 'it' ? 'it_IT' : 'en_US',
     },
     alternates: {
+      canonical: `/${locale}/contact`,
       languages: {
         it: '/it/contact',
         en: '/en/contact',
+        'x-default': '/it/contact',
       },
     },
   };

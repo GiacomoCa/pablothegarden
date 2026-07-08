@@ -32,6 +32,22 @@ function PinIcon({ className }: { className?: string }) {
   );
 }
 
+function ParkingIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      aria-hidden="true"
+    >
+      <rect x="4" y="3" width="16" height="18" rx="3.5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 17V7h3.25a2.75 2.75 0 010 5.5H9.5" />
+    </svg>
+  );
+}
+
 export default function DirectionsSection() {
   const t = useTranslations('directions');
   const locale = useLocale();
@@ -109,6 +125,22 @@ export default function DirectionsSection() {
             </div>
 
             <p className="text-text-primary/80">{t('body')}</p>
+
+            {/* Free parking — the property immediately after the Villa */}
+            <div className="flex items-start gap-4 rounded-candy bg-candy-pink/5 p-4 ring-1 ring-candy-pink/15">
+              <span
+                className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-candy-pink/10 text-candy-pink"
+                aria-hidden="true"
+              >
+                <ParkingIcon className="h-6 w-6" />
+              </span>
+              <div>
+                <span className="block font-display text-lg font-bold text-text-primary">
+                  {t('parking_title')}
+                </span>
+                <span className="mt-0.5 block text-text-primary/80">{t('parking_body')}</span>
+              </div>
+            </div>
 
             <div className="mt-auto flex flex-col gap-3 sm:flex-row">
               <a

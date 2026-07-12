@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ScoreEntry } from '@/lib/game/leaderboard';
 
@@ -24,8 +25,16 @@ export default function Leaderboard({
 }: LeaderboardProps) {
   const t = useTranslations('game');
 
+  // With 100 rows the board scrolls, so bring the player's freshly submitted
+  // entry into view — landing at rank 57 and having to hunt for yourself is
+  // the main UX trap of a long list.
+  const highlightRef = useRef<HTMLLIElement | null>(null);
+  useEffect(() => {
+    if (highlightIndex >= 0) highlightRef.current?.scrollIntoView({ block: 'center' });
+  }, [highlightIndex, entries]);
+
   // The player's personal best — pinned so they always see their score, even
-  // when it is outside the global top 10. Hidden when that same score is already
+  // when it is outside the global top 100. Hidden when that same score is already
   // shown in the list (the board keeps one row per device, so an in-list
   // personal best would otherwise be displayed twice). No aria-label: the
   // visible text is the accessible name (the ⭐ is decorative), exactly like the
@@ -38,7 +47,7 @@ export default function Leaderboard({
   const personalRow =
     personalBest > 0 && !personalInList ? (
       <div className="mt-2 flex items-center gap-3 rounded-pill bg-candy-pink/15 px-3 py-2 text-sm ring-1 ring-candy-pink/40">
-        <span className="w-6 shrink-0 text-center" aria-hidden="true">
+        <span className="w-7 shrink-0 text-center" aria-hidden="true">
           ⭐
         </span>
         <span className="min-w-0 flex-1 truncate font-semibold text-candy-pink">
@@ -79,13 +88,14 @@ export default function Leaderboard({
           return (
             <li
               key={`${e.name}-${e.score}-${i}`}
+              ref={highlighted ? highlightRef : undefined}
               className={`flex items-center gap-3 rounded-pill px-3 py-2 text-sm transition-colors ${
                 highlighted
                   ? 'bg-candy-pink text-night-purple font-bold shadow-candy'
                   : 'bg-white/5 text-text-primary'
               }`}
             >
-              <span className="w-6 shrink-0 text-center font-display">
+              <span className="w-7 shrink-0 text-center font-display tabular-nums">
                 {MEDALS[i] ?? i + 1}
               </span>
               <span className="min-w-0 flex-1 truncate font-medium">{e.name}</span>

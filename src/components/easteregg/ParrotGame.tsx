@@ -87,10 +87,12 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
   const [submitError, setSubmitError] = useState(false);
   const [mode, setMode] = useState<GameState['mode']>('normal');
   const [showEndCard, setShowEndCard] = useState(false);
+  const [boardFade, setBoardFade] = useState(false);
 
   // --- refs (read by the rAF loop / stable handlers without re-render) ---
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const scoreElRef = useRef<HTMLSpanElement | null>(null);
+  const boardScrollRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const stateRef = useRef<GameState | null>(null);
@@ -189,6 +191,18 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     lastRef.current = performance.now();
   }, []);
 
+  // The 100-row board scrolls: show a fade at the bottom edge whenever there is
+  // more list below the fold, so it's obvious the list continues.
+  const updateBoardFade = useCallback(() => {
+    const el = boardScrollRef.current;
+    if (!el) return;
+    setBoardFade(el.scrollHeight - el.scrollTop - el.clientHeight > 8);
+  }, []);
+
+  useEffect(() => {
+    if (view === 'board') updateBoardFade();
+  }, [view, board, boardLoading, updateBoardFade]);
+
   // --- non-stable handlers (used only in JSX; latest closure each render) ---
 
   const toggleMute = () => {
@@ -266,7 +280,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     setBest(getBestScore());
 
     // Warm the board cache so the leaderboard opens instantly and `qualifies`
-    // checks against the real top-10 at game-over (global mode).
+    // checks against the real top-100 at game-over (global mode).
     let boardAlive = true;
     void getScores().then((b) => {
       if (boardAlive) setBoard(b);
@@ -788,14 +802,26 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
               <h2 className="text-center font-display text-2xl font-bold text-white">
                 🏆 {t('leaderboard_title')}
               </h2>
-              <div className="mt-3 min-h-0 flex-1 overflow-y-auto pr-1">
-                <Leaderboard
-                  entries={board}
-                  highlightIndex={highlightIdx}
-                  loading={boardLoading}
-                  personalBest={best}
-                  personalName={getLastName() || undefined}
-                />
+              <div className="relative mt-3 min-h-0 flex-1">
+                <div
+                  ref={boardScrollRef}
+                  onScroll={updateBoardFade}
+                  className="h-full overflow-y-auto pr-1"
+                >
+                  <Leaderboard
+                    entries={board}
+                    highlightIndex={highlightIdx}
+                    loading={boardLoading}
+                    personalBest={best}
+                    personalName={getLastName() || undefined}
+                  />
+                </div>
+                {boardFade && (
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-night-purple/90 to-transparent"
+                    aria-hidden="true"
+                  />
+                )}
               </div>
               <p className="mt-2 text-center text-[11px] text-text-muted">
                 {globalBoard ? t('global_note') : t('local_note')}

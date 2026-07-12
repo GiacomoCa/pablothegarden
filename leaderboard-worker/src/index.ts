@@ -1,7 +1,7 @@
 // =============================================================================
 // "La Corsa di Pablo" — global leaderboard Worker (Cloudflare + D1)
 // -----------------------------------------------------------------------------
-// A tiny HTTP backend for the hidden parrot mini-game's top-10 board. Deployed
+// A tiny HTTP backend for the hidden parrot mini-game's top-100 board. Deployed
 // independently from the Next.js site (which talks to it via fetch). Free tier,
 // EU data residency (set at D1 creation), and an anti-cheat layer proportionate
 // to a festival easter egg:
@@ -17,7 +17,7 @@
 //
 // Endpoints (JSON):
 //   GET    /session        -> { token }                       (start of a run)
-//   GET    /scores         -> { scores: [{name,score,date}] } (top 10)
+//   GET    /scores         -> { scores: [{name,score,date}] } (top 100)
 //   POST   /scores         -> { scores: [...] }               (submit; needs token)
 //   DELETE /scores/:id     -> { deleted: true }               (admin; Bearer token)
 //   OPTIONS *              -> CORS preflight
@@ -34,7 +34,7 @@ export interface Env {
 }
 
 // -- tunables -----------------------------------------------------------------
-const TOP_N = 10; // entries returned to clients
+const TOP_N = 100; // entries returned to clients
 const KEEP_N = 200; // entries physically retained (storage bound)
 const SCORE_CAP = 50_000; // generous upper bound; blocks absurd/overflow values
 const MIN_MS_PER_POINT = 50; // plausibility floor: >= 50ms of play per point

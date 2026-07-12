@@ -26,11 +26,11 @@ The site is already largely built (homepage + all sub-pages, i18n it/en, design 
 
 ### Easter egg — "La Corsa di Pablo" (Pablo's Garden Run)
 
-A hidden mini-game (Flappy-Bird × Chrome-Dino) reachable by clicking the floating **Pablo parrot** that drifts around the site. One action (Space / ↑ / tap), Web Audio chiptune + SFX (synthesized at runtime — no audio asset files, GDPR-safe), candy collectibles, neon "speaker-gate" obstacles, drop/strobe beats, and a top-10 leaderboard. Files:
+A hidden mini-game (Flappy-Bird × Chrome-Dino) reachable by clicking the floating **Pablo parrot** that drifts around the site. One action (Space / ↑ / tap), Web Audio chiptune + SFX (synthesized at runtime — no audio asset files, GDPR-safe), candy collectibles, neon "speaker-gate" obstacles, drop/strobe beats, and a scrollable top-100 leaderboard. Files:
 
 The leaderboard has **two modes**, chosen at build time from `NEXT_PUBLIC_LEADERBOARD_URL`:
-- **GLOBAL** (env set) — shared, permanent top-10 backed by a **Cloudflare Worker + D1** (`leaderboard-worker/`, deployed separately; EU data residency; anti-cheat via HMAC session token + time-plausibility + per-IP rate limit). localStorage is kept as a read cache.
-- **LOCAL** (env unset, the default until the Worker is deployed) — per-device top-10 in localStorage, as originally shipped. The game works fully in either mode.
+- **GLOBAL** (env set) — shared, permanent top-100 backed by a **Cloudflare Worker + D1** (`leaderboard-worker/`, deployed separately; EU data residency; anti-cheat via HMAC session token + time-plausibility + per-IP rate limit). localStorage is kept as a read cache.
+- **LOCAL** (env unset, the default until the Worker is deployed) — per-device top-100 in localStorage. The game works fully in either mode.
 
 > Note: despite the "Static Export" label below, the site is **not** `output: 'export'` (it uses next-intl middleware + SSG), so Next.js Route Handlers / serverless are available on Vercel if ever needed.
 

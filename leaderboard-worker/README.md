@@ -5,7 +5,7 @@ Backend gratuito e GDPR-friendly (dati in UE) per la classifica del mini-game
 ci parla solo via `fetch`, leggendo l'URL del Worker dall'env
 `NEXT_PUBLIC_LEADERBOARD_URL`.
 
-Finché questa env non è impostata, il sito usa la classifica **locale** (top-10
+Finché questa env non è impostata, il sito usa la classifica **locale** (top-100
 in `localStorage`) come oggi — quindi puoi deployare il Worker con calma senza
 rompere nulla.
 
@@ -108,7 +108,7 @@ momento la classifica diventa globale e permanente. ✅
 ## Verifica veloce
 
 ```bash
-# top-10 (vuota all'inizio)
+# top-100 (vuota all'inizio)
 curl https://pablo-leaderboard.<sub>.workers.dev/scores
 
 # un token di sessione
@@ -117,7 +117,7 @@ curl https://pablo-leaderboard.<sub>.workers.dev/session
 
 ## Moderazione (cancellare una voce)
 
-La top-10 mostra l'ordine; per trovare l'`id` di una voce molesta interroga il DB:
+La top-100 mostra l'ordine; per trovare l'`id` di una voce molesta interroga il DB:
 
 ```bash
 npx wrangler d1 execute pablo-leaderboard --remote \

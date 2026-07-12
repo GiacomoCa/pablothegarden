@@ -10,11 +10,11 @@
 //     being briefly unreachable.
 //
 //   * LOCAL   — when the env is unset (e.g. before the Worker is deployed). The
-//     board is a per-device top-10 in localStorage. This keeps the game fully
+//     board is a per-device top-100 in localStorage. This keeps the game fully
 //     working at all times.
 //
 // The personal best ("Record"), last-used name and device id are ALWAYS local +
-// synchronous (instant UI, offline-safe). Only the shared top-10 goes over the
+// synchronous (instant UI, offline-safe). Only the shared top-100 goes over the
 // network.
 // =============================================================================
 
@@ -32,7 +32,7 @@ const CACHE_KEY = 'pablo-parrot-leaderboard-v1'; // local board / global cache
 const NAME_KEY = 'pablo-parrot-last-name';
 const BEST_KEY = 'pablo-parrot-best';
 const DEVICE_KEY = 'pablo-parrot-device';
-const MAX_ENTRIES = 10;
+const MAX_ENTRIES = 100; // must match the Worker's TOP_N
 export const MAX_NAME = 12;
 
 /** Server-signed token for the current run (GLOBAL mode); null until primed. */
@@ -220,7 +220,7 @@ export function primeSession(): void {
     });
 }
 
-/** Fetch the shared top-10 (GLOBAL) or read the local board (LOCAL). */
+/** Fetch the shared top-100 (GLOBAL) or read the local board (LOCAL). */
 export async function getScores(): Promise<ScoreEntry[]> {
   if (GLOBAL && typeof window !== 'undefined') {
     try {
@@ -240,7 +240,7 @@ export async function getScores(): Promise<ScoreEntry[]> {
 }
 
 /**
- * Submit a score and return the updated top-10.
+ * Submit a score and return the updated top-100.
  *
  * GLOBAL mode throws on a failed submit (network error or rejection) so the UI
  * can show a retry; the personal best is still recorded locally first. The
@@ -275,7 +275,7 @@ export async function addScore(name: string, score: number): Promise<ScoreEntry[
     return board;
   }
 
-  // LOCAL mode — per-device top-10, as before.
+  // LOCAL mode — per-device top-100.
   const entries = readCache();
   entries.push({ name: clean, score, date: todayISO() });
   const board = sortAndTrim(entries);

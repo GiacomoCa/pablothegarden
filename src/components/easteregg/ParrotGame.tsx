@@ -544,7 +544,22 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       className={`fixed inset-0 z-[100] flex items-center justify-center outline-none ${
         mode === 'showcase' ? 'bg-black' : 'bg-night-purple/95 p-2'
       }`}
-      style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
+      style={{
+        touchAction: 'none',
+        overscrollBehavior: 'contain',
+        // A long press anywhere in the game must never pop the OS copy/lookup
+        // menu (iOS text callout, Android selection toolbar) — holding the
+        // screen is a normal way to idle mid-game.
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        WebkitTouchCallout: 'none',
+      }}
+      onContextMenu={(e) => {
+        // Android fires contextmenu on long-press; swallow it except on the
+        // name field, where the paste/edit menu must stay available.
+        const el = e.target as HTMLElement | null;
+        if (el?.tagName !== 'INPUT') e.preventDefault();
+      }}
       role="dialog"
       aria-modal="true"
       aria-label={t('title')}
@@ -682,6 +697,13 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t('name_placeholder')}
                   className="rounded-pill border-2 border-candy-pink/40 bg-surface px-4 py-2.5 text-center font-display text-lg text-white outline-none focus:border-candy-pink"
+                  style={{
+                    // Re-enable selection inside the input (the dialog root
+                    // disables it globally to kill the long-press copy menu).
+                    userSelect: 'text',
+                    WebkitUserSelect: 'text',
+                    WebkitTouchCallout: 'default',
+                  }}
                   autoFocus
                 />
                 <div className="mt-1 flex gap-2">

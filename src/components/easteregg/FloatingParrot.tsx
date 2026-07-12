@@ -71,8 +71,10 @@ export default function FloatingParrot({ onOpen }: FloatingParrotProps) {
       type="button"
       onClick={onOpen}
       aria-label={t('open_aria')}
-      className="group fixed z-30 flex h-14 w-14 items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-candy-pink focus-visible:ring-offset-2 focus-visible:ring-offset-night-purple"
+      className="group fixed z-30 flex h-14 w-14 select-none items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-candy-pink focus-visible:ring-offset-2 focus-visible:ring-offset-night-purple"
+      onContextMenu={(e) => e.preventDefault()}
       style={{
+        WebkitTouchCallout: 'none',
         left: `${pos.x}vw`,
         top: `${pos.y}vh`,
         opacity: shown ? 1 : 0,

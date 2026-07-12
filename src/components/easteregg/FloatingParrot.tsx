@@ -46,7 +46,7 @@ export default function FloatingParrot({ onOpen }: FloatingParrotProps) {
       setHint(true);
       // next frame → trigger the entrance transition
       requestAnimationFrame(() => setShown(true));
-    }, 30000);
+    }, 15000);
     return () => clearTimeout(appear);
   }, []);
 

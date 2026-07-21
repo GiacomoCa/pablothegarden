@@ -260,8 +260,11 @@ function drawGround(ctx: CanvasRenderingContext2D, s: GameState): void {
   ctx.strokeStyle = 'rgba(92,225,230,0.35)';
   ctx.lineWidth = 1.5;
   const vanishX = W / 2;
-  // vertical converging lines (central perspective fan)
-  for (let i = -6; i <= 6; i++) {
+  // Vertical converging lines (central perspective fan). Enough lines that the
+  // bottom spread (120 px pitch) always reaches both edges — 6 each side covers
+  // the 480-wide portrait world exactly as before, the ultrawide band needs 12.
+  const fanN = Math.max(6, Math.ceil(W / 2 / 120));
+  for (let i = -fanN; i <= fanN; i++) {
     ctx.beginPath();
     ctx.moveTo(vanishX + i * 18, FLOOR);
     ctx.lineTo(vanishX + i * 120, H);

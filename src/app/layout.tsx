@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { PROMO } from '@/lib/game/promo';
 
 type Props = {
   children: ReactNode;
@@ -7,6 +8,11 @@ type Props = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pablothegarden.com'),
+  // The marketing build is a full copy of the site on a second domain: keep it
+  // out of every index so it can't compete with pablothegarden.com. Tied to the
+  // PROMO flag rather than to hosting config, so it is impossible to switch on
+  // for the real site by accident. Inherited by every page (none set `robots`).
+  ...(PROMO ? { robots: { index: false, follow: false, nocache: true } } : {}),
   openGraph: {
     siteName: 'Pablo The Garden',
     type: 'website',

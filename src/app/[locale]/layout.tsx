@@ -50,20 +50,31 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Provide all messages to the client side
   const messages = await getMessages();
 
+  const chrome = (
+    <>
+      <Header />
+      <main id="main-content" className="flex-1 pt-16 pb-20 md:pt-20 md:pb-6">
+        {children}
+      </main>
+      <Footer />
+      <FloatingTicketCTAWrapper />
+      {/* No cookie banner in the marketing build: it has no analytics to
+          consent to and would sit in the middle of every recording. */}
+      {!PROMO && <AnalyticsConsent />}
+      <ParrotEasterEgg />
+    </>
+  );
+
   return (
     <html lang={locale} className={`${fredoka.variable} ${dmSans.variable}`}>
-      <body className="flex min-h-screen flex-col">
+      {/* In the marketing build the sticky-footer flex context moves to an inner
+          wrapper, so the 105vh black recording frame is a sibling of the page
+          rather than a flex item competing with `main`'s flex-1 — otherwise it
+          eats the leftover space and bleeds into the first screen of short
+          pages (blog, privacy, contact) on tall displays. */}
+      <body className={PROMO ? 'min-h-screen' : 'flex min-h-screen flex-col'}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main id="main-content" className="flex-1 pt-16 pb-20 md:pt-20 md:pb-6">
-            {children}
-          </main>
-          <Footer />
-          <FloatingTicketCTAWrapper />
-          {/* No cookie banner in the marketing build: it has no analytics to
-              consent to and would sit in the middle of every recording. */}
-          {!PROMO && <AnalyticsConsent />}
-          <ParrotEasterEgg />
+          {PROMO ? <div className="flex min-h-screen flex-col">{chrome}</div> : chrome}
           {PROMO && <PromoBlackFrame />}
         </NextIntlClientProvider>
       </body>

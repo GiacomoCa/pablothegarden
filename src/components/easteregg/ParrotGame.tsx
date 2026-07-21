@@ -298,9 +298,15 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     };
     applySize();
 
-    // lock background scroll
+    // Lock background scroll. `globals.css` sets `html { overflow-x: hidden }`,
+    // which makes the ROOT the viewport-defining element — body's overflow is
+    // then no longer propagated to the viewport, so locking body alone leaves
+    // the wheel scrolling the page behind the modal.
+    const root = document.documentElement;
     const prevOverflow = document.body.style.overflow;
+    const prevRootOverflow = root.style.overflow;
     document.body.style.overflow = 'hidden';
+    root.style.overflow = 'hidden';
 
     // Basic modal a11y: move focus into the dialog and mark the rest of the page
     // inert so keyboard / screen-reader focus can't escape behind the overlay.
@@ -521,6 +527,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       window.removeEventListener('orientationchange', onResize);
       document.removeEventListener('visibilitychange', onVis);
       document.body.style.overflow = prevOverflow;
+      root.style.overflow = prevRootOverflow;
       for (const el of inerted) {
         el.removeAttribute('aria-hidden');
         el.inert = false;
@@ -553,6 +560,14 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
   const showField =
     mode === 'normal' && (phase === 'ready' || phase === 'playing') && !paused && view === 'none';
+
+  // The promo band is only ~1/4 of the viewport height (a 1280-wide laptop gives
+  // a 1280×331 box), far too short to hold the ready screen, the game-over card
+  // or the 100-row leaderboard. Those overlays are therefore positioned against
+  // the viewport instead of the band: the dialog root and the band box carry no
+  // transform/filter/contain, so a `fixed` descendant's containing block is the
+  // viewport and it escapes the band's `overflow-hidden`.
+  const OV = PROMO ? 'fixed' : 'absolute';
 
   const content = (
     <div
@@ -600,7 +615,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
           {/* Tap/flap input layer (ready + playing) */}
           {showField && (
             <div
-              className="absolute inset-0 z-10"
+              className={`${OV} inset-0 z-10`}
               style={{ touchAction: 'none' }}
               onPointerDown={onField}
               aria-hidden="true"
@@ -608,7 +623,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
           )}
 
           {/* Top HUD */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between p-3">
+          <div className={`pointer-events-none ${OV} inset-x-0 top-0 z-30 flex items-start justify-between p-3`}>
             <div>
               {phase === 'playing' && (
                 <div className="flex items-center gap-1.5 rounded-pill bg-night-purple/60 px-3 py-1.5 font-display text-lg font-bold text-white shadow-candy">
@@ -644,7 +659,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
           {/* Ready / start screen */}
           {phase === 'ready' && view === 'none' && (
-            <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center">
+            <div className={`pointer-events-none ${OV} inset-0 z-20 flex flex-col items-center justify-center px-6 text-center`}>
               <PabloSprite className="h-24 w-24 drop-shadow-[0_4px_16px_rgba(255,205,255,0.5)]" title="Pablo" />
               <h2 className="mt-3 font-display text-3xl font-bold text-white drop-shadow">
                 {t('title')}
@@ -677,7 +692,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
             <button
               type="button"
               onClick={handleResume}
-              className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-night-purple/70 backdrop-blur-sm"
+              className={`${OV} inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-night-purple/70 backdrop-blur-sm`}
             >
               <span className="font-display text-3xl font-bold text-white">{t('paused')}</span>
               <span className="rounded-pill bg-candy-pink px-6 py-2.5 font-display font-bold text-night-purple shadow-candy">
@@ -688,7 +703,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
           {/* Game over — name form */}
           {phase === 'dead' && view === 'form' && result && (
-            <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-3 bg-night-purple/85 px-6 text-center backdrop-blur-sm">
+            <div className={`${OV} inset-0 z-40 flex flex-col items-center justify-center gap-3 bg-night-purple/85 px-6 text-center backdrop-blur-sm`}>
               {result.isBest && (
                 <span className="rounded-pill bg-mint-green/90 px-4 py-1 font-display text-sm font-bold text-night-purple">
                   ✨ {t('new_best')} ✨
@@ -758,7 +773,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
           {/* Game over — score recap (score didn't reach the board) */}
           {phase === 'dead' && view === 'gameover' && result && (
-            <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-night-purple/85 px-6 text-center backdrop-blur-sm">
+            <div className={`${OV} inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-night-purple/85 px-6 text-center backdrop-blur-sm`}>
               {result.isBest && (
                 <span className="rounded-pill bg-mint-green/90 px-4 py-1 font-display text-sm font-bold text-night-purple">
                   ✨ {t('new_best')} ✨
@@ -805,7 +820,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
 
           {/* Leaderboard */}
           {view === 'board' && (
-            <div className="absolute inset-0 z-40 flex flex-col bg-night-purple/90 px-5 py-5 backdrop-blur-sm">
+            <div className={`${OV} inset-0 z-40 flex flex-col bg-night-purple/90 px-5 py-5 backdrop-blur-sm`}>
               <h2 className="text-center font-display text-2xl font-bold text-white">
                 🏆 {t('leaderboard_title')}
               </h2>

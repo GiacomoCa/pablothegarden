@@ -3,7 +3,7 @@
 Una copia del sito pablothegarden.it, online a un indirizzo separato, pensata **solo per registrare
 contenuti promozionali**. Il sito pubblico non è toccato in nessun modo.
 
-**Indirizzo:** `<LINK-PREVIEW>` *(da incollare dopo il deploy)*
+## 👉 https://pablothegarden-promo.vercel.app
 
 ---
 
@@ -37,7 +37,7 @@ Da lì si fa partire la registrazione, poi si risale con la rotella.
 
 Scorciatoia: aggiungere `#recording-start` in fondo all'indirizzo per aprire il sito
 già sullo schermo nero.
-Esempio: `<LINK-PREVIEW>/it#recording-start`
+Esempio: `https://pablothegarden-promo.vercel.app/it#recording-start`
 
 ### 3. Il pappagallo
 Dopo **40 secondi** dall'apertura della pagina compare Pablo, il pappagallo che svolazza ai lati
@@ -45,7 +45,7 @@ dello schermo. Cliccandolo si apre il mini-gioco.
 
 Scorciatoia per le riprese ripetute: aggiungere `?parrot=now` all'indirizzo e il pappagallo
 compare **subito**, senza aspettare.
-Esempio: `<LINK-PREVIEW>/it?parrot=now`
+Esempio: `https://pablothegarden-promo.vercel.app/it?parrot=now`
 
 ### 4. Il gioco
 - **Barra spaziatrice** (o clic) per far volare Pablo.
@@ -85,9 +85,20 @@ ritaglia poi in montaggio.
 
 ## Per chi sviluppa
 
-Ramo `promo-marketing`. Tutte le modifiche sono dietro il flag `PROMO` in
-`src/lib/game/promo.ts`, che su questo ramo è acceso di default.
-**Il ramo non va unito a `main`.** File toccati:
+Ramo `promo-marketing`, deployato come **progetto Vercel separato**
+`pablothegarden-promo` (non come preview del progetto principale: le preview
+sono dietro il login SSO di Vercel e il marketing non potrebbe aprirle).
+
+Tutte le modifiche sono dietro il flag `PROMO` in `src/lib/game/promo.ts`, che è
+**opt-in**: si accende solo con `NEXT_PUBLIC_PROMO_MODE=1`, impostata come
+variabile di build sul solo progetto `pablothegarden-promo`. Un merge accidentale
+in `main` non cambierebbe quindi nulla in produzione.
+
+Aggiornare il sito promo: `vercel deploy --prod` dal ramo (il progetto non è
+collegato a Git). `vercel.json` forza il preset `nextjs` e l'header
+`X-Robots-Tag: noindex` su tutte le pagine.
+
+File toccati:
 
 - `src/lib/game/promo.ts` *(nuovo)* — flag, risoluzione target, delay del pappagallo, cap DPR.
 - `src/lib/game/engine.ts` — estratta una `Layout` (larghezza mondo, x del pappagallo, passo/velocità

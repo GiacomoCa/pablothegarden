@@ -81,6 +81,13 @@ export interface Layout {
   startSpeed: number;
   maxSpeed: number;
   speedPerScore: number;
+  /**
+   * Lay the opening gates out while still on the ready screen. Off on the
+   * portrait card, where the first gate starts off-screen anyway; on for the
+   * ultrawide band, whose visible field is wide enough to hold three gates —
+   * without this they would all pop into view on the frame the player taps.
+   */
+  prefill: boolean;
 }
 
 const PORTRAIT_LAYOUT: Layout = {
@@ -92,6 +99,7 @@ const PORTRAIT_LAYOUT: Layout = {
   startSpeed: GAME.START_SPEED,
   maxSpeed: GAME.MAX_SPEED,
   speedPerScore: GAME.SPEED_PER_SCORE,
+  prefill: false,
 };
 
 // Ultrawide promo band. Spacing and speed are scaled together so the *time*
@@ -101,11 +109,14 @@ const WIDE_LAYOUT: Layout = {
   worldW: Math.round(GAME.HEIGHT * PROMO_ASPECT), // 2785 @ 720 tall
   parrotX: 380,
   gateSpacing: 620,
-  firstGateX: 1280, // ≈1.8 s of runway, same as portrait
+  // Laid out on the ready screen (see `prefill`), so the player studies the
+  // opening gates before starting; 1.8 s of runway once they do.
+  firstGateX: 1280,
   candyArcStep: 46,
   startSpeed: 500,
   maxSpeed: 940,
   speedPerScore: 10.5,
+  prefill: true,
 };
 
 /** The layout this build runs at, chosen once from the promo flag. */
@@ -277,6 +288,10 @@ export function createGame(): GameState {
     trail: [],
     layout: LAYOUT,
   };
+  // Populate the opening field up front on layouts wide enough to show it, so
+  // the gates are already standing there under the ready screen rather than
+  // materialising the instant play starts.
+  if (LAYOUT.prefill) ensureGates(s);
   return s;
 }
 

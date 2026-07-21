@@ -14,13 +14,14 @@
 // the live site has always used, so behaviour is unchanged.
 // =============================================================================
 
-// ⚠️  THIS BRANCH IS THE MARKETING BUILD — DO NOT MERGE IT INTO `main`.
-// The flag defaults to ON here so the Vercel preview deployment of this branch
-// needs no dashboard configuration at all. On `main` this file does not exist
-// and the site behaves exactly as it always has. To preview this branch with
-// the production layout, build it with NEXT_PUBLIC_PROMO_MODE=0.
+// Opt-in and fail-closed: only the exact string '1' turns the promo build on, so
+// no build can accidentally ship the recording layout (black frame, ultrawide
+// game, no analytics) to the public site. It is set as a build-time env var on
+// the dedicated `pablothegarden-promo` Vercel project, and nowhere else.
+// NOTE: NEXT_PUBLIC_* is inlined at build time — setting it as a runtime-only
+// variable has no effect.
 /** True in the marketing/recording build. */
-export const PROMO = process.env.NEXT_PUBLIC_PROMO_MODE !== '0';
+export const PROMO = process.env.NEXT_PUBLIC_PROMO_MODE === '1';
 
 /** Target capture resolution requested by the marketing team. */
 export const PROMO_RES = { w: 4224, h: 1092 } as const;

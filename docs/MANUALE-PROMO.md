@@ -78,8 +78,9 @@ ritaglia poi in montaggio.
 - Il link **non è indicizzato da Google** e non è collegato dal sito pubblico: nessuno ci arriva per caso.
 - È comunque **raggiungibile da chiunque abbia il link** — non condividerlo fuori dal team.
 - Le modifiche valgono **solo** su questo indirizzo. pablothegarden.it resta esattamente com'è.
-- Se il link smette di funzionare (succede se qualcuno cancella il ramo su Vercel), basta chiedere
-  un nuovo deploy: il codice resta salvato.
+- Il gioco parte già con i cancelli disposti in campo: si vede tutta l'inquadratura piena fin dalla
+  schermata iniziale, comoda da inquadrare prima di iniziare a giocare.
+- Se il link smettesse di funzionare, basta chiedere un nuovo deploy: il codice resta salvato.
 
 ---
 

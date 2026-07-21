@@ -44,6 +44,10 @@ type View = 'none' | 'form' | 'gameover' | 'board';
 
 const MUTE_KEY = 'pablo-parrot-muted';
 
+/** Readable card behind the start screen, needed only over the busy wide field. */
+const READY_PANEL =
+  'flex flex-col items-center rounded-[2rem] bg-night-purple/90 px-12 py-8 shadow-2xl ring-1 ring-candy-pink/30 backdrop-blur-md';
+
 function computeSize(mode: GameState['mode']): { w: number; h: number } {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
@@ -660,30 +664,37 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
           {/* Ready / start screen */}
           {phase === 'ready' && view === 'none' && (
             <div className={`pointer-events-none ${OV} inset-0 z-20 flex flex-col items-center justify-center px-6 text-center`}>
-              <PabloSprite className="h-24 w-24 drop-shadow-[0_4px_16px_rgba(255,205,255,0.5)]" title="Pablo" />
-              <h2 className="mt-3 font-display text-3xl font-bold text-white drop-shadow">
-                {t('title')}
-              </h2>
-              <p className="mt-1 max-w-xs text-sm text-text-primary/90">{t('tagline')}</p>
-              <div className="mt-5 animate-pulse rounded-pill bg-candy-pink px-5 py-2.5 font-display text-base font-bold text-night-purple shadow-candy">
-                {t('start')}
-              </div>
-              <p className="mt-3 text-xs text-text-primary/70">
-                <span className="hidden sm:inline">{t('flap_hint_desktop')}</span>
-                <span className="sm:hidden">{t('flap_hint_mobile')}</span>
-              </p>
-              {best > 0 && (
-                <p className="mt-3 text-sm font-medium text-candy-pink">
-                  {t('best')}: <span className="font-display">{best}</span>
+              {/* On the portrait card the start screen floats over an empty sky,
+                  so it never needed a backdrop. The ultrawide field is laid out
+                  from the first frame, so the same text would sit straight on
+                  top of the gates and candies — give it a panel to read against.
+                  `contents` keeps the portrait layout byte-identical. */}
+              <div className={PROMO ? READY_PANEL : 'contents'}>
+                <PabloSprite className="h-24 w-24 drop-shadow-[0_4px_16px_rgba(255,205,255,0.5)]" title="Pablo" />
+                <h2 className="mt-3 font-display text-3xl font-bold text-white drop-shadow">
+                  {t('title')}
+                </h2>
+                <p className="mt-1 max-w-xs text-sm text-text-primary/90">{t('tagline')}</p>
+                <div className="mt-5 animate-pulse rounded-pill bg-candy-pink px-5 py-2.5 font-display text-base font-bold text-night-purple shadow-candy">
+                  {t('start')}
+                </div>
+                <p className="mt-3 text-xs text-text-primary/70">
+                  <span className="hidden sm:inline">{t('flap_hint_desktop')}</span>
+                  <span className="sm:hidden">{t('flap_hint_mobile')}</span>
                 </p>
-              )}
-              <button
-                type="button"
-                onClick={openBoard}
-                className="pointer-events-auto mt-4 rounded-pill border border-candy-pink/50 px-4 py-1.5 text-xs font-semibold text-candy-pink transition-colors hover:bg-candy-pink hover:text-night-purple"
-              >
-                🏆 {t('leaderboard_title')}
-              </button>
+                {best > 0 && (
+                  <p className="mt-3 text-sm font-medium text-candy-pink">
+                    {t('best')}: <span className="font-display">{best}</span>
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={openBoard}
+                  className="pointer-events-auto mt-4 rounded-pill border border-candy-pink/50 px-4 py-1.5 text-xs font-semibold text-candy-pink transition-colors hover:bg-candy-pink hover:text-night-purple"
+                >
+                  🏆 {t('leaderboard_title')}
+                </button>
+              </div>
             </div>
           )}
 

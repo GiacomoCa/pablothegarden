@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { PARROT_DELAY_MS } from '@/lib/game/promo';
 import PabloSprite from './PabloSprite';
 
 interface FloatingParrotProps {
@@ -38,15 +39,23 @@ export default function FloatingParrot({ onOpen }: FloatingParrotProps) {
   }, []);
 
   // Spawn in after a delay so Pablo quietly turns up on his own once the
-  // visitor has settled into the page.
+  // visitor has settled into the page. 15 s on the live site, 40 s in the
+  // marketing build — and `?parrot=now` skips the wait entirely so a retake
+  // doesn't cost 40 s.
   useEffect(() => {
+    let delay = PARROT_DELAY_MS;
+    try {
+      if (new URLSearchParams(window.location.search).get('parrot') === 'now') delay = 0;
+    } catch {
+      /* ignore */
+    }
     const appear = setTimeout(() => {
       setPos(randomPos());
       setVisible(true);
       setHint(true);
       // next frame → trigger the entrance transition
       requestAnimationFrame(() => setShown(true));
-    }, 15000);
+    }, delay);
     return () => clearTimeout(appear);
   }, []);
 

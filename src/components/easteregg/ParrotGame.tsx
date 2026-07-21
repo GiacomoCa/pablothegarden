@@ -25,6 +25,7 @@ import {
   sanitizeName,
   type ScoreEntry,
 } from '@/lib/game/leaderboard';
+import { MAX_DPR, PROMO, PROMO_ASPECT } from '@/lib/game/promo';
 import PabloSprite from './PabloSprite';
 import Leaderboard from './Leaderboard';
 import ShowcaseEndCard from './ShowcaseEndCard';
@@ -46,13 +47,15 @@ const MUTE_KEY = 'pablo-parrot-muted';
 function computeSize(mode: GameState['mode']): { w: number; h: number } {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  if (mode === 'showcase') {
-    // Full-width ultrawide 32:9 band, letterboxed top/bottom.
+  if (mode === 'showcase' || PROMO) {
+    // Full-width ultrawide band, letterboxed top/bottom: 32:9 for the cinematic,
+    // or the 4224×1092 promo format (≈3.868:1) throughout the marketing build.
+    const aspect = PROMO ? PROMO_ASPECT : 32 / 9;
     let w = vw;
-    let h = (w * 9) / 32;
+    let h = w / aspect;
     if (h > vh) {
       h = vh;
-      w = (h * 32) / 9;
+      w = h * aspect;
     }
     return { w: Math.round(w), h: Math.round(h) };
   }
@@ -316,7 +319,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       const cv = canvasRef.current;
       const s = stateRef.current;
       if (!cv || !s) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       const { w, h } = sizeRef.current;
       if (w <= 0 || h <= 0) return;
       const bw = Math.round(w * dpr);
@@ -556,7 +559,7 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
       ref={dialogRef}
       tabIndex={-1}
       className={`fixed inset-0 z-[100] flex items-center justify-center outline-none ${
-        mode === 'showcase' ? 'bg-black' : 'bg-night-purple/95 p-2'
+        mode === 'showcase' || PROMO ? 'bg-black' : 'bg-night-purple/95 p-2'
       }`}
       style={{
         touchAction: 'none',
@@ -580,7 +583,11 @@ export default function ParrotGame({ onClose }: ParrotGameProps) {
     >
       {mode === 'normal' && size.w > 0 && (
         <div
-          className="relative overflow-hidden rounded-[1.75rem] shadow-2xl ring-2 ring-candy-pink/40"
+          className={
+            PROMO
+              ? 'relative overflow-hidden' // clean edges — nothing to crop out of the capture
+              : 'relative overflow-hidden rounded-[1.75rem] shadow-2xl ring-2 ring-candy-pink/40'
+          }
           style={{ width: size.w, height: size.h }}
         >
           {/* Canvas world */}

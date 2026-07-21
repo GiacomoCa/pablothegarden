@@ -12,9 +12,15 @@
 //
 // Coordinate space is a fixed logical 480×720 portrait box; the renderer scales
 // it to fit the device. Difficulty is therefore identical on every screen.
+//
+// The marketing "promo" build (see `promo.ts`) swaps the horizontal half of that
+// box for an ultrawide 2785×720 band. Height — and therefore gravity, flap
+// strength and every gap size — is untouched, so the game feels identical; only
+// the camera gets much wider. See `LAYOUT` below.
 // =============================================================================
 
 import { stepShowcase } from './showcase';
+import { PROMO, PROMO_ASPECT } from './promo';
 
 /** Tunable game constants (logical pixels, seconds). */
 export const GAME = {
@@ -56,6 +62,54 @@ export const GAME = {
   // Particle cap (perf)
   MAX_PARTICLES: 90,
 } as const;
+
+// -- horizontal layout -------------------------------------------------------
+// Everything that depends on how *wide* the playfield is. Vertical physics is
+// deliberately absent here: it is shared by both layouts.
+
+export interface Layout {
+  /** Logical world width. */
+  worldW: number;
+  /** Fixed screen-x the parrot flies at. */
+  parrotX: number;
+  /** Horizontal distance between consecutive gates. */
+  gateSpacing: number;
+  /** x of the first gate of a run (just off the right edge). */
+  firstGateX: number;
+  /** Spacing between the 3 candies of a mid-run arc. */
+  candyArcStep: number;
+  startSpeed: number;
+  maxSpeed: number;
+  speedPerScore: number;
+}
+
+const PORTRAIT_LAYOUT: Layout = {
+  worldW: GAME.WIDTH,
+  parrotX: GAME.PARROT_X,
+  gateSpacing: GAME.GATE_SPACING,
+  firstGateX: GAME.WIDTH + 120,
+  candyArcStep: 34,
+  startSpeed: GAME.START_SPEED,
+  maxSpeed: GAME.MAX_SPEED,
+  speedPerScore: GAME.SPEED_PER_SCORE,
+};
+
+// Ultrawide promo band. Spacing and speed are scaled together so the *time*
+// between gates matches the portrait game almost exactly (≈1.24 s at the start,
+// ≈0.66 s at top speed) — the player just sees five times further ahead.
+const WIDE_LAYOUT: Layout = {
+  worldW: Math.round(GAME.HEIGHT * PROMO_ASPECT), // 2785 @ 720 tall
+  parrotX: 380,
+  gateSpacing: 620,
+  firstGateX: 1280, // ≈1.8 s of runway, same as portrait
+  candyArcStep: 46,
+  startSpeed: 500,
+  maxSpeed: 940,
+  speedPerScore: 10.5,
+};
+
+/** The layout this build runs at, chosen once from the promo flag. */
+export const LAYOUT: Layout = PROMO ? WIDE_LAYOUT : PORTRAIT_LAYOUT;
 
 export type Phase = 'ready' | 'playing' | 'dead';
 
@@ -181,6 +235,8 @@ export interface GameState {
   portal: Portal | null;
   /** Recent parrot positions (screen space) for the Nyan-style rainbow trail. */
   trail: { x: number; y: number }[];
+  /** Horizontal layout/pacing of normal play (portrait card or promo band). */
+  layout: Layout;
 }
 
 function emptyEvents(): GameEvents {
@@ -197,7 +253,7 @@ export function createGame(): GameState {
     parrotVy: 0,
     rot: 0,
     flapAnim: 0,
-    speed: GAME.START_SPEED,
+    speed: LAYOUT.startSpeed,
     distance: 0,
     score: 0,
     candies: 0,
@@ -211,14 +267,15 @@ export function createGame(): GameState {
     idle: 0,
     ev: emptyEvents(),
     mode: 'normal',
-    worldW: GAME.WIDTH,
+    worldW: LAYOUT.worldW,
     worldH: GAME.HEIGHT,
-    parrotX: GAME.PARROT_X,
+    parrotX: LAYOUT.parrotX,
     showT: 0,
     showStage: 'fly',
     fade: 0,
     portal: null,
     trail: [],
+    layout: LAYOUT,
   };
   return s;
 }
@@ -300,6 +357,7 @@ export function burst(
 // -- spawning ----------------------------------------------------------------
 
 function spawnGate(s: GameState, x: number): void {
+  const L = s.layout;
   const gap = currentGap(s.score);
   const gapY = spawnGapY(gap);
   s.gates.push({ x, gapY, gap, passed: false, hue: rand(0, 360) });
@@ -316,13 +374,13 @@ function spawnGate(s: GameState, x: number): void {
 
   // A small candy arc roughly midway to the next gate.
   if (Math.random() < 0.8) {
-    const arcX = x + GAME.GATE_SPACING / 2;
+    const arcX = x + L.gateSpacing / 2;
     const arcY = rand(GAME.GATE_MARGIN + 30, PLAY_FLOOR - GAME.GATE_MARGIN - 30);
     const n = 3;
     for (let i = 0; i < n; i++) {
       const yy = arcY - Math.sin((i / (n - 1)) * Math.PI) * 46;
       s.candyItems.push({
-        x: arcX + i * 34,
+        x: arcX + i * L.candyArcStep,
         y: yy,
         baseY: yy,
         collected: false,
@@ -333,14 +391,15 @@ function spawnGate(s: GameState, x: number): void {
   }
 }
 
+// Keep the pipeline topped up so the whole visible field ahead of the parrot is
+// populated. On the 480-wide portrait layout the loop body runs at most once —
+// exactly the previous behaviour; the ultrawide band needs several gates on
+// screen at all times.
 function ensureGates(s: GameState): void {
-  if (s.gates.length === 0) {
-    spawnGate(s, GAME.WIDTH + 120);
-    return;
-  }
-  const last = s.gates[s.gates.length - 1];
-  if (last.x <= GAME.WIDTH - GAME.GATE_SPACING) {
-    spawnGate(s, last.x + GAME.GATE_SPACING);
+  const L = s.layout;
+  if (s.gates.length === 0) spawnGate(s, L.firstGateX);
+  while (s.gates[s.gates.length - 1].x <= s.worldW - L.gateSpacing) {
+    spawnGate(s, s.gates[s.gates.length - 1].x + L.gateSpacing);
   }
 }
 
@@ -350,7 +409,7 @@ function doFlap(s: GameState): void {
   s.parrotVy = GAME.FLAP_VELOCITY;
   s.flapAnim = 0.18;
   s.ev.flap = true;
-  burst(s, GAME.PARROT_X - 12, s.parrotY + 8, 3, 1, 150);
+  burst(s, s.parrotX - 12, s.parrotY + 8, 3, 1, 150);
 }
 
 /**
@@ -371,6 +430,9 @@ export function input(s: GameState): void {
 // -- simulation --------------------------------------------------------------
 
 function integrate(s: GameState, dt: number): void {
+  const L = s.layout;
+  const PX = s.parrotX;
+
   // Parrot physics
   s.parrotVy = Math.min(s.parrotVy + GAME.GRAVITY * dt, GAME.MAX_FALL);
   s.parrotY += s.parrotVy * dt;
@@ -382,14 +444,14 @@ function integrate(s: GameState, dt: number): void {
   }
 
   // Difficulty ramp
-  s.speed = Math.min(GAME.MAX_SPEED, GAME.START_SPEED + s.score * GAME.SPEED_PER_SCORE);
+  s.speed = Math.min(L.maxSpeed, L.startSpeed + s.score * L.speedPerScore);
   const dx = s.speed * dt;
   s.distance += dx;
 
   // Move + cull gates, award score on pass.
   for (const g of s.gates) {
     g.x -= dx;
-    if (!g.passed && g.x + GAME.GATE_W < GAME.PARROT_X) {
+    if (!g.passed && g.x + GAME.GATE_W < PX) {
       g.passed = true;
       s.score += 1;
       s.ev.pass += 1;
@@ -404,7 +466,7 @@ function integrate(s: GameState, dt: number): void {
     c.x -= dx;
     c.phase += dt * 3;
     c.y = c.baseY + Math.sin(c.phase) * 5;
-    const ddx = c.x - GAME.PARROT_X;
+    const ddx = c.x - PX;
     const ddy = c.y - s.parrotY;
     if (ddx * ddx + ddy * ddy <= (GAME.PARROT_R + GAME.CANDY_R) ** 2) {
       c.collected = true;
@@ -423,20 +485,20 @@ function integrate(s: GameState, dt: number): void {
     s.flash = 1;
     s.shake = Math.max(s.shake, 10);
     s.ev.drop = true;
-    burst(s, GAME.PARROT_X, s.parrotY, 10, 2, 260);
+    burst(s, PX, s.parrotY, 10, 2, 260);
   }
 
   // Collision: gates + ground.
   let hit = false;
   for (const g of s.gates) {
-    if (g.x > GAME.PARROT_X + GAME.PARROT_R || g.x + GAME.GATE_W < GAME.PARROT_X - GAME.PARROT_R) {
+    if (g.x > PX + GAME.PARROT_R || g.x + GAME.GATE_W < PX - GAME.PARROT_R) {
       continue;
     }
     const topH = g.gapY;
     const botY = g.gapY + g.gap;
     if (
-      circleRect(GAME.PARROT_X, s.parrotY, GAME.PARROT_R, g.x, 0, GAME.GATE_W, topH) ||
-      circleRect(GAME.PARROT_X, s.parrotY, GAME.PARROT_R, g.x, botY, GAME.GATE_W, PLAY_FLOOR - botY)
+      circleRect(PX, s.parrotY, GAME.PARROT_R, g.x, 0, GAME.GATE_W, topH) ||
+      circleRect(PX, s.parrotY, GAME.PARROT_R, g.x, botY, GAME.GATE_W, PLAY_FLOOR - botY)
     ) {
       hit = true;
       break;
@@ -451,7 +513,7 @@ function integrate(s: GameState, dt: number): void {
     s.phase = 'dead';
     s.ev.dead = true;
     s.shake = 18;
-    burst(s, GAME.PARROT_X, s.parrotY, 16, 1, 300);
+    burst(s, PX, s.parrotY, 16, 1, 300);
   }
 }
 

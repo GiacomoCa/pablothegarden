@@ -14,8 +14,11 @@
 // =============================================================================
 
 import { GAME, burst, type GameState, type GameEvents, type Gate, type Candy } from './engine';
+import { PROMO, PROMO_ASPECT } from './promo';
 
-const ASPECT = 32 / 9;
+// 32:9 normally; the marketing build runs the cinematic at the same 4224×1092
+// band as the playable game so both can be captured with one OBS scene.
+const ASPECT = PROMO ? PROMO_ASPECT : 32 / 9;
 
 /** Tunable showcase choreography (logical pixels, seconds). */
 const SHOW = {

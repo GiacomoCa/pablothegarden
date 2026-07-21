@@ -9,6 +9,8 @@ import Footer from '@/components/layout/Footer';
 import FloatingTicketCTAWrapper from '@/components/layout/FloatingTicketCTAWrapper';
 import AnalyticsConsent from '@/components/analytics/AnalyticsConsent';
 import ParrotEasterEgg from '@/components/easteregg/ParrotEasterEgg';
+import PromoBlackFrame from '@/components/promo/PromoBlackFrame';
+import { PROMO } from '@/lib/game/promo';
 import '@/app/globals.css';
 
 const fredoka = Fredoka({
@@ -58,8 +60,11 @@ export default async function LocaleLayout({ children, params }: Props) {
           </main>
           <Footer />
           <FloatingTicketCTAWrapper />
-          <AnalyticsConsent />
+          {/* No cookie banner in the marketing build: it has no analytics to
+              consent to and would sit in the middle of every recording. */}
+          {!PROMO && <AnalyticsConsent />}
           <ParrotEasterEgg />
+          {PROMO && <PromoBlackFrame />}
         </NextIntlClientProvider>
       </body>
     </html>

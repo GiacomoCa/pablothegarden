@@ -18,6 +18,8 @@
 // network.
 // =============================================================================
 
+import { PROMO } from './promo';
+
 export interface ScoreEntry {
   name: string;
   score: number;
@@ -27,6 +29,11 @@ export interface ScoreEntry {
 
 const BASE = (process.env.NEXT_PUBLIC_LEADERBOARD_URL ?? '').replace(/\/+$/, '');
 const GLOBAL = BASE.length > 0;
+
+// The marketing/recording build still *reads* the real global board (so footage
+// shows a genuinely populated top-100) but never *writes* to it: dozens of test
+// runs shot for a promo video must not end up in the real festival ranking.
+const CAN_SUBMIT = GLOBAL && !PROMO;
 
 const CACHE_KEY = 'pablo-parrot-leaderboard-v1'; // local board / global cache
 const NAME_KEY = 'pablo-parrot-last-name';
@@ -203,7 +210,7 @@ export function qualifies(score: number): boolean {
  * harmless) in LOCAL mode or on the server.
  */
 export function primeSession(): void {
-  if (!GLOBAL || typeof window === 'undefined') return;
+  if (!CAN_SUBMIT || typeof window === 'undefined') return;
   if (sessionToken !== null || sessionPending !== null) return; // already have/getting one
   sessionPending = fetch(`${BASE}/session`, { headers: { accept: 'application/json' } })
     .then((r) => (r.ok ? r.json() : null))
@@ -252,7 +259,7 @@ export async function addScore(name: string, score: number): Promise<ScoreEntry[
   saveLastName(clean);
   recordBest(score);
 
-  if (GLOBAL && typeof window !== 'undefined') {
+  if (CAN_SUBMIT && typeof window !== 'undefined') {
     // The token was primed at run start; if it hasn't landed yet (slow network /
     // very short run), wait for the in-flight request rather than failing.
     if (sessionToken === null && sessionPending !== null) {
